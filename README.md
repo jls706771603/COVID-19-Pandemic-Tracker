@@ -1,5 +1,5 @@
 # COVID-19-Pandemic-Tracker
-# Belleve College 2021
+### Belleve College 2021
 
 The COVID-19 pandemic is a significant global health concern that is gaining attention across the world. It's critical to keep up with the most recent data in your area. Also, understanding about the COVID-19 pattern might help people plan for their work-life balance during the pandemic. In fact, various public COVID-19-related data sets are available online. Updated case data is valuable to examine in order to identify the major elements involved in cases and what the trends are for each country, state, and county.
 
