@@ -3,7 +3,7 @@ const fs = require('fs');
 const csv = require('csv-parser');
 const state = require('./state.js');
 const county = require('./county.js');
-const serviceAccount = require("C:/Users/jam1o/Desktop/School/capstone/COVID-19-Pandemic-Tracker/pandemic-tracker-1b4e2-firebase-adminsdk-ipzms-eaf218ffd1.json");
+const serviceAccount = require("C:/Users/jam1o/Desktop/School/capstone/COVID-19-Pandemic-Tracker/pandemic-tracker-1b4e2-firebase-adminsdk-ipzms-508f13aea2.json");
 
 
 //Initialize Firebase App
@@ -11,6 +11,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://pandemic-tracker-1b4e2-default-rtdb.firebaseio.com/"
 });
+
 
 //Array for CSV Data
 var stateList = [];
