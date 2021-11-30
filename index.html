@@ -2,15 +2,45 @@
 <html lang="en">
 
 <head>
+    <title>COVID-19 Tracker</title>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="text/javascript" src="js/function.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="module" src="https://geogratis.gc.ca/mapml/client/web-map/mapml-viewer.js" crossorigin></script>
+
 </head>
 
 <body>
+    <h1>
+        COVID-19 Tracker
+    </h1>
+    <mapml-viewer zoom="10" lat="66.9413186" lon="-83.9229196" width="800" height="640" projection="CBMTILE" controls>
+        <layer- src="https://geogratis.gc.ca/mapml/en/cbmtile/cbmt" label="Canada Base map" checked></layer->
+    </mapml-viewer>
+
+    <p>Cases overview</p>
+
+    <p>Local Time: <span id="datetime"></span></p>
+    <script>
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = (("0" + (dt.getMonth() + 1)).slice(-2)) + "/" + (("0" + dt.getDate()).slice(-2)) + "/" + (dt.getFullYear()) + " " + (("0" + dt.getHours() + 1).slice(-2)) + ":" + (("0" + dt.getMinutes() + 1).slice(-2));
+    </script>
+
+    <br>
+    For checking offical CDC covid data,
+    <a href="https://covid.cdc.gov/covid-data-tracker/">
+        click here
+    </a>
+
+    <br>
+    Filters
+    <input type="button" value="Query" onclick="Query();" />
 
 
     <div class="container mt-3">
