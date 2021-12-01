@@ -26,10 +26,22 @@
 
     <p>Cases overview</p>
 
-    <p>Local Time: <span id="datetime"></span></p>
+    Current Date:
+    <input type="text" id="currentDate">
+
     <script>
-        var dt = new Date();
-        document.getElementById("datetime").innerHTML = (("0" + (dt.getMonth() + 1)).slice(-2)) + "/" + (("0" + dt.getDate()).slice(-2)) + "/" + (dt.getFullYear()) + " " + (("0" + dt.getHours() + 1).slice(-2)) + ":" + (("0" + dt.getMinutes() + 1).slice(-2));
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        document.getElementById("currentDate").value = date;
+    </script>
+
+    Current Time:
+    <input type="text" id="currentTime">
+
+    <script>
+        var today = new Date();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        document.getElementById("currentTime").value = time;
     </script>
 
     <br>
