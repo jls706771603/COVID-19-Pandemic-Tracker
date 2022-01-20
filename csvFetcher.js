@@ -18,9 +18,11 @@ function downloadCSV(url, dest, cb) {
 const dest1  = './us.csv'
 const dest2  = './us-states.csv'
 const dest3  = './us-counties.csv'
+const dest4 = './us-alltimedata.csv'
 const urlUSA = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us.csv'
 const urlStates = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-states.csv'
 const urlCounties = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv'
+const urlAllTimeData = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv'
 
 // downloading each .csv individually using the raw link
 downloadCSV(urlUSA, dest1, function(){
@@ -31,4 +33,7 @@ downloadCSV(urlStates, dest2, function(){
 })
 downloadCSV(urlCounties, dest3, function(){
     console.log('Downloading Counties csv: Finished')
+})
+downloadCSV(urlAllTimeData, dest4, function(){
+    console.log('Downloading All Time Data csv: Finished')
 })
