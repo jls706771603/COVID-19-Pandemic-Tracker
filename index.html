@@ -27,110 +27,105 @@
         Map demo
     </h2>
 
-    <div>
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d9152752.424055958!2d-98.13332151934864!3d40.347540460563124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1638330849796!5m2!1sen!2sus"
-            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy">
-        </iframe>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <div id="center">
+        <canvas id="canvas" width="1200" height="600"></canvas>
     </div>
 
-    <h2>
-        <p>Cases overview</p>
-    </h2>
-
-    Current Date:
-    <input type="text" id="currentDate">
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database"></script>
 
     <script>
-        var today = new Date();
-        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        document.getElementById("currentDate").value = date;
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+                data: {
+                    labels: ["1/13/2022", "1/14/2022", "1/15/2022", "1/16/2022", "1/17/2022", "1/18/2022", "1/19/2022"],
+                    datasets: [{
+                        label: 'Deaths',
+                        data: [300, 500, 600, 1200, 1700, 1900, 1800],
+                        borderColor: "#5F9EA0",
+                        backgroundColor: "rgba(147, 189, 190, 0.8)",
+                    }, {
+                        label: 'Cases',
+                        data: [1103, 1542, 5435, 12434, 16750, 15211, 11054],
+                        borderColor: "#4169E1",
+                        backgroundColor: "rgba(114, 144, 233, 0.8)",
+                    }]
+                },
+                options: {
+                responsive: false
+            }
+        });
     </script>
-
-    Current Time:
-    <input type="text" id="currentTime">
-
-    <script>
-        var today = new Date();
-        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        document.getElementById("currentTime").value = time;
-    </script>
-
-    <br>
-    For checking offical CDC covid data,
-    <a href="https://covid.cdc.gov/covid-data-tracker/">
-        click here
-    </a>
 
     <br>
     Filters
     <input type="button" value="Query" onclick="Query();" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+    <table>
+        <thead>
+            <th>Cases</th>
+            <th>Deaths</th>
+            <th>Date</th>
+        </thead>
+        <tbody id="tbody1">
+            <tr>
+                <td>42</td>
+                <td>1</td>
+                <td>12/12/2020</td>
+            </tr>
+        </tbody>
+    </table>
+
     <script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Covid Cases',],
-        datasets: [{
-            label: 'INDEX',
-            data: [0],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+        var firebaseConfig = {
+            apiKey: "AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc",
+            authDomain: "pandemic-tracker-1b4e2.firebaseapp.com",
+            databaseURL: "https://pandemic-tracker-1b4e2-default-rtdb.firebaseio.com",
+            projectId: "pandemic-tracker-1b4e2",
+            storageBucket: "pandemic-tracker-1b4e2.appspot.com",
+            messagingSenderId: "755928698748",
+            appId: "1:755928698748:web:293a38e8b188c7b6905ef9",
+            measurementId: "G-YPJ3ZTD8HT"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function SelectAllData() {
+            firebase.database().ref('usa/usaList').once('value',
+            function(AllRecords) {
+                AllRecords.forEach(
+                    function(CurrentRecord) {
+                        var numCases = CurrentRecord.val().cases
+                        var numDeath = CurrentRecord.val().deaths
+                        var curDate = CurrentRecord.val().date
+                        AddItemsToTable(cases, death, date)
+                    }
+                )
+            });
         }
-    }
-    });
 
- function addData(chart, label, data) {
-    chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-    });
-    chart.update();
-    }
+        window.onload = SelectAllData
 
-function removeData(chart) {
-    chart.data.labels.pop();
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
-    });
-    chart.update();
-}
+        var index = 0;
+        function AddItemsToTable() {
+            var tbody = document.getElementById('tbody1')
+            var trow = document.createElement('tr');
+            var td1 = document.createElement('td');
+            var td2 = document.createElement('td');
+            var td3 = document.createElement('td');
+            td1.innerHTML= numCases;
+            td2.innerHTML= numDeath;
+            td3.innerHTML= curDate;
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            tbody.appendChild(trow)
+        }
 
-var config = {
-    apiKey: "AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc",
-    authDomain: "pandemic-tracker-1b4e2.firebaseapp.com",
-    databaseURL: "https://pandemic-tracker-1b4e2-default-rtdb.firebaseio.com",
-    projectId: "pandemic-tracker-1b4e2",
-    storageBucket: "pandemic-tracker-1b4e2.appspot.com",
-    messagingSenderId: "755928698748",
-    appId: "1:755928698748:web:293a38e8b188c7b6905ef9",
-    measurementId: "G-YPJ3ZTD8HT"
-};
-
-firebase.initializeApp(config);
-
-var valueRef = firebase.database().ref('temps');
-valueRef.on('value', function (snapshot) {
-    removeData(myChart);
-    addData(myChart, "1", snapshot.val());
-});
     </script>
      
 
