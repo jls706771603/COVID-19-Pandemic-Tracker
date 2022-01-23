@@ -2,7 +2,7 @@
   "cases" : "10457",
   "date" : "11/19/2021",
   "deaths" : "156",
-  "id" : "01001",
+  "id" : "1001",
   "name" : "Autauga",
   "population" : "58805",
   "state" : "Alabama"
@@ -10,7 +10,7 @@
   "cases" : "37959",
   "date" : "11/19/2021",
   "deaths" : "586",
-  "id" : "01003",
+  "id" : "1003",
   "name" : "Baldwin",
   "population" : "231767",
   "state" : "Alabama"
@@ -18,7 +18,7 @@
   "cases" : "3660",
   "date" : "11/19/2021",
   "deaths" : "79",
-  "id" : "01005",
+  "id" : "1005",
   "name" : "Barbour",
   "population" : "25223",
   "state" : "Alabama"
@@ -26,7 +26,7 @@
   "cases" : "4333",
   "date" : "11/19/2021",
   "deaths" : "93",
-  "id" : "01007",
+  "id" : "1007",
   "name" : "Bibb",
   "population" : "22293",
   "state" : "Alabama"
@@ -34,7 +34,7 @@
   "cases" : "10621",
   "date" : "11/19/2021",
   "deaths" : "190",
-  "id" : "01009",
+  "id" : "1009",
   "name" : "Blount",
   "population" : "59134",
   "state" : "Alabama"
@@ -42,7 +42,7 @@
   "cases" : "1524",
   "date" : "11/19/2021",
   "deaths" : "45",
-  "id" : "01011",
+  "id" : "1011",
   "name" : "Bullock",
   "population" : "10357",
   "state" : "Alabama"
@@ -50,7 +50,7 @@
   "cases" : "3409",
   "date" : "11/19/2021",
   "deaths" : "100",
-  "id" : "01013",
+  "id" : "1013",
   "name" : "Butler",
   "population" : "19051",
   "state" : "Alabama"
@@ -58,7 +58,7 @@
   "cases" : "22522",
   "date" : "11/19/2021",
   "deaths" : "518",
-  "id" : "01015",
+  "id" : "1015",
   "name" : "Calhoun",
   "population" : "116441",
   "state" : "Alabama"
@@ -66,7 +66,7 @@
   "cases" : "5795",
   "date" : "11/19/2021",
   "deaths" : "142",
-  "id" : "01017",
+  "id" : "1017",
   "name" : "Chambers",
   "population" : "34772",
   "state" : "Alabama"
@@ -74,7 +74,7 @@
   "cases" : "3133",
   "date" : "11/19/2021",
   "deaths" : "62",
-  "id" : "01019",
+  "id" : "1019",
   "name" : "Cherokee",
   "population" : "24971",
   "state" : "Alabama"
@@ -82,7 +82,7 @@
   "cases" : "6955",
   "date" : "11/19/2021",
   "deaths" : "170",
-  "id" : "01021",
+  "id" : "1021",
   "name" : "Chilton",
   "population" : "45014",
   "state" : "Alabama"
@@ -1498,7 +1498,7 @@
   "cases" : "124120",
   "date" : "11/19/2021",
   "deaths" : "1489",
-  "id" : "06001",
+  "id" : "6001",
   "name" : "Alameda",
   "population" : "1682353",
   "state" : "California"
@@ -1506,7 +1506,7 @@
   "cases" : "105",
   "date" : "11/19/2021",
   "deaths" : "0",
-  "id" : "06003",
+  "id" : "6003",
   "name" : "Alpine",
   "population" : "1204",
   "state" : "California"
@@ -1514,7 +1514,7 @@
   "cases" : "5718",
   "date" : "11/19/2021",
   "deaths" : "66",
-  "id" : "06005",
+  "id" : "6005",
   "name" : "Amador",
   "population" : "40474",
   "state" : "California"
@@ -1522,7 +1522,7 @@
   "cases" : "25176",
   "date" : "11/19/2021",
   "deaths" : "300",
-  "id" : "06007",
+  "id" : "6007",
   "name" : "Butte",
   "population" : "211632",
   "state" : "California"
@@ -1530,7 +1530,7 @@
   "cases" : "4330",
   "date" : "11/19/2021",
   "deaths" : "84",
-  "id" : "06009",
+  "id" : "6009",
   "name" : "Calaveras",
   "population" : "45292",
   "state" : "California"
@@ -1538,7 +1538,7 @@
   "cases" : "3216",
   "date" : "11/19/2021",
   "deaths" : "19",
-  "id" : "06011",
+  "id" : "6011",
   "name" : "Colusa",
   "population" : "21839",
   "state" : "California"
@@ -1546,7 +1546,7 @@
   "cases" : "102822",
   "date" : "11/19/2021",
   "deaths" : "1043",
-  "id" : "06013",
+  "id" : "6013",
   "name" : "Contra Costa",
   "population" : "1165927",
   "state" : "California"
@@ -1554,7 +1554,7 @@
   "cases" : "3791",
   "date" : "11/19/2021",
   "deaths" : "42",
-  "id" : "06015",
+  "id" : "6015",
   "name" : "Del Norte",
   "population" : "27743",
   "state" : "California"
@@ -1562,7 +1562,7 @@
   "cases" : "18075",
   "date" : "11/19/2021",
   "deaths" : "161",
-  "id" : "06017",
+  "id" : "6017",
   "name" : "El Dorado",
   "population" : "191185",
   "state" : "California"
@@ -1570,7 +1570,7 @@
   "cases" : "155092",
   "date" : "11/19/2021",
   "deaths" : "2233",
-  "id" : "06019",
+  "id" : "6019",
   "name" : "Fresno",
   "population" : "1008654",
   "state" : "California"
@@ -1578,7 +1578,7 @@
   "cases" : "4545",
   "date" : "11/19/2021",
   "deaths" : "48",
-  "id" : "06021",
+  "id" : "6021",
   "name" : "Glenn",
   "population" : "28917",
   "state" : "California"
@@ -1586,7 +1586,7 @@
   "cases" : "9946",
   "date" : "11/19/2021",
   "deaths" : "117",
-  "id" : "06023",
+  "id" : "6023",
   "name" : "Humboldt",
   "population" : "136463",
   "state" : "California"
@@ -1594,7 +1594,7 @@
   "cases" : "37829",
   "date" : "11/19/2021",
   "deaths" : "765",
-  "id" : "06025",
+  "id" : "6025",
   "name" : "Imperial",
   "population" : "179702",
   "state" : "California"
@@ -1602,7 +1602,7 @@
   "cases" : "2504",
   "date" : "11/19/2021",
   "deaths" : "44",
-  "id" : "06027",
+  "id" : "6027",
   "name" : "Inyo",
   "population" : "19016",
   "state" : "California"
@@ -1610,7 +1610,7 @@
   "cases" : "155451",
   "date" : "11/19/2021",
   "deaths" : "1763",
-  "id" : "06029",
+  "id" : "6029",
   "name" : "Kern",
   "population" : "909235",
   "state" : "California"
@@ -1618,7 +1618,7 @@
   "cases" : "34867",
   "date" : "11/19/2021",
   "deaths" : "354",
-  "id" : "06031",
+  "id" : "6031",
   "name" : "Kings",
   "population" : "152486",
   "state" : "California"
@@ -1626,7 +1626,7 @@
   "cases" : "6962",
   "date" : "11/19/2021",
   "deaths" : "110",
-  "id" : "06033",
+  "id" : "6033",
   "name" : "Lake",
   "population" : "68163",
   "state" : "California"
@@ -1634,7 +1634,7 @@
   "cases" : "7883",
   "date" : "11/19/2021",
   "deaths" : "54",
-  "id" : "06035",
+  "id" : "6035",
   "name" : "Lassen",
   "population" : "32730",
   "state" : "California"
@@ -1642,7 +1642,7 @@
   "cases" : "1517605",
   "date" : "11/19/2021",
   "deaths" : "26973",
-  "id" : "06037",
+  "id" : "6037",
   "name" : "Los Angeles",
   "population" : "10014009",
   "state" : "California"
@@ -1650,7 +1650,7 @@
   "cases" : "25845",
   "date" : "11/19/2021",
   "deaths" : "300",
-  "id" : "06039",
+  "id" : "6039",
   "name" : "Madera",
   "population" : "156255",
   "state" : "California"
@@ -1658,7 +1658,7 @@
   "cases" : "18259",
   "date" : "11/19/2021",
   "deaths" : "248",
-  "id" : "06041",
+  "id" : "6041",
   "name" : "Marin",
   "population" : "262321",
   "state" : "California"
@@ -1666,7 +1666,7 @@
   "cases" : "1551",
   "date" : "11/19/2021",
   "deaths" : "17",
-  "id" : "06043",
+  "id" : "6043",
   "name" : "Mariposa",
   "population" : "17131",
   "state" : "California"
@@ -1674,7 +1674,7 @@
   "cases" : "8390",
   "date" : "11/19/2021",
   "deaths" : "94",
-  "id" : "06045",
+  "id" : "6045",
   "name" : "Mendocino",
   "population" : "91601",
   "state" : "California"
@@ -1682,7 +1682,7 @@
   "cases" : "44990",
   "date" : "11/19/2021",
   "deaths" : "660",
-  "id" : "06047",
+  "id" : "6047",
   "name" : "Merced",
   "population" : "281202",
   "state" : "California"
@@ -1690,7 +1690,7 @@
   "cases" : "996",
   "date" : "11/19/2021",
   "deaths" : "9",
-  "id" : "06049",
+  "id" : "6049",
   "name" : "Modoc",
   "population" : "8700",
   "state" : "California"
@@ -1698,7 +1698,7 @@
   "cases" : "1786",
   "date" : "11/19/2021",
   "deaths" : "4",
-  "id" : "06051",
+  "id" : "6051",
   "name" : "Mono",
   "population" : "13195",
   "state" : "California"
@@ -1706,7 +1706,7 @@
   "cases" : "52200",
   "date" : "11/19/2021",
   "deaths" : "613",
-  "id" : "06053",
+  "id" : "6053",
   "name" : "Monterey",
   "population" : "439035",
   "state" : "California"
@@ -1714,7 +1714,7 @@
   "cases" : "13301",
   "date" : "11/19/2021",
   "deaths" : "103",
-  "id" : "06055",
+  "id" : "6055",
   "name" : "Napa",
   "population" : "138019",
   "state" : "California"
@@ -1722,7 +1722,7 @@
   "cases" : "9810",
   "date" : "11/19/2021",
   "deaths" : "92",
-  "id" : "06057",
+  "id" : "6057",
   "name" : "Nevada",
   "population" : "102241",
   "state" : "California"
@@ -1730,7 +1730,7 @@
   "cases" : "331850",
   "date" : "11/19/2021",
   "deaths" : "5661",
-  "id" : "06059",
+  "id" : "6059",
   "name" : "Orange",
   "population" : "3186989",
   "state" : "California"
@@ -1738,7 +1738,7 @@
   "cases" : "41680",
   "date" : "11/19/2021",
   "deaths" : "462",
-  "id" : "06061",
+  "id" : "6061",
   "name" : "Placer",
   "population" : "404739",
   "state" : "California"
@@ -1746,7 +1746,7 @@
   "cases" : "1893",
   "date" : "11/19/2021",
   "deaths" : "8",
-  "id" : "06063",
+  "id" : "6063",
   "name" : "Plumas",
   "population" : "19790",
   "state" : "California"
@@ -1754,7 +1754,7 @@
   "cases" : "383153",
   "date" : "11/19/2021",
   "deaths" : "5372",
-  "id" : "06065",
+  "id" : "6065",
   "name" : "Riverside",
   "population" : "2418185",
   "state" : "California"
@@ -1762,7 +1762,7 @@
   "cases" : "166604",
   "date" : "11/19/2021",
   "deaths" : "2409",
-  "id" : "06067",
+  "id" : "6067",
   "name" : "Sacramento",
   "population" : "1585055",
   "state" : "California"
@@ -1770,7 +1770,7 @@
   "cases" : "7717",
   "date" : "11/19/2021",
   "deaths" : "77",
-  "id" : "06069",
+  "id" : "6069",
   "name" : "San Benito",
   "population" : "64209",
   "state" : "California"
@@ -1778,7 +1778,7 @@
   "cases" : "370171",
   "date" : "11/19/2021",
   "deaths" : "5901",
-  "id" : "06071",
+  "id" : "6071",
   "name" : "San Bernardino",
   "population" : "2181654",
   "state" : "California"
@@ -1786,7 +1786,7 @@
   "cases" : "402284",
   "date" : "11/19/2021",
   "deaths" : "4311",
-  "id" : "06073",
+  "id" : "6073",
   "name" : "San Diego",
   "population" : "3298634",
   "state" : "California"
@@ -1794,7 +1794,7 @@
   "cases" : "56312",
   "date" : "11/19/2021",
   "deaths" : "669",
-  "id" : "06075",
+  "id" : "6075",
   "name" : "San Francisco",
   "population" : "873965",
   "state" : "California"
@@ -1802,7 +1802,7 @@
   "cases" : "106554",
   "date" : "11/19/2021",
   "deaths" : "1835",
-  "id" : "06077",
+  "id" : "6077",
   "name" : "San Joaquin",
   "population" : "779233",
   "state" : "California"
@@ -1810,7 +1810,7 @@
   "cases" : "31126",
   "date" : "11/19/2021",
   "deaths" : "358",
-  "id" : "06079",
+  "id" : "6079",
   "name" : "San Luis Obispo",
   "population" : "282424",
   "state" : "California"
@@ -1818,7 +1818,7 @@
   "cases" : "55830",
   "date" : "11/19/2021",
   "deaths" : "627",
-  "id" : "06081",
+  "id" : "6081",
   "name" : "San Mateo",
   "population" : "764442",
   "state" : "California"
@@ -1826,7 +1826,7 @@
   "cases" : "46791",
   "date" : "11/19/2021",
   "deaths" : "544",
-  "id" : "06083",
+  "id" : "6083",
   "name" : "Santa Barbara",
   "population" : "448229",
   "state" : "California"
@@ -1834,7 +1834,7 @@
   "cases" : "150298",
   "date" : "11/19/2021",
   "deaths" : "1918",
-  "id" : "06085",
+  "id" : "6085",
   "name" : "Santa Clara",
   "population" : "1936259",
   "state" : "California"
@@ -1842,7 +1842,7 @@
   "cases" : "21855",
   "date" : "11/19/2021",
   "deaths" : "222",
-  "id" : "06087",
+  "id" : "6087",
   "name" : "Santa Cruz",
   "population" : "270861",
   "state" : "California"
@@ -1850,7 +1850,7 @@
   "cases" : "25734",
   "date" : "11/19/2021",
   "deaths" : "433",
-  "id" : "06089",
+  "id" : "6089",
   "name" : "Shasta",
   "population" : "182155",
   "state" : "California"
@@ -1858,7 +1858,7 @@
   "cases" : "214",
   "date" : "11/19/2021",
   "deaths" : "0",
-  "id" : "06091",
+  "id" : "6091",
   "name" : "Sierra",
   "population" : "3236",
   "state" : "California"
@@ -1866,7 +1866,7 @@
   "cases" : "4826",
   "date" : "11/19/2021",
   "deaths" : "69",
-  "id" : "06093",
+  "id" : "6093",
   "name" : "Siskiyou",
   "population" : "44076",
   "state" : "California"
@@ -1874,7 +1874,7 @@
   "cases" : "47270",
   "date" : "11/19/2021",
   "deaths" : "356",
-  "id" : "06095",
+  "id" : "6095",
   "name" : "Solano",
   "population" : "453491",
   "state" : "California"
@@ -1882,7 +1882,7 @@
   "cases" : "42695",
   "date" : "11/19/2021",
   "deaths" : "412",
-  "id" : "06097",
+  "id" : "6097",
   "name" : "Sonoma",
   "population" : "488863",
   "state" : "California"
@@ -1890,7 +1890,7 @@
   "cases" : "90634",
   "date" : "11/19/2021",
   "deaths" : "1406",
-  "id" : "06099",
+  "id" : "6099",
   "name" : "Stanislaus",
   "population" : "552878",
   "state" : "California"
@@ -1898,7 +1898,7 @@
   "cases" : "14441",
   "date" : "11/19/2021",
   "deaths" : "181",
-  "id" : "06101",
+  "id" : "6101",
   "name" : "Sutter",
   "population" : "99633",
   "state" : "California"
@@ -1906,7 +1906,7 @@
   "cases" : "10203",
   "date" : "11/19/2021",
   "deaths" : "125",
-  "id" : "06103",
+  "id" : "6103",
   "name" : "Tehama",
   "population" : "65829",
   "state" : "California"
@@ -1914,7 +1914,7 @@
   "cases" : "971",
   "date" : "11/19/2021",
   "deaths" : "17",
-  "id" : "06105",
+  "id" : "6105",
   "name" : "Trinity",
   "population" : "16112",
   "state" : "California"
@@ -1922,7 +1922,7 @@
   "cases" : "85311",
   "date" : "11/19/2021",
   "deaths" : "1054",
-  "id" : "06107",
+  "id" : "6107",
   "name" : "Tulare",
   "population" : "473117",
   "state" : "California"
@@ -1930,7 +1930,7 @@
   "cases" : "7752",
   "date" : "11/19/2021",
   "deaths" : "138",
-  "id" : "06109",
+  "id" : "6109",
   "name" : "Tuolumne",
   "population" : "55620",
   "state" : "California"
@@ -1938,7 +1938,7 @@
   "cases" : "103376",
   "date" : "11/19/2021",
   "deaths" : "1186",
-  "id" : "06111",
+  "id" : "6111",
   "name" : "Ventura",
   "population" : "843843",
   "state" : "California"
@@ -1946,7 +1946,7 @@
   "cases" : "21353",
   "date" : "11/19/2021",
   "deaths" : "257",
-  "id" : "06113",
+  "id" : "6113",
   "name" : "Yolo",
   "population" : "216403",
   "state" : "California"
@@ -1954,7 +1954,7 @@
   "cases" : "11069",
   "date" : "11/19/2021",
   "deaths" : "88",
-  "id" : "06115",
+  "id" : "6115",
   "name" : "Yuba",
   "population" : "81575",
   "state" : "California"
@@ -1962,7 +1962,7 @@
   "cases" : "83349",
   "date" : "11/19/2021",
   "deaths" : "947",
-  "id" : "08001",
+  "id" : "8001",
   "name" : "Adams",
   "population" : "519572",
   "state" : "Colorado"
@@ -1970,7 +1970,7 @@
   "cases" : "2795",
   "date" : "11/19/2021",
   "deaths" : "47",
-  "id" : "08003",
+  "id" : "8003",
   "name" : "Alamosa",
   "population" : "16376",
   "state" : "Colorado"
@@ -1978,7 +1978,7 @@
   "cases" : "87698",
   "date" : "11/19/2021",
   "deaths" : "972",
-  "id" : "08005",
+  "id" : "8005",
   "name" : "Arapahoe",
   "population" : "655070",
   "state" : "Colorado"
@@ -1986,7 +1986,7 @@
   "cases" : "1760",
   "date" : "11/19/2021",
   "deaths" : "7",
-  "id" : "08007",
+  "id" : "8007",
   "name" : "Archuleta",
   "population" : "13359",
   "state" : "Colorado"
@@ -1994,7 +1994,7 @@
   "cases" : "541",
   "date" : "11/19/2021",
   "deaths" : "5",
-  "id" : "08009",
+  "id" : "8009",
   "name" : "Baca",
   "population" : "3506",
   "state" : "Colorado"
@@ -2002,7 +2002,7 @@
   "cases" : "1843",
   "date" : "11/19/2021",
   "deaths" : "31",
-  "id" : "08011",
+  "id" : "8011",
   "name" : "Bent",
   "population" : "5650",
   "state" : "Colorado"
@@ -2010,7 +2010,7 @@
   "cases" : "33951",
   "date" : "11/19/2021",
   "deaths" : "299",
-  "id" : "08013",
+  "id" : "8013",
   "name" : "Boulder",
   "population" : "330758",
   "state" : "Colorado"
@@ -2018,7 +2018,7 @@
   "cases" : "7369",
   "date" : "11/19/2021",
   "deaths" : "84",
-  "id" : "08014",
+  "id" : "8014",
   "name" : "Broomfield",
   "population" : "74112",
   "state" : "Colorado"
@@ -2026,7 +2026,7 @@
   "cases" : "2614",
   "date" : "11/19/2021",
   "deaths" : "34",
-  "id" : "08015",
+  "id" : "8015",
   "name" : "Chaffee",
   "population" : "19476",
   "state" : "Colorado"
@@ -2034,7 +2034,7 @@
   "cases" : "223",
   "date" : "11/19/2021",
   "deaths" : "7",
-  "id" : "08017",
+  "id" : "8017",
   "name" : "Cheyenne",
   "population" : "1748",
   "state" : "Colorado"
@@ -2042,7 +2042,7 @@
   "cases" : "862",
   "date" : "11/19/2021",
   "deaths" : "6",
-  "id" : "08019",
+  "id" : "8019",
   "name" : "Clear Creek",
   "population" : "9397",
   "state" : "Colorado"
@@ -2050,7 +2050,7 @@
   "cases" : "1099",
   "date" : "11/19/2021",
   "deaths" : "41",
-  "id" : "08021",
+  "id" : "8021",
   "name" : "Conejos",
   "population" : "7461",
   "state" : "Colorado"
@@ -2058,7 +2058,7 @@
   "cases" : "417",
   "date" : "11/19/2021",
   "deaths" : "13",
-  "id" : "08023",
+  "id" : "8023",
   "name" : "Costilla",
   "population" : "3499",
   "state" : "Colorado"
@@ -2066,7 +2066,7 @@
   "cases" : "2453",
   "date" : "11/19/2021",
   "deaths" : "25",
-  "id" : "08025",
+  "id" : "8025",
   "name" : "Crowley",
   "population" : "5922",
   "state" : "Colorado"
@@ -2074,7 +2074,7 @@
   "cases" : "453",
   "date" : "11/19/2021",
   "deaths" : "10",
-  "id" : "08027",
+  "id" : "8027",
   "name" : "Custer",
   "population" : "4704",
   "state" : "Colorado"
@@ -2082,7 +2082,7 @@
   "cases" : "4467",
   "date" : "11/19/2021",
   "deaths" : "95",
-  "id" : "08029",
+  "id" : "8029",
   "name" : "Delta",
   "population" : "31196",
   "state" : "Colorado"
@@ -2090,7 +2090,7 @@
   "cases" : "98995",
   "date" : "11/19/2021",
   "deaths" : "983",
-  "id" : "08031",
+  "id" : "8031",
   "name" : "Denver",
   "population" : "715522",
   "state" : "Colorado"
@@ -2098,7 +2098,7 @@
   "cases" : "253",
   "date" : "11/19/2021",
   "deaths" : "5",
-  "id" : "08033",
+  "id" : "8033",
   "name" : "Dolores",
   "population" : "2326",
   "state" : "Colorado"
@@ -2106,7 +2106,7 @@
   "cases" : "44765",
   "date" : "11/19/2021",
   "deaths" : "338",
-  "id" : "08035",
+  "id" : "8035",
   "name" : "Douglas",
   "population" : "357978",
   "state" : "Colorado"
@@ -2114,7 +2114,7 @@
   "cases" : "9045",
   "date" : "11/19/2021",
   "deaths" : "32",
-  "id" : "08037",
+  "id" : "8037",
   "name" : "Eagle",
   "population" : "55731",
   "state" : "Colorado"
@@ -2122,7 +2122,7 @@
   "cases" : "111222",
   "date" : "11/19/2021",
   "deaths" : "1216",
-  "id" : "08041",
+  "id" : "8041",
   "name" : "El Paso",
   "population" : "730395",
   "state" : "Colorado"
@@ -2130,7 +2130,7 @@
   "cases" : "2925",
   "date" : "11/19/2021",
   "deaths" : "26",
-  "id" : "08039",
+  "id" : "8039",
   "name" : "Elbert",
   "population" : "26062",
   "state" : "Colorado"
@@ -2138,7 +2138,7 @@
   "cases" : "9672",
   "date" : "11/19/2021",
   "deaths" : "118",
-  "id" : "08043",
+  "id" : "8043",
   "name" : "Fremont",
   "population" : "48939",
   "state" : "Colorado"
@@ -2146,7 +2146,7 @@
   "cases" : "8511",
   "date" : "11/19/2021",
   "deaths" : "68",
-  "id" : "08045",
+  "id" : "8045",
   "name" : "Garfield",
   "population" : "61685",
   "state" : "Colorado"
@@ -2154,7 +2154,7 @@
   "cases" : "520",
   "date" : "11/19/2021",
   "deaths" : "3",
-  "id" : "08047",
+  "id" : "8047",
   "name" : "Gilpin",
   "population" : "5808",
   "state" : "Colorado"
@@ -2162,7 +2162,7 @@
   "cases" : "2262",
   "date" : "11/19/2021",
   "deaths" : "16",
-  "id" : "08049",
+  "id" : "8049",
   "name" : "Grand",
   "population" : "15717",
   "state" : "Colorado"
@@ -2170,7 +2170,7 @@
   "cases" : "1939",
   "date" : "11/19/2021",
   "deaths" : "12",
-  "id" : "08051",
+  "id" : "8051",
   "name" : "Gunnison",
   "population" : "16918",
   "state" : "Colorado"
@@ -2178,7 +2178,7 @@
   "cases" : "64",
   "date" : "11/19/2021",
   "deaths" : "0",
-  "id" : "08053",
+  "id" : "8053",
   "name" : "Hinsdale",
   "population" : "788",
   "state" : "Colorado"
@@ -2186,7 +2186,7 @@
   "cases" : "780",
   "date" : "11/19/2021",
   "deaths" : "21",
-  "id" : "08055",
+  "id" : "8055",
   "name" : "Huerfano",
   "population" : "6820",
   "state" : "Colorado"
@@ -2194,7 +2194,7 @@
   "cases" : "118",
   "date" : "11/19/2021",
   "deaths" : "0",
-  "id" : "08057",
+  "id" : "8057",
   "name" : "Jackson",
   "population" : "1379",
   "state" : "Colorado"
@@ -2202,7 +2202,7 @@
   "cases" : "70228",
   "date" : "11/19/2021",
   "deaths" : "972",
-  "id" : "08059",
+  "id" : "8059",
   "name" : "Jefferson",
   "population" : "582910",
   "state" : "Colorado"
@@ -2210,7 +2210,7 @@
   "cases" : "257",
   "date" : "11/19/2021",
   "deaths" : "4",
-  "id" : "08061",
+  "id" : "8061",
   "name" : "Kiowa",
   "population" : "1446",
   "state" : "Colorado"
@@ -2218,7 +2218,7 @@
   "cases" : "1088",
   "date" : "11/19/2021",
   "deaths" : "20",
-  "id" : "08063",
+  "id" : "8063",
   "name" : "Kit Carson",
   "population" : "7087",
   "state" : "Colorado"
@@ -2226,7 +2226,7 @@
   "cases" : "6697",
   "date" : "11/19/2021",
   "deaths" : "58",
-  "id" : "08067",
+  "id" : "8067",
   "name" : "La Plata",
   "population" : "55638",
   "state" : "Colorado"
@@ -2234,7 +2234,7 @@
   "cases" : "1100",
   "date" : "11/19/2021",
   "deaths" : "1",
-  "id" : "08065",
+  "id" : "8065",
   "name" : "Lake",
   "population" : "7436",
   "state" : "Colorado"
@@ -2242,7 +2242,7 @@
   "cases" : "43801",
   "date" : "11/19/2021",
   "deaths" : "353",
-  "id" : "08069",
+  "id" : "8069",
   "name" : "Larimer",
   "population" : "359066",
   "state" : "Colorado"
@@ -2250,7 +2250,7 @@
   "cases" : "2093",
   "date" : "11/19/2021",
   "deaths" : "27",
-  "id" : "08071",
+  "id" : "8071",
   "name" : "Las Animas",
   "population" : "14555",
   "state" : "Colorado"
@@ -2258,7 +2258,7 @@
   "cases" : "1350",
   "date" : "11/19/2021",
   "deaths" : "8",
-  "id" : "08073",
+  "id" : "8073",
   "name" : "Lincoln",
   "population" : "5675",
   "state" : "Colorado"
@@ -2266,7 +2266,7 @@
   "cases" : "4974",
   "date" : "11/19/2021",
   "deaths" : "89",
-  "id" : "08075",
+  "id" : "8075",
   "name" : "Logan",
   "population" : "21528",
   "state" : "Colorado"
@@ -2274,7 +2274,7 @@
   "cases" : "27006",
   "date" : "11/19/2021",
   "deaths" : "375",
-  "id" : "08077",
+  "id" : "8077",
   "name" : "Mesa",
   "population" : "155703",
   "state" : "Colorado"
@@ -2282,7 +2282,7 @@
   "cases" : "148",
   "date" : "11/19/2021",
   "deaths" : "1",
-  "id" : "08079",
+  "id" : "8079",
   "name" : "Mineral",
   "population" : "865",
   "state" : "Colorado"
@@ -2290,7 +2290,7 @@
   "cases" : "2119",
   "date" : "11/19/2021",
   "deaths" : "47",
-  "id" : "08081",
+  "id" : "8081",
   "name" : "Moffat",
   "population" : "13292",
   "state" : "Colorado"
@@ -2298,7 +2298,7 @@
   "cases" : "3750",
   "date" : "11/19/2021",
   "deaths" : "44",
-  "id" : "08083",
+  "id" : "8083",
   "name" : "Montezuma",
   "population" : "25849",
   "state" : "Colorado"
@@ -2306,7 +2306,7 @@
   "cases" : "6416",
   "date" : "11/19/2021",
   "deaths" : "104",
-  "id" : "08085",
+  "id" : "8085",
   "name" : "Montrose",
   "population" : "42679",
   "state" : "Colorado"
@@ -2314,7 +2314,7 @@
   "cases" : "3825",
   "date" : "11/19/2021",
   "deaths" : "104",
-  "id" : "08087",
+  "id" : "8087",
   "name" : "Morgan",
   "population" : "29111",
   "state" : "Colorado"
@@ -2322,7 +2322,7 @@
   "cases" : "3069",
   "date" : "11/19/2021",
   "deaths" : "90",
-  "id" : "08089",
+  "id" : "8089",
   "name" : "Otero",
   "population" : "18690",
   "state" : "Colorado"
@@ -2330,7 +2330,7 @@
   "cases" : "501",
   "date" : "11/19/2021",
   "deaths" : "6",
-  "id" : "08091",
+  "id" : "8091",
   "name" : "Ouray",
   "population" : "4874",
   "state" : "Colorado"
@@ -2338,7 +2338,7 @@
   "cases" : "1625",
   "date" : "11/19/2021",
   "deaths" : "11",
-  "id" : "08093",
+  "id" : "8093",
   "name" : "Park",
   "population" : "17390",
   "state" : "Colorado"
@@ -2346,7 +2346,7 @@
   "cases" : "568",
   "date" : "11/19/2021",
   "deaths" : "15",
-  "id" : "08095",
+  "id" : "8095",
   "name" : "Phillips",
   "population" : "4530",
   "state" : "Colorado"
@@ -2354,7 +2354,7 @@
   "cases" : "3272",
   "date" : "11/19/2021",
   "deaths" : "6",
-  "id" : "08097",
+  "id" : "8097",
   "name" : "Pitkin",
   "population" : "17358",
   "state" : "Colorado"
@@ -2362,7 +2362,7 @@
   "cases" : "1861",
   "date" : "11/19/2021",
   "deaths" : "33",
-  "id" : "08099",
+  "id" : "8099",
   "name" : "Prowers",
   "population" : "11999",
   "state" : "Colorado"
@@ -2370,7 +2370,7 @@
   "cases" : "28613",
   "date" : "11/19/2021",
   "deaths" : "553",
-  "id" : "08101",
+  "id" : "8101",
   "name" : "Pueblo",
   "population" : "168162",
   "state" : "Colorado"
@@ -2378,7 +2378,7 @@
   "cases" : "1180",
   "date" : "11/19/2021",
   "deaths" : "9",
-  "id" : "08103",
+  "id" : "8103",
   "name" : "Rio Blanco",
   "population" : "6529",
   "state" : "Colorado"
@@ -2386,7 +2386,7 @@
   "cases" : "1749",
   "date" : "11/19/2021",
   "deaths" : "26",
-  "id" : "08105",
+  "id" : "8105",
   "name" : "Rio Grande",
   "population" : "11539",
   "state" : "Colorado"
@@ -2394,7 +2394,7 @@
   "cases" : "3762",
   "date" : "11/19/2021",
   "deaths" : "23",
-  "id" : "08107",
+  "id" : "8107",
   "name" : "Routt",
   "population" : "24829",
   "state" : "Colorado"
@@ -2402,7 +2402,7 @@
   "cases" : "775",
   "date" : "11/19/2021",
   "deaths" : "8",
-  "id" : "08109",
+  "id" : "8109",
   "name" : "Saguache",
   "population" : "6368",
   "state" : "Colorado"
@@ -2410,7 +2410,7 @@
   "cases" : "104",
   "date" : "11/19/2021",
   "deaths" : "0",
-  "id" : "08111",
+  "id" : "8111",
   "name" : "San Juan",
   "population" : "705",
   "state" : "Colorado"
@@ -2418,7 +2418,7 @@
   "cases" : "1253",
   "date" : "11/19/2021",
   "deaths" : "5",
-  "id" : "08113",
+  "id" : "8113",
   "name" : "San Miguel",
   "population" : "8072",
   "state" : "Colorado"
@@ -2426,7 +2426,7 @@
   "cases" : "343",
   "date" : "11/19/2021",
   "deaths" : "5",
-  "id" : "08115",
+  "id" : "8115",
   "name" : "Sedgwick",
   "population" : "2404",
   "state" : "Colorado"
@@ -2434,7 +2434,7 @@
   "cases" : "5196",
   "date" : "11/19/2021",
   "deaths" : "11",
-  "id" : "08117",
+  "id" : "8117",
   "name" : "Summit",
   "population" : "31055",
   "state" : "Colorado"
@@ -2442,7 +2442,7 @@
   "cases" : "3188",
   "date" : "11/19/2021",
   "deaths" : "39",
-  "id" : "08119",
+  "id" : "8119",
   "name" : "Teller",
   "population" : "24710",
   "state" : "Colorado"
@@ -2450,7 +2450,7 @@
   "cases" : "735",
   "date" : "11/19/2021",
   "deaths" : "23",
-  "id" : "08121",
+  "id" : "8121",
   "name" : "Washington",
   "population" : "4817",
   "state" : "Colorado"
@@ -2458,7 +2458,7 @@
   "cases" : "51354",
   "date" : "11/19/2021",
   "deaths" : "510",
-  "id" : "08123",
+  "id" : "8123",
   "name" : "Weld",
   "population" : "328981",
   "state" : "Colorado"
@@ -2466,7 +2466,7 @@
   "cases" : "1350",
   "date" : "11/19/2021",
   "deaths" : "18",
-  "id" : "08125",
+  "id" : "8125",
   "name" : "Yuma",
   "population" : "9988",
   "state" : "Colorado"
@@ -2474,7 +2474,7 @@
   "cases" : "114474",
   "date" : "11/19/2021",
   "deaths" : "2319",
-  "id" : "09001",
+  "id" : "9001",
   "name" : "Fairfield",
   "population" : "957419",
   "state" : "Connecticut"
@@ -2482,7 +2482,7 @@
   "cases" : "101174",
   "date" : "11/19/2021",
   "deaths" : "2611",
-  "id" : "09003",
+  "id" : "9003",
   "name" : "Hartford",
   "population" : "899498",
   "state" : "Connecticut"
@@ -2490,7 +2490,7 @@
   "cases" : "17901",
   "date" : "11/19/2021",
   "deaths" : "334",
-  "id" : "09005",
+  "id" : "9005",
   "name" : "Litchfield",
   "population" : "185186",
   "state" : "Connecticut"
@@ -2498,7 +2498,7 @@
   "cases" : "15352",
   "date" : "11/19/2021",
   "deaths" : "400",
-  "id" : "09007",
+  "id" : "9007",
   "name" : "Middlesex",
   "population" : "164245",
   "state" : "Connecticut"
@@ -2506,7 +2506,7 @@
   "cases" : "107964",
   "date" : "11/19/2021",
   "deaths" : "2262",
-  "id" : "09009",
+  "id" : "9009",
   "name" : "New Haven",
   "population" : "864835",
   "state" : "Connecticut"
@@ -2514,7 +2514,7 @@
   "cases" : "28789",
   "date" : "11/19/2021",
   "deaths" : "499",
-  "id" : "09011",
+  "id" : "9011",
   "name" : "New London",
   "population" : "268555",
   "state" : "Connecticut"
@@ -2522,7 +2522,7 @@
   "cases" : "11724",
   "date" : "11/19/2021",
   "deaths" : "199",
-  "id" : "09013",
+  "id" : "9013",
   "name" : "Tolland",
   "population" : "149788",
   "state" : "Connecticut"
@@ -2538,7 +2538,7 @@
   "cases" : "14149",
   "date" : "11/19/2021",
   "deaths" : "223",
-  "id" : "09015",
+  "id" : "9015",
   "name" : "Windham",
   "population" : "116418",
   "state" : "Connecticut"
@@ -16482,7 +16482,7 @@
   "cases" : "389",
   "date" : "11/19/2021",
   "deaths" : "3",
-  "id" : "069110",
+  "id" : "69110",
   "name" : "Saipan",
   "population" : 0,
   "state" : "Northern Mariana Islands"
@@ -16490,7 +16490,7 @@
   "cases" : "6",
   "date" : "11/19/2021",
   "deaths" : "0",
-  "id" : "069120",
+  "id" : "69120",
   "name" : "Tinian",
   "population" : 0,
   "state" : "Northern Mariana Islands"
@@ -18666,7 +18666,7 @@
   "cases" : "680",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072001",
+  "id" : "72001",
   "name" : "Adjuntas",
   "population" : "18020",
   "state" : "Puerto Rico"
@@ -18674,7 +18674,7 @@
   "cases" : "2452",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072003",
+  "id" : "72003",
   "name" : "Aguada",
   "population" : "38136",
   "state" : "Puerto Rico"
@@ -18682,7 +18682,7 @@
   "cases" : "3084",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072005",
+  "id" : "72005",
   "name" : "Aguadilla",
   "population" : "55101",
   "state" : "Puerto Rico"
@@ -18690,7 +18690,7 @@
   "cases" : "1649",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072007",
+  "id" : "72007",
   "name" : "Aguas Buenas",
   "population" : "24223",
   "state" : "Puerto Rico"
@@ -18698,7 +18698,7 @@
   "cases" : "1057",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072009",
+  "id" : "72009",
   "name" : "Aibonito",
   "population" : "24637",
   "state" : "Puerto Rico"
@@ -18706,7 +18706,7 @@
   "cases" : "1432",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072011",
+  "id" : "72011",
   "name" : "Anasco",
   "population" : "25596",
   "state" : "Puerto Rico"
@@ -18714,7 +18714,7 @@
   "cases" : "4687",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072013",
+  "id" : "72013",
   "name" : "Arecibo",
   "population" : "87754",
   "state" : "Puerto Rico"
@@ -18722,7 +18722,7 @@
   "cases" : "554",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072015",
+  "id" : "72015",
   "name" : "Arroyo",
   "population" : "15843",
   "state" : "Puerto Rico"
@@ -18730,7 +18730,7 @@
   "cases" : "1204",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072017",
+  "id" : "72017",
   "name" : "Barceloneta",
   "population" : "22657",
   "state" : "Puerto Rico"
@@ -18738,7 +18738,7 @@
   "cases" : "1934",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072019",
+  "id" : "72019",
   "name" : "Barranquitas",
   "population" : "28983",
   "state" : "Puerto Rico"
@@ -18746,7 +18746,7 @@
   "cases" : "15987",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072021",
+  "id" : "72021",
   "name" : "Bayamon",
   "population" : "185187",
   "state" : "Puerto Rico"
@@ -18754,7 +18754,7 @@
   "cases" : "1928",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072023",
+  "id" : "72023",
   "name" : "Cabo Rojo",
   "population" : "47158",
   "state" : "Puerto Rico"
@@ -18762,7 +18762,7 @@
   "cases" : "9041",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072025",
+  "id" : "72025",
   "name" : "Caguas",
   "population" : "127244",
   "state" : "Puerto Rico"
@@ -18770,7 +18770,7 @@
   "cases" : "1802",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072027",
+  "id" : "72027",
   "name" : "Camuy",
   "population" : "32827",
   "state" : "Puerto Rico"
@@ -18778,7 +18778,7 @@
   "cases" : "3103",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072029",
+  "id" : "72029",
   "name" : "Canovanas",
   "population" : "42337",
   "state" : "Puerto Rico"
@@ -18786,7 +18786,7 @@
   "cases" : "13105",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072031",
+  "id" : "72031",
   "name" : "Carolina",
   "population" : "154815",
   "state" : "Puerto Rico"
@@ -18794,7 +18794,7 @@
   "cases" : "1957",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072033",
+  "id" : "72033",
   "name" : "Catano",
   "population" : "23155",
   "state" : "Puerto Rico"
@@ -18802,7 +18802,7 @@
   "cases" : "2062",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072035",
+  "id" : "72035",
   "name" : "Cayey",
   "population" : "41652",
   "state" : "Puerto Rico"
@@ -18810,7 +18810,7 @@
   "cases" : "672",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072037",
+  "id" : "72037",
   "name" : "Ceiba",
   "population" : "11307",
   "state" : "Puerto Rico"
@@ -18818,7 +18818,7 @@
   "cases" : "1087",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072039",
+  "id" : "72039",
   "name" : "Ciales",
   "population" : "16984",
   "state" : "Puerto Rico"
@@ -18826,7 +18826,7 @@
   "cases" : "1948",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072041",
+  "id" : "72041",
   "name" : "Cidra",
   "population" : "39970",
   "state" : "Puerto Rico"
@@ -18834,7 +18834,7 @@
   "cases" : "1436",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072043",
+  "id" : "72043",
   "name" : "Coamo",
   "population" : "34668",
   "state" : "Puerto Rico"
@@ -18842,7 +18842,7 @@
   "cases" : "1073",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072045",
+  "id" : "72045",
   "name" : "Comerio",
   "population" : "18883",
   "state" : "Puerto Rico"
@@ -18850,7 +18850,7 @@
   "cases" : "2495",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072047",
+  "id" : "72047",
   "name" : "Corozal",
   "population" : "34571",
   "state" : "Puerto Rico"
@@ -18858,7 +18858,7 @@
   "cases" : "56",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072049",
+  "id" : "72049",
   "name" : "Culebra",
   "population" : "1792",
   "state" : "Puerto Rico"
@@ -18866,7 +18866,7 @@
   "cases" : "3397",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072051",
+  "id" : "72051",
   "name" : "Dorado",
   "population" : "35879",
   "state" : "Puerto Rico"
@@ -18874,7 +18874,7 @@
   "cases" : "2187",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072053",
+  "id" : "72053",
   "name" : "Fajardo",
   "population" : "32124",
   "state" : "Puerto Rico"
@@ -18882,7 +18882,7 @@
   "cases" : "1005",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072054",
+  "id" : "72054",
   "name" : "Florida",
   "population" : "11692",
   "state" : "Puerto Rico"
@@ -18890,7 +18890,7 @@
   "cases" : "455",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072055",
+  "id" : "72055",
   "name" : "Guanica",
   "population" : "13787",
   "state" : "Puerto Rico"
@@ -18898,7 +18898,7 @@
   "cases" : "1384",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072057",
+  "id" : "72057",
   "name" : "Guayama",
   "population" : "36614",
   "state" : "Puerto Rico"
@@ -18906,7 +18906,7 @@
   "cases" : "700",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072059",
+  "id" : "72059",
   "name" : "Guayanilla",
   "population" : "17784",
   "state" : "Puerto Rico"
@@ -18914,7 +18914,7 @@
   "cases" : "6894",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072061",
+  "id" : "72061",
   "name" : "Guaynabo",
   "population" : "89780",
   "state" : "Puerto Rico"
@@ -18922,7 +18922,7 @@
   "cases" : "3117",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072063",
+  "id" : "72063",
   "name" : "Gurabo",
   "population" : "40622",
   "state" : "Puerto Rico"
@@ -18930,7 +18930,7 @@
   "cases" : "1916",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072065",
+  "id" : "72065",
   "name" : "Hatillo",
   "population" : "38486",
   "state" : "Puerto Rico"
@@ -18938,7 +18938,7 @@
   "cases" : "709",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072067",
+  "id" : "72067",
   "name" : "Hormigueros",
   "population" : "15654",
   "state" : "Puerto Rico"
@@ -18946,7 +18946,7 @@
   "cases" : "3127",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072069",
+  "id" : "72069",
   "name" : "Humacao",
   "population" : "50896",
   "state" : "Puerto Rico"
@@ -18954,7 +18954,7 @@
   "cases" : "2577",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072071",
+  "id" : "72071",
   "name" : "Isabela",
   "population" : "42943",
   "state" : "Puerto Rico"
@@ -18962,7 +18962,7 @@
   "cases" : "655",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072073",
+  "id" : "72073",
   "name" : "Jayuya",
   "population" : "14779",
   "state" : "Puerto Rico"
@@ -18970,7 +18970,7 @@
   "cases" : "1778",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072075",
+  "id" : "72075",
   "name" : "Juana Diaz",
   "population" : "46538",
   "state" : "Puerto Rico"
@@ -18978,7 +18978,7 @@
   "cases" : "3016",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072077",
+  "id" : "72077",
   "name" : "Juncos",
   "population" : "37012",
   "state" : "Puerto Rico"
@@ -18986,7 +18986,7 @@
   "cases" : "831",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072079",
+  "id" : "72079",
   "name" : "Lajas",
   "population" : "23334",
   "state" : "Puerto Rico"
@@ -18994,7 +18994,7 @@
   "cases" : "1415",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072081",
+  "id" : "72081",
   "name" : "Lares",
   "population" : "28105",
   "state" : "Puerto Rico"
@@ -19002,7 +19002,7 @@
   "cases" : "404",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072083",
+  "id" : "72083",
   "name" : "Las Marias",
   "population" : "8874",
   "state" : "Puerto Rico"
@@ -19010,7 +19010,7 @@
   "cases" : "2292",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072085",
+  "id" : "72085",
   "name" : "Las Piedras",
   "population" : "35180",
   "state" : "Puerto Rico"
@@ -19018,7 +19018,7 @@
   "cases" : "1753",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072087",
+  "id" : "72087",
   "name" : "Loiza",
   "population" : "23693",
   "state" : "Puerto Rico"
@@ -19026,7 +19026,7 @@
   "cases" : "1263",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072089",
+  "id" : "72089",
   "name" : "Luquillo",
   "population" : "17781",
   "state" : "Puerto Rico"
@@ -19034,7 +19034,7 @@
   "cases" : "2372",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072091",
+  "id" : "72091",
   "name" : "Manati",
   "population" : "39492",
   "state" : "Puerto Rico"
@@ -19042,7 +19042,7 @@
   "cases" : "182",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072093",
+  "id" : "72093",
   "name" : "Maricao",
   "population" : "4755",
   "state" : "Puerto Rico"
@@ -19050,7 +19050,7 @@
   "cases" : "569",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072095",
+  "id" : "72095",
   "name" : "Maunabo",
   "population" : "10589",
   "state" : "Puerto Rico"
@@ -19058,7 +19058,7 @@
   "cases" : "3966",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072097",
+  "id" : "72097",
   "name" : "Mayaguez",
   "population" : "73077",
   "state" : "Puerto Rico"
@@ -19066,7 +19066,7 @@
   "cases" : "2438",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072099",
+  "id" : "72099",
   "name" : "Moca",
   "population" : "37460",
   "state" : "Puerto Rico"
@@ -19074,7 +19074,7 @@
   "cases" : "1994",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072101",
+  "id" : "72101",
   "name" : "Morovis",
   "population" : "28727",
   "state" : "Puerto Rico"
@@ -19082,7 +19082,7 @@
   "cases" : "1508",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072103",
+  "id" : "72103",
   "name" : "Naguabo",
   "population" : "23386",
   "state" : "Puerto Rico"
@@ -19090,7 +19090,7 @@
   "cases" : "2406",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072105",
+  "id" : "72105",
   "name" : "Naranjito",
   "population" : "29241",
   "state" : "Puerto Rico"
@@ -19098,7 +19098,7 @@
   "cases" : "1243",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072107",
+  "id" : "72107",
   "name" : "Orocovis",
   "population" : "21434",
   "state" : "Puerto Rico"
@@ -19106,7 +19106,7 @@
   "cases" : "562",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072109",
+  "id" : "72109",
   "name" : "Patillas",
   "population" : "15985",
   "state" : "Puerto Rico"
@@ -19114,7 +19114,7 @@
   "cases" : "798",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072111",
+  "id" : "72111",
   "name" : "Penuelas",
   "population" : "20399",
   "state" : "Puerto Rico"
@@ -19122,7 +19122,7 @@
   "cases" : "5719",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072113",
+  "id" : "72113",
   "name" : "Ponce",
   "population" : "137491",
   "state" : "Puerto Rico"
@@ -19130,7 +19130,7 @@
   "cases" : "1375",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072115",
+  "id" : "72115",
   "name" : "Quebradillas",
   "population" : "23638",
   "state" : "Puerto Rico"
@@ -19138,7 +19138,7 @@
   "cases" : "931",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072117",
+  "id" : "72117",
   "name" : "Rincon",
   "population" : "15187",
   "state" : "Puerto Rico"
@@ -19146,7 +19146,7 @@
   "cases" : "3308",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072119",
+  "id" : "72119",
   "name" : "Rio Grande",
   "population" : "47060",
   "state" : "Puerto Rico"
@@ -19154,7 +19154,7 @@
   "cases" : "784",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072121",
+  "id" : "72121",
   "name" : "Sabana Grande",
   "population" : "22729",
   "state" : "Puerto Rico"
@@ -19162,7 +19162,7 @@
   "cases" : "1454",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072123",
+  "id" : "72123",
   "name" : "Salinas",
   "population" : "25789",
   "state" : "Puerto Rico"
@@ -19170,7 +19170,7 @@
   "cases" : "1160",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072125",
+  "id" : "72125",
   "name" : "San German",
   "population" : "31879",
   "state" : "Puerto Rico"
@@ -19178,7 +19178,7 @@
   "cases" : "29344",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072127",
+  "id" : "72127",
   "name" : "San Juan",
   "population" : "342259",
   "state" : "Puerto Rico"
@@ -19186,7 +19186,7 @@
   "cases" : "2437",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072129",
+  "id" : "72129",
   "name" : "San Lorenzo",
   "population" : "37693",
   "state" : "Puerto Rico"
@@ -19194,7 +19194,7 @@
   "cases" : "2531",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072131",
+  "id" : "72131",
   "name" : "San Sebastian",
   "population" : "39345",
   "state" : "Puerto Rico"
@@ -19202,7 +19202,7 @@
   "cases" : "876",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072133",
+  "id" : "72133",
   "name" : "Santa Isabel",
   "population" : "20281",
   "state" : "Puerto Rico"
@@ -19210,7 +19210,7 @@
   "cases" : "5775",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072135",
+  "id" : "72135",
   "name" : "Toa Alta",
   "population" : "66852",
   "state" : "Puerto Rico"
@@ -19218,7 +19218,7 @@
   "cases" : "6185",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072137",
+  "id" : "72137",
   "name" : "Toa Baja",
   "population" : "75293",
   "state" : "Puerto Rico"
@@ -19226,7 +19226,7 @@
   "cases" : "4584",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072139",
+  "id" : "72139",
   "name" : "Trujillo Alto",
   "population" : "67740",
   "state" : "Puerto Rico"
@@ -19242,7 +19242,7 @@
   "cases" : "1379",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072141",
+  "id" : "72141",
   "name" : "Utuado",
   "population" : "28287",
   "state" : "Puerto Rico"
@@ -19250,7 +19250,7 @@
   "cases" : "2944",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072143",
+  "id" : "72143",
   "name" : "Vega Alta",
   "population" : "35395",
   "state" : "Puerto Rico"
@@ -19258,7 +19258,7 @@
   "cases" : "4485",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072145",
+  "id" : "72145",
   "name" : "Vega Baja",
   "population" : "54414",
   "state" : "Puerto Rico"
@@ -19266,7 +19266,7 @@
   "cases" : "277",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072147",
+  "id" : "72147",
   "name" : "Vieques",
   "population" : "8249",
   "state" : "Puerto Rico"
@@ -19274,7 +19274,7 @@
   "cases" : "1029",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072149",
+  "id" : "72149",
   "name" : "Villalba",
   "population" : "22093",
   "state" : "Puerto Rico"
@@ -19282,7 +19282,7 @@
   "cases" : "1647",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072151",
+  "id" : "72151",
   "name" : "Yabucoa",
   "population" : "30426",
   "state" : "Puerto Rico"
@@ -19290,7 +19290,7 @@
   "cases" : "1478",
   "date" : "11/19/2021",
   "deaths" : "",
-  "id" : "072153",
+  "id" : "72153",
   "name" : "Yauco",
   "population" : "34172",
   "state" : "Puerto Rico"
@@ -23402,7 +23402,7 @@
   "cases" : "3428",
   "date" : "11/19/2021",
   "deaths" : "35",
-  "id" : "078010",
+  "id" : "78010",
   "name" : "St. Croix",
   "population" : 0,
   "state" : "Virgin Islands"
@@ -23410,7 +23410,7 @@
   "cases" : "337",
   "date" : "11/19/2021",
   "deaths" : "3",
-  "id" : "078020",
+  "id" : "78020",
   "name" : "St. John",
   "population" : 0,
   "state" : "Virgin Islands"
@@ -23418,7 +23418,7 @@
   "cases" : "3674",
   "date" : "11/19/2021",
   "deaths" : "46",
-  "id" : "078030",
+  "id" : "78030",
   "name" : "St. Thomas",
   "population" : 0,
   "state" : "Virgin Islands"
