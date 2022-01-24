@@ -117,6 +117,7 @@ st.markdown(filedownload(df_selection), unsafe_allow_html=True)
 
 # map
 
+"""
 json1 = "gz_2010_us_050_00_20m.json"
 
 folium.Map(location=[23.47,77.94], tiles='CartoDB positron', name="Light Map",
@@ -140,3 +141,4 @@ folium.features.GeoJson('states_india.geojson',
                         name="States", popup=folium.features.GeoJsonPopup(fields=["st_nm"])).add_to(m)
 
 folium_static(m, width=1600, height=950)
+"""
