@@ -35,6 +35,7 @@ df.to_csv('test.csv', index=False)
 
 
 df = pd.read_csv("test.csv")
+df1 = pd.read_csv("us-counties-recent.csv")
 
 df.head()
 
@@ -78,7 +79,7 @@ Click the header of each column can sort the data. Try **Filters** on the left.
 """)
 st.header("Case Overview")
 
-st.dataframe(df)
+#st.dataframe(df)
 
 
 # In[ ]:
@@ -99,7 +100,7 @@ default="King"
 )
 
 df_selection = df.query(
-"state == @state & name == @name")
+"state == @state | name == @name")
 
 st.header("Filtered Cases")
 
@@ -110,35 +111,79 @@ st.dataframe(df_selection)
 def filedownload(df):
 	csv = df.to_csv(index=False)
 	b64 = base64.b64encode(csv.encode()).decode()
-	href = '<a href="data:file/csv;base64,{b64}" download="cases.csv">Download CSV File</a>'
+	href = f'<a href="data:file/csv;base64,{b64}" download="cases.csv">Download CSV File</a>'
 	return href
 	
 st.markdown(filedownload(df_selection), unsafe_allow_html=True)
 
 # map
 
-"""
-json1 = "gz_2010_us_050_00_20m.json"
+state_geo = "states.geojson"
+state_data = pd.read_csv("us-states.csv")
 
-folium.Map(location=[23.47,77.94], tiles='CartoDB positron', name="Light Map",
-               zoom_start=5, attr="My Data attribution")
-			   
-choice = ["Cases", "Death"]
+choice = ["cases", "deaths"]
 choice_selected = st.selectbox("Select choice", choice)
 
-folium.Choropleth(
-    geo_data=json1,
-    name="choropleth",
-    data=df,
-    columns=["state_code",choice_selected],
-    key_on="feature.properties.state_code",
-    fill_color="YlOrRd",
-    fill_opacity=0.7,
-    line_opacity=.1,
-    legend_name=choice_selected
-).add_to(m)
-folium.features.GeoJson('states_india.geojson',
-                        name="States", popup=folium.features.GeoJsonPopup(fields=["st_nm"])).add_to(m)
+#state_data.isnull().values.any()
 
-folium_static(m, width=1600, height=950)
-"""
+date_max = max(state_data['date'])
+
+#state_data['fips'] = state_data['fips'].fillna(0)
+#state_data = state_data[state_data['fips'].notna()]
+
+latest_state_data = state_data[state_data['date'] == date_max]
+#latest_state_data_new = latest_state_data.drop(['fips'], axis=1)
+#latest_state_data_new['fips'] = latest_state_data['fips'].astype('str')
+
+#latest_state_data['deaths'] = latest_state_data['deaths'].astype('int').astype('str')
+
+m = folium.Map(location=[39,-98], zoom_start=4)
+
+folium.Choropleth(
+    geo_data=state_geo,
+    name="choropleth",
+    data=latest_state_data,
+    columns=["fips", choice_selected],#, choice_selected],
+    key_on="feature.properties.STATEFP",
+    fill_color="YlGn",
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name=choice_selected,
+).add_to(m)
+
+folium.features.GeoJson('states.geojson',
+	name="State", popup=folium.features.GeoJsonPopup(fields=["NAME"])).add_to(m)
+	
+folium.LayerControl().add_to(m)
+		
+folium_static(m, width=800, height=500)
+
+#
+#json1 = "county.geojson"
+#
+#m = folium.Map(location=[39,-98], zoom_start=4)
+#			   
+##choice = ["cases", "deaths"]
+##choice_selected = st.selectbox("Select choice", choice)
+#
+#folium.Choropleth(
+#    geo_data=json1,
+#    name="choropleth",
+#    data=df1,
+#    columns=["fips", "deaths"],#"GEOID",choice_selected],
+#    key_on="feature.properties.GEOID",
+#    fill_color="YlGn",
+#    fill_opacity=0.7,
+#    line_opacity=0.2,
+#    #legend_name=choice_selected
+#).add_to(m)
+#
+#
+##folium.features.GeoJson('county.geojson',
+#	#name="County", popup=folium.features.GeoJsonPopup(fields=["COUNTY_STATE_NAME"])).add_to(m)
+#						
+#folium.LayerControl().add_to(m)
+#
+#folium_static(m, width=800, height=500)
+#
+#
