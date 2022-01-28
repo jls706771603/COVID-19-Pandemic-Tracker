@@ -79,7 +79,7 @@ Click the header of each column can sort the data. Try **Filters** on the left.
 """)
 st.header("Case Overview")
 
-#st.dataframe(df)
+st.dataframe(df)
 
 
 # In[ ]:
@@ -98,6 +98,8 @@ name = st.sidebar.multiselect(
 options=df["name"].unique(),
 default="King"
 )
+
+
 
 df_selection = df.query(
 "state == @state | name == @name")
