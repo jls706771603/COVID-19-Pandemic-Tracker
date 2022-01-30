@@ -51,7 +51,7 @@ df = pd.read_json("pandemic-tracker-1b4e2-default-rtdb-countyList-export.json")
 df.to_csv('test.csv', index=False)
 
 df = pd.read_csv("test.csv")
-df1 = pd.read_csv("us-counties-recent.csv")
+#df1 = pd.read_csv("us-counties-recent.csv")
 
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 
