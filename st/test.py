@@ -13,6 +13,7 @@ import streamlit as st
 import base64
 import folium
 from streamlit_folium import folium_static
+import pyrebase
 
 st.set_page_config(
     page_title="COVID-19 Dashboard",
@@ -20,30 +21,39 @@ st.set_page_config(
     layout="wide"
 )
 
+firebaseConfig = {
+  "apiKey": "AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc",
+  "authDomain": "pandemic-tracker-1b4e2.firebaseapp.com",
+  "databaseURL": "https://pandemic-tracker-1b4e2-default-rtdb.firebaseio.com",
+  "projectId": "pandemic-tracker-1b4e2",
+  "storageBucket": "pandemic-tracker-1b4e2.appspot.com",
+  "messagingSenderId": "755928698748",
+  "appId": "1:755928698748:web:ecb56541688d390c905ef9",
+  "measurementId": "G-EZCGYK8FM2"
+}
 
+firebase = pyrebase.initialize_app(firebaseConfig)
+storage = firebase.storage()
 
-# In[15]:
+path_on_cloud_geo = "states.geojson"
+path_on_cloud_case = "us-states.csv"
+path_local_geo = "states.geojson"
+path_local_case = "us-states.csv"
 
+#storage.child("test.csv").put("test.csv")
+
+storage.child(path_on_cloud_geo).download("", path_local_geo)
+storage.child(path_on_cloud_case).download("", path_local_case)
 
 # import data
 df = pd.read_json("pandemic-tracker-1b4e2-default-rtdb-countyList-export.json")
 
 df.to_csv('test.csv', index=False)
 
-
-# In[16]:
-
-
 df = pd.read_csv("test.csv")
 df1 = pd.read_csv("us-counties-recent.csv")
 
-df.head()
-
-
-# In[17]:
-
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
-
 
 st.markdown("""
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #3498DB;">
@@ -67,8 +77,6 @@ st.markdown("""
 </nav>
 """, unsafe_allow_html=True)
 
-#st.title("COVID-19 Tracker")
-
 st.write(
 """
 # COVID-19 Tracker
@@ -77,13 +85,10 @@ Click the header of each column can sort the data. Try **Filters** on the left.
 
 ***
 """)
+
 st.header("Case Overview")
 
 st.dataframe(df)
-
-
-# In[ ]:
-
 
 st.sidebar.header("Filters:")
 
@@ -99,10 +104,7 @@ options=df["name"].unique(),
 default="King"
 )
 
-
-
-df_selection = df.query(
-"state == @state | name == @name")
+df_selection = df.query("state == @state | name == @name")
 
 st.header("Filtered Cases")
 
@@ -153,8 +155,7 @@ folium.Choropleth(
     legend_name=choice_selected,
 ).add_to(m)
 
-folium.features.GeoJson('states.geojson',
-	name="State", popup=folium.features.GeoJsonPopup(fields=["NAME"])).add_to(m)
+#folium.features.GeoJson('states.geojson', name="State", popup=folium.features.GeoJsonPopup(fields=["NAME"])).add_to(m)
 	
 folium.LayerControl().add_to(m)
 		
