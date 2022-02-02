@@ -1,4 +1,5 @@
 const admin = require('firebase-admin')
+const { performance } = require('perf_hooks');
 const fs = require('fs');
 const csv = require('csv-parser');
 const usa = require('./usa.js')
@@ -19,6 +20,8 @@ var usaList = [];
 var stateList = [];
 var countyList = [];
 var totalDeaths = 0;
+var currDate = getDate().toString();
+var pastDate = pastDate(14).toString();
 //Database Variables
 var db = admin.database()
 var ref = db.ref()
@@ -74,7 +77,9 @@ for(i = 1;i < array.length - 1; i++){
     var deaths = stringArray[5];
     deaths = deaths.slice(0, deaths.length - 1);
     var population = 0;
-    var holder = new county(name, date, stateName, id, cases, deaths, population);
+    var recentDeaths = 0;
+    var recentCases = 0;
+    var holder = new county(name, date, stateName, id, cases, deaths, population, recentDeaths, recentCases);
     countyList.push(holder);
 }
 
@@ -93,7 +98,21 @@ for(i = 1; i < array.length - 1; i++){
     }
   }
 }
-//Parse county population file and append population to matching county object
+
+
+//Gets a value for date 14 days from today to use for recentCases and recentDeaths
+function priorDate() {
+  var d = new Date()
+  var x = 25;
+  d.setDate(d.getDate() - x);
+  let dd = String(d.getDate()).padStart(2, '0');
+  let mm = String(d.getMonth() + 1).padStart(2, '0');
+  let yyyy = d.getFullYear();
+  var today = yyyy + '-' + mm + '-' + dd;
+  return(today);
+}
+
+
 
 var array = fs.readFileSync('countyPopulation.csv').toString().split("\n");
 for(i = 1; i < array.length - 1; i++){
@@ -109,7 +128,6 @@ for(i = 1; i < array.length - 1; i++){
 }
 
 //Parse state vaccination file and append population to matching county object
-
 var array = fs.readFileSync('statesVaccination.csv').toString().split("\n");
 for(i = 1; i < array.length - 1; i++){
   var stringArray = array[i].toString().split(',');
@@ -123,6 +141,136 @@ for(i = 1; i < array.length - 1; i++){
   }
 }
 
+
+//Get 14 Day Case & Death Count
+//Need to get a current time and a time 14 days prior and subtract the numbers
+//For this county id in countyList, find x day and x day and subtract totals
+
+var array = fs.readFileSync('us-alltimedata.csv').toString().split("\n");
+
+//endpoint is last row of alltimedata file. midpoint is halfway through file
+var endpoint = array.length;
+var midpoint = Math.floor(endpoint/2);
+var foundRow = 0;
+
+//finds the first row of alltimedata file that matches pastDate
+function findSpot() {
+  let found = false;
+  let startRecord = midpoint;
+  console.log("Initial Start Point:" + startRecord)
+  let array = fs.readFileSync('us-alltimedata.csv').toString().split("\n");
+  console.log("Finiding start")
+  while(found == false) {
+    let pastDateLine = array[startRecord].toString().split(',');
+    let prevPastDateLine = array[startRecord - 1].toString().split(',');
+    //If past date is lower than the date found in the returned record, move record forward 50%
+    if(pastDate > pastDateLine[0]){
+      //console.log("Going Down")
+      startRecord = Math.round((startRecord+endpoint)/2);
+    } else if (pastDate < pastDateLine[0]) { // If startRecord was too recent
+      //console.log("Going Up")
+      startRecord = Math.round(startRecord - 2800);
+    } if (pastDate === pastDateLine[0] && pastDate === prevPastDateLine[0]){ //If date found matches but is not the first record
+      //console.log("Close")
+      startRecord = startRecord - 1;
+    } if (pastDate === pastDateLine[0] && pastDate != prevPastDateLine[0]){ //If first record from the date is found
+      startRecord += 1
+      console.log("Found proper record: " + startRecord)
+      found = true;
+      }
+    }
+    return startRecord
+}
+
+//parses data from previous date to pass to findMatch
+function getRecentNumbers() {
+  //set iterator for past dates
+  let topIter = findSpot() -1
+  let array = fs.readFileSync('us-alltimedata.csv').toString().split("\n");
+  let keepGoing = true;
+  //loop through all dates matching the date 2 weeks from today
+  while (keepGoing === true){
+    let pastRow = array[topIter].toString().split(',')
+    let nextRow = array[topIter+1].toString().split(',')
+    console.log("pastRow date is: " + pastRow[0] + "and nextRow date is: " + nextRow[0])
+    //if next row has a different date, end of date in question is the current row, stop
+    if (pastRow[0] != nextRow[0]){
+      keepGoing = false
+    //else, pass current rows county ID, reported cases/deaths for this date to find match
+    } else {
+      console.log("topIter in loop is: " +  topIter)
+      findMatch(pastRow[3], pastRow[4], pastRow[5])
+      topIter = topIter+1
+    }
+  }
+}
+
+//finds match for the countyID passed to it from getRecentNumbers in todays date
+function findMatch(id, cases, deaths) {
+  let array = fs.readFileSync('us-alltimedata.csv').toString().split("\n");
+  let found = false
+  let counter = (endpoint - 3300)
+  let holder = array[counter].toString().split(',')
+  //begins looping through todays dates and looking for match to the county ID that was passed to it from today
+  while(found === false) {
+    //if the county ID on holder matches the ID passed to function, its a match. calculate cases/deaths and pass to update current
+    if(id === holder[3]){
+      recentCases = (holder[4] - cases)
+      recentDeaths = (holder[5] - deaths)
+      console.log("Matched, passing")
+      updateCurrent(holder[3], recentCases, recentDeaths)
+      found = true
+    //if counter = endpoint, reached end of file
+    } else if (counter === endpoint){
+      console.log("Record Not Found")
+      break;
+    } else {
+      counter = counter + 1
+      holder = array[counter].toString().split(',')
+    }
+  }
+}
+
+//updates current cases & deaths on counties in countyList
+function updateCurrent(id, cases, deaths){  
+  for(i = 0; i < countyList.length; i++){
+    let holder = countyList[i]
+    if(holder.id.padStart(5, '0') === id){
+      console.log("Set county: " + holder.name)
+      holder.recentCases = cases
+      holder.recentDeaths = deaths
+      return;
+    }
+  }
+}
+
+
+
+//Finds county by matching passed ID to matching ID in countyList
+function findCounty(pastID){
+  for(i = 0; i < countyList.length; i++){
+    let holder = countyList[i]
+    if(holder.id === pastID) {
+      console.log("holder" + holder.name)
+      return holder
+    }
+  }
+}
+
+//Finds county passed to function and resets values
+function setCounty(county) {
+  for(i = 0; i < countyList.length; i++){
+    if(county.id === countyList[i].id){
+      countyList[i] == county
+    }
+  }
+}
+
+//run getRecentNumbers to get updated case/death data for past 2 weeks
+getRecentNumbers()
+
+
+
 //Push lists to DB
 const usaRef = ref.child('usa');
 usaRef.set({usaList})
@@ -134,3 +282,28 @@ const countyRef = ref.child('counties');
 countyRef.set({countyList})
 
 
+
+
+
+
+//Get Todays Date
+function getDate() {
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0');
+  let yyyy = today.getFullYear();
+  today = yyyy + '-' + mm + '-' + dd;
+  return(today);
+}
+
+
+//Get x days ago date
+function pastDate(number) {
+  var d = new Date()
+  d.setDate(d.getDate() - number);
+  let dd = String(d.getDate()).padStart(2, '0');
+  let mm = String(d.getMonth() + 1).padStart(2, '0');
+  let yyyy = d.getFullYear();
+  var today = yyyy + '-' + mm + '-' + dd;
+  return(today);
+}

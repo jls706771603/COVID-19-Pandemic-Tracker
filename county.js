@@ -4,7 +4,7 @@ const { getPackedSettings } = require("http2");
 
 
 class county {
-   constructor(name, date, state, id, cases, deaths, population) {
+   constructor(name, date, state, id, cases, deaths, population, recentCases, recentDeaths) {
        this.name = name;
        this.date = date;
        this.id= id;
@@ -12,7 +12,8 @@ class county {
        this.deaths = deaths;
        this.state = state;
        this.population = population;
-
+       this.recentCases = recentCases;
+       this.recentDeaths = recentDeaths;
    } 
 }
 
