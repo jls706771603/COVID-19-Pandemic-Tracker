@@ -14,11 +14,20 @@ import base64
 import folium
 from streamlit_folium import folium_static
 import pyrebase
+import datetime
+import urllib
+import urllib.request
+
+
 
 st.set_page_config(
     page_title="COVID-19 Dashboard",
     page_icon=":bar_chart:",
-    layout="wide"
+    layout="centered",
+	initial_sidebar_state="expanded",
+	menu_items={
+         'About': "# Covid-19 Tracker V1.0"
+     }
 )
 
 firebaseConfig = {
@@ -37,21 +46,29 @@ storage = firebase.storage()
 
 path_on_cloud_geo = "states.geojson"
 path_on_cloud_case = "us-states.csv"
+
 path_local_geo = "states.geojson"
 path_local_case = "us-states.csv"
 
-#storage.child("test.csv").put("test.csv")
+if st.sidebar.button("Click to refresh for latest data"):
+	urllib.request.urlretrieve("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-recent.csv", "us-counties-recent.csv")
+	urllib.request.urlretrieve("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv", "us-states.csv")
+	
+	# upload latest
+	storage.child("us-counties-recent.csv").put("us-counties-recent.csv")
+	storage.child("us-states.csv").put("us-states.csv")
 
-storage.child(path_on_cloud_geo).download("", path_local_geo)
-storage.child(path_on_cloud_case).download("", path_local_case)
+	storage.child(path_on_cloud_geo).download("", path_local_geo)
+	#storage.child(path_on_cloud_case).download("", path_local_case)
 
 # import data
-df = pd.read_json("pandemic-tracker-1b4e2-default-rtdb-countyList-export.json")
 
-df.to_csv('test.csv', index=False)
+#df = pd.read_json("pandemic-tracker-1b4e2-default-rtdb-countyList-export.json")
 
-df = pd.read_csv("test.csv")
-#df1 = pd.read_csv("us-counties-recent.csv")
+#df.to_csv('test.csv', index=False)
+
+#df = pd.read_csv("test.csv")
+df1 = pd.read_csv("us-counties-recent.csv")
 
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 
@@ -88,23 +105,51 @@ Click the header of each column can sort the data. Try **Filters** on the left.
 
 st.header("Case Overview")
 
-st.dataframe(df)
+st.dataframe(df1)
+
+# filters
 
 st.sidebar.header("Filters:")
 
 state = st.sidebar.multiselect(
 "Select the State:",
-options=df["state"].unique(),
+options=df1["state"].unique(),
 default="Washington"
 )
 
-name = st.sidebar.multiselect(
+df_state_selection = df1.query("state == @state")
+
+county = st.sidebar.multiselect(
 "Select the County:",
-options=df["name"].unique(),
+options=df_state_selection["county"].unique(),
 default="King"
+#default=df_state_selection["county"].unique()
 )
 
-df_selection = df.query("state == @state | name == @name")
+
+# date slider
+
+today = datetime.date.today()
+yesterday = today - datetime.timedelta(days=1)
+start_date = st.sidebar.date_input('Start date', yesterday)
+end_date = st.sidebar.date_input('End date', today)
+
+if start_date <= end_date:
+    st.sidebar.success('Start date: `%s`\n\nEnd date:`%s`' % (start_date, end_date))
+else:
+    st.sidebar.error('Error: End date must fall after start date.')
+
+	
+	
+
+df_selection = df1.query("state == @state & county == @county")
+
+mask = (pd.to_datetime(df_selection['date']) >= pd.to_datetime(start_date)) & (pd.to_datetime(df_selection['date']) <= pd.to_datetime(end_date))
+
+df_selection = df_selection.loc[mask]
+
+
+# filtered cases
 
 st.header("Filtered Cases")
 
@@ -112,8 +157,10 @@ st.write('Data Dimension: ' + str(df_selection.shape[0]) + ' rows and ' + str(df
 
 st.dataframe(df_selection)
 
-def filedownload(df):
-	csv = df.to_csv(index=False)
+# download csv
+
+def filedownload(df1):
+	csv = df1.to_csv(index=False)
 	b64 = base64.b64encode(csv.encode()).decode()
 	href = f'<a href="data:file/csv;base64,{b64}" download="cases.csv">Download CSV File</a>'
 	return href
@@ -159,7 +206,7 @@ folium.Choropleth(
 	
 folium.LayerControl().add_to(m)
 		
-folium_static(m, width=800, height=500)
+folium_static(m, width=700, height=500)
 
 #
 #json1 = "county.geojson"
