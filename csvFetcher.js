@@ -24,7 +24,7 @@ const urlUSA = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/l
 const urlStates = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-states.csv'
 const urlCounties = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv'
 const urlAllTimeData = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv'
-const urlCounties_recent = 'https://github.com/jls706771603/COVID-19-Pandemic-Tracker/blob/dev_jls/st/us-counties-recent.csv'
+const urlCounties_recent = 'https://github.com/nytimes/covid-19-data/blob/master/us-counties-recent.csv'
 // downloading each .csv individually using the raw link
 downloadCSV(urlUSA, dest1, function(){
     console.log('Downloading USA csv: Finished')
