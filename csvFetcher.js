@@ -19,11 +19,12 @@ const dest1  = './us.csv'
 const dest2  = './us-states.csv'
 const dest3  = './us-counties.csv'
 const dest4 = './us-alltimedata.csv'
+const dest5  = './us-counties-recent.csv'
 const urlUSA = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us.csv'
 const urlStates = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-states.csv'
 const urlCounties = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv'
 const urlAllTimeData = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv'
-
+const urlCounties_recent = 'https://github.com/jls706771603/COVID-19-Pandemic-Tracker/blob/dev_jls/st/us-counties-recent.csv'
 // downloading each .csv individually using the raw link
 downloadCSV(urlUSA, dest1, function(){
     console.log('Downloading USA csv: Finished')
@@ -36,4 +37,7 @@ downloadCSV(urlCounties, dest3, function(){
 })
 downloadCSV(urlAllTimeData, dest4, function(){
     console.log('Downloading All Time Data csv: Finished')
+})
+downloadCSV(urlCounties_recent, dest5, function(){
+    console.log('Downloading recent-Counties Data csv: Finished')
 })
