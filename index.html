@@ -19,6 +19,18 @@
 
 <body>
 
+    <!-- use CSS to create a better looking navbar -->
+    <navbar>
+        <img src="logo.jpg" class="logo">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Empty</a></li>
+            <li><a href="#">Empty</a></li>
+            <li><a href="#">Empty</a></li>
+            <li><a href="#">Empty</a></li>
+        </ul>
+    </navbar>
+
     <h1>
         COVID-19 Tracker
     </h1>
@@ -36,27 +48,82 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database"></script>
 
+    <scirpt type="module">
+        // ref link: https://www.youtube.com/watch?v=KnAsYNhI_CY&t=393s
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getDatabase, ref, set, child, get, update, remove, onValue } from
+        "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js"
+
+        var firebaseConfig = {
+        apiKey: "AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc",
+        authDomain: "pandemic-tracker-1b4e2.firebaseapp.com",
+        databaseURL: "https://pandemic-tracker-1b4e2-default-rtdb.firebaseio.com",
+        projectId: "pandemic-tracker-1b4e2",
+        storageBucket: "pandemic-tracker-1b4e2.appspot.com",
+        messagingSenderId: "755928698748",
+        appId: "1:755928698748:web:293a38e8b188c7b6905ef9",
+        measurementId: "G-YPJ3ZTD8HT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        function SelectAllData() {
+        firebase.database().ref('usa/usaList/').once('value',
+        function (AllRecords) {
+        AllRecords.forEach(
+        function (CurrentRecord) {
+        let numCases = CurrentRecord.val().cases
+        let numDeath = CurrentRecord.val().deaths
+        let curDate = CurrentRecord.val().date
+        console.log(numCases)
+        console.log(numDeath)
+        console.log(curDate)
+        AddItemsToTable(cases, death, date)
+        }
+        )
+        });
+
+        const db = getDatabase();
+        function GetAllDataOnce() {
+        const dbRef = ref(db, 'usa/usaList/');
+        get(child(dbRef, "countyList")).then((snapshot) => {
+        var records = [];
+        snapshot.forEach(childSnapshot => {
+        records.push(childSnapshot.val());
+        });
+        AddAllItemToTable(records);
+        })
+        console.log(records);
+        }
+        }
+    </scirpt>
+
     <script>
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
 
         var myChart = new Chart(ctx, {
             type: 'line',
-                data: {
-                    labels: ["1/13/2022", "1/14/2022", "1/15/2022", "1/16/2022", "1/17/2022", "1/18/2022", "1/19/2022"],
-                    datasets: [{
-                        label: 'Deaths',
-                        data: [300, 500, 600, 1200, 1700, 1900, 1800],
-                        borderColor: "#5F9EA0",
-                        backgroundColor: "rgba(147, 189, 190, 0.8)",
-                    }, {
-                        label: 'Cases',
-                        data: [1103, 1542, 5435, 12434, 16750, 15211, 11054],
-                        borderColor: "#4169E1",
-                        backgroundColor: "rgba(114, 144, 233, 0.8)",
-                    }]
-                },
-                options: {
+            data: {
+                labels: ["1/13/2022", "1/14/2022", "1/15/2022", "1/16/2022", "1/17/2022", "1/18/2022", "1/19/2022"],
+                datasets: [{
+                    label: 'Deaths',
+                    data: [300, 500, 600, 1200, 1700, 1900, 1800],
+                    borderColor: "#5F9EA0",
+                    backgroundColor: "rgba(147, 189, 190, 0.8)",
+                }, {
+                    label: 'Cases',
+                    data: [1103, 1542, 5435, 12434, 16750, 15211, 11054],
+                    borderColor: "#4169E1",
+                    backgroundColor: "rgba(114, 144, 233, 0.8)",
+                }]
+            },
+            options: {
                 responsive: false
             }
         });
@@ -80,54 +147,6 @@
             </tr>
         </tbody>
     </table>
-
-    <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc",
-            authDomain: "pandemic-tracker-1b4e2.firebaseapp.com",
-            databaseURL: "https://pandemic-tracker-1b4e2-default-rtdb.firebaseio.com",
-            projectId: "pandemic-tracker-1b4e2",
-            storageBucket: "pandemic-tracker-1b4e2.appspot.com",
-            messagingSenderId: "755928698748",
-            appId: "1:755928698748:web:293a38e8b188c7b6905ef9",
-            measurementId: "G-YPJ3ZTD8HT"
-        };
-        firebase.initializeApp(firebaseConfig);
-
-        function SelectAllData() {
-            firebase.database().ref('usa/usaList').once('value',
-            function(AllRecords) {
-                AllRecords.forEach(
-                    function(CurrentRecord) {
-                        var numCases = CurrentRecord.val().cases
-                        var numDeath = CurrentRecord.val().deaths
-                        var curDate = CurrentRecord.val().date
-                        AddItemsToTable(cases, death, date)
-                    }
-                )
-            });
-        }
-
-        window.onload = SelectAllData
-
-        var index = 0;
-        function AddItemsToTable() {
-            var tbody = document.getElementById('tbody1')
-            var trow = document.createElement('tr');
-            var td1 = document.createElement('td');
-            var td2 = document.createElement('td');
-            var td3 = document.createElement('td');
-            td1.innerHTML= numCases;
-            td2.innerHTML= numDeath;
-            td3.innerHTML= curDate;
-            trow.appendChild(td1);
-            trow.appendChild(td2);
-            trow.appendChild(td3);
-            tbody.appendChild(trow)
-        }
-
-    </script>
-     
 
     <div class="container mt-3">
         <table class="table table-bordered">
@@ -241,6 +260,17 @@
         window.onload = GetAllDataOnce;
 
     </script>
+
+    <!-- use CSS to create a better looking footer -->
+    <footer>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Empty</a></li>
+            <li><a href="#">Empty</a></li>
+            <li><a href="#">Empty</a></li>
+            <li><a href="#">Empty</a></li>
+        </ul>
+    </footer>
 
 </body>
 
