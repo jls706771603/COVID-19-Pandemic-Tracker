@@ -10,11 +10,11 @@ function Map()  {
   const [stateList, setStateList] = useState([])
   const [stateGeoList, setStateGeoList] = useState([])
   const [stateLoading, setStateLoading] = useState(true)
+  const[selected, setSelected] = React.useState(null)
   const mapRef = React.useRef()
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map
   }, [])
-  const[selected, setSelected] = React.useState(null)
   
   //deprecated, no long need stateList
   // //pulling data from firebase, adding case rate to each doc and options, setting stateList
@@ -76,43 +76,6 @@ let fullStates = []
 let stateSnapshot = []
 let countyObjs = []
 
-
-
-//deprecated, no longer parsing JSON front end
-// //loads state coordinates into separate arrays, each index is its own state
-// function fillObjCoords() {
-//   for(let i = 0; i < objs.length; i++) {
-//     let stateArray = objs[i].coordinates
-//     for(let j = 0; j < stateArray.length; j++) {
-//       let miniArray = stateArray[j]
-//       for(let k = 0; k < miniArray.length; k++){
-//         let thirdArray = miniArray[k]
-//         thirdArray.flatten(Infinity)
-//         if(thirdArray.length > 2) {
-//           for(let l = 0; l < thirdArray.length; l++){
-//             let fourthArray = thirdArray[l]
-//             let newObj = new Object()
-//             newObj.lat = fourthArray[1]
-//             newObj.lng = fourthArray[0]
-//             objCoords[i].push(newObj)
-//           }
-//         } else {
-//             let newObj = new Object()
-//             newObj.lat = thirdArray[1]
-//             newObj.lng = thirdArray[0]
-//             newObj[i].push(newObj)
-//             objCoords[i].push(newObj)
-//          }
-        
-//       }
-//     }
-//   }
-// }
-
-
-
-
-
 //MAP STYLES ------------
 //map container style
 const containerStyle = {
@@ -122,6 +85,12 @@ const containerStyle = {
   
 };
 
+const defaultMapOptions = {
+  fullscreenControl: false,
+  mapTypeControl: false,
+  streetViewControl: false,
+  minZoom: 3
+}
 const center = {
   lat: 39.8283,
   lng: -98.5795,
@@ -166,6 +135,16 @@ const lowCaseOptions = {
   geodesic: false,
   zIndex: 1
 }
+//Gets correct color options for polygons
+function getOptions(e) {
+  if(e[0].caseRate > 30) {
+    return highCaseOptions
+  } else if(e[0].caseRate < 20) {
+    return lowCaseOptions
+  } else{
+    return medCaseOptions
+  }
+}
 
 
 
@@ -181,17 +160,6 @@ const lowCaseOptions = {
   function returnVac() {
     return stateGeoList.find((e) => e.name === selected[0].name).vacRate
   }
-
-  function getOptions(e) {
-    if(e[0].caseRate > 30) {
-      return highCaseOptions
-    } else if(e[0].caseRate < 20) {
-      return lowCaseOptions
-    } else{
-      return medCaseOptions
-    }
-  }
-
  
 
     return (
@@ -206,19 +174,21 @@ const lowCaseOptions = {
           // }}
           onload={onMapLoad}
           mapContainerStyle={containerStyle}
+          options={defaultMapOptions}
         >
           {stateGeoList.map((e, index) => (
             <Polygon 
               key = {index}
+              onClick = {() => {
+                console.log(e)
+              }}
               paths = {e}
               options = {getOptions(e)}
-              onClick = {() => {
-                setSelected(e[0])
-              }}
+              
               />
           ))}
 
-          {selected ? (<InfoWindow 
+          {/* {selected ? (<InfoWindow 
           key = {selected.id}
           position={{lat:selected[0].lat, lng: selected[0].lng}}
           onCloseClick={() => {
@@ -230,7 +200,7 @@ const lowCaseOptions = {
             <p>All Time Deaths: {returnDeaths()}</p>
             <p>Vaccination Rate: {returnVac()}</p>
             </div>
-           </InfoWindow>) : null} 
+           </InfoWindow>) : null}  */}
 
 
           
