@@ -3,6 +3,7 @@ import { Marker, GoogleMap, LoadScript, Polygon, useGoogleMap, GoogleMapsMarkerC
 import db from './firebase.config';
 import './Map.css'
 import data from '../states2.json'
+import countyData from '../counties.json'
 import { collection, doc, query, QuerySnapshot, getDoc } from 'firebase/firestore/lite';
 import { ref, push, getDatabase, get, child } from 'firebase/database'
 
@@ -11,8 +12,18 @@ let objCoords = []
 let finalStateCoords = []
 const countyCoords = []
 
+//
+for (let i = 0; i < countyData.features.length; i++) {
+  let newObj = new Object()
+  newObj.coordinates = countyData.features[i].geometry.coordinates
+  newObj.name = countyData.features[i].properties.NAME
+  newObj.countyNum = countyData.features[i].properties.COUNTY
+  newObj.stateNum = countyData.features[i].properties.STATE
+  countyCoords.push(newObj)
+}
 
 
+console.log("County Coords: " + JSON.stringify(countyCoords))
 //Compiles wanted data from JSON (name/ID/coords) into JS objects and saves in array
 for (let i = 0; i < data.features.length; i++) {
   let newObj = new Object()
@@ -165,6 +176,53 @@ for(let i = 0; i < objs.length; i++){
   }
 }
 
+let fullCounties = []
+function countyParse() {
+  let count = 0
+  for(let i = 0; i < countyCoords.length; i++){
+    let newArr = []
+    let coords = countyCoords[i].coordinates
+    if(coords.length === 1){
+      let holder = coords[0]
+      for(let j = 0; j < holder.length; j++){
+        let holderTwo = holder[j]
+        let newObj = new Object()
+        newObj.lat = holderTwo[1]
+        newObj.lng = holderTwo[0]
+        newObj.countyName = countyCoords[i].name
+        newObj.countyNum = countyCoords[i].countyNum
+        newObj.stateNum = countyCoords[i].stateNum
+        newArr.push(newObj)
+      }
+    } else if(coords.length > 1) {
+        for(let j = 0; j < coords.length; j++){
+          let coordstepone = coords[j]
+          for(let k = 0; k < coordstepone.length; k++){
+            let secondArr = []
+            let coordsteptwo = coordstepone[k]
+            for(let l = 0; l < coordsteptwo.length; l++){
+              let coordstepthree = coordsteptwo[l]
+              let newObj = new Object()
+              newObj.lat = coordstepthree[1]
+              newObj.lng = coordstepthree[0]
+              newObj.countyName = countyCoords[i].name
+              newObj.countyNum = countyCoords[i].countyNum
+              newObj.stateNum = countyCoords[i].stateNum
+              secondArr.push(newObj)
+            }
+            fullCounties.push(secondArr)
+          }
+        }
+      }
+  
+    fullCounties.push(newArr)
+  }
+  console.log("Count: " + count)
+}
+countyParse()
+console.log(fullCounties)
+
+
 
 let fullStates = []
 function stateParse() {
@@ -209,12 +267,17 @@ function stateParse() {
 }
 
 stateParse()
+console.log(fullStates)
+//filter empty arrays from stateList
 fullStates = fullStates.filter((e) => {
   return e.length > 0
 })
-console.log(fullStates)
 
+fullCounties = fullCounties.filter((e) => {
+  return e.length > 0
+})
 
+// ------------------------------ MAP -----------------------------
 function Map()  {
   const [stateList, setStateList] = useState([])
   const [stateInfo, setStateInfo] = useState([])
@@ -235,7 +298,7 @@ function Map()  {
   useEffect(() => {
     const interval = setInterval(() => {
       updatePolygons()
-    }, 35000)
+    }, 5000)
     return () => clearInterval(interval)
   }, [])
 
@@ -268,8 +331,8 @@ function Map()  {
     setStateList(fullStates)
     console.log("Map Refreshed")
   }
-  console.log("State List + " + JSON.stringify(stateList))
-  console.log("State Info + " + JSON.stringify(stateInfo))
+  // console.log("State List + " + JSON.stringify(stateList))
+  // console.log("State Info + " + JSON.stringify(stateInfo))
 
 
     return (
@@ -282,11 +345,19 @@ function Map()  {
           mapContainerStyle={containerStyle}
           options = {defaultMapOptions}
         >
-          {stateList.map((e) => (
+          {/* {stateList.map((e) => (
             <Polygon
               paths = {e}
               options = {e[0].options}
               key = {e[0].lat+e[0].lng}
+              />
+          ))} */}
+
+          {fullCounties.map((e) => (
+            <Polygon
+              paths = {e}
+              // options = {e[0].options}
+              key = {e[0].lat+e[0].lng+e[0].countyNum}
               />
           ))}
           
