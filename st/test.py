@@ -17,8 +17,7 @@ import pyrebase
 import datetime
 import urllib
 import urllib.request
-
-
+from PIL import Image
 
 st.set_page_config(
     page_title="COVID-19 Dashboard",
@@ -46,14 +45,19 @@ storage = firebase.storage()
 
 path_on_cloud_geo = "states.geojson"
 path_on_cloud_case = "us-states.csv"
+path_on_cloud_trend = "trend.jpg"
 
 path_local_geo = "states.geojson"
 path_local_case = "us-states.csv"
+path_local_case = "trend.jpg"
+
+# TODO auto refresh; deploy on aws
+image = Image.open('trend.jpg')
 
 if st.sidebar.button("Click to refresh for latest data"):
 	urllib.request.urlretrieve("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-recent.csv", "us-counties-recent.csv")
 	urllib.request.urlretrieve("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv", "us-states.csv")
-	
+
 	# upload latest
 	storage.child("us-counties-recent.csv").put("us-counties-recent.csv")
 	storage.child("us-states.csv").put("us-states.csv")
@@ -105,7 +109,11 @@ Click the header of each column can sort the data. Try **Filters** on the left.
 
 st.header("Case Overview")
 
-st.dataframe(df1)
+st.image(image, caption='Recent Trend in Washington, Illinois, California')
+
+#st.subheader("Case Overview")
+
+#st.dataframe(df1)
 
 # filters
 
