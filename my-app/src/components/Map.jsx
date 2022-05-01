@@ -176,13 +176,14 @@ for(let i = 0; i < objs.length; i++){
   }
 }
 
+//parses county coordinates to compile array of single level coordinate index of each county
 let fullCounties = []
 function countyParse() {
-  let count = 0
   for(let i = 0; i < countyCoords.length; i++){
     let newArr = []
     let coords = countyCoords[i].coordinates
-    if(coords.length === 1){
+    console.log("Coords Length: " + coords.length)
+    if(coords.length <= 1){
       let holder = coords[0]
       for(let j = 0; j < holder.length; j++){
         let holderTwo = holder[j]
@@ -193,10 +194,12 @@ function countyParse() {
         newObj.countyNum = countyCoords[i].countyNum
         newObj.stateNum = countyCoords[i].stateNum
         newArr.push(newObj)
+        console.log("County Name: " + newObj.countyName)
       }
-    } else if(coords.length > 1) {
+    } else {   
         for(let j = 0; j < coords.length; j++){
           let coordstepone = coords[j]
+          console.log(coords)
           for(let k = 0; k < coordstepone.length; k++){
             let secondArr = []
             let coordsteptwo = coordstepone[k]
@@ -217,12 +220,12 @@ function countyParse() {
   
     fullCounties.push(newArr)
   }
-  console.log("Count: " + count)
 }
 countyParse()
 console.log(fullCounties)
 
 
+//parses state coordinates to compile array of single level coordinate index of each state
 
 let fullStates = []
 function stateParse() {
@@ -282,6 +285,7 @@ function Map()  {
   const [stateList, setStateList] = useState([])
   const [stateInfo, setStateInfo] = useState([])
   const dbRef = ref(getDatabase())
+  const [countyMap, setCountyMap] = useState(false)
 
   //pulls state list data to sync with polygon coordinates
   useEffect(() => {
@@ -336,6 +340,17 @@ function Map()  {
 
 
     return (
+      //Map View Buttons
+      <div>
+      {!countyMap && (
+        <button onClick={() => setCountyMap(true)}>County View</button>
+      )}
+      {countyMap && (
+        <button onClick={() => setCountyMap(false)}>State View</button>
+      )}
+
+      {/* County Map View */}
+      {countyMap && (
       <LoadScript
         googleMapsApiKey="AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc"
       >
@@ -345,14 +360,6 @@ function Map()  {
           mapContainerStyle={containerStyle}
           options = {defaultMapOptions}
         >
-          {/* {stateList.map((e) => (
-            <Polygon
-              paths = {e}
-              options = {e[0].options}
-              key = {e[0].lat+e[0].lng}
-              />
-          ))} */}
-
           {fullCounties.map((e) => (
             <Polygon
               paths = {e}
@@ -362,8 +369,30 @@ function Map()  {
           ))}
           
         </GoogleMap>
-      </LoadScript>
+      </LoadScript>)}
 
+      {/* State Map View */}
+      {!countyMap && (
+      <LoadScript
+        googleMapsApiKey="AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc"
+      >
+        <GoogleMap 
+          center={center}
+          zoom={4}
+          mapContainerStyle={containerStyle}
+          options = {defaultMapOptions}
+        >
+          {stateList.map((e) => (
+            <Polygon
+              paths = {e}
+              options = {e[0].options}
+              key = {e[0].lat+e[0].lng}
+              />
+          ))}
+          
+        </GoogleMap>
+      </LoadScript>)}
+      </div>
 
 
     )
