@@ -177,52 +177,52 @@ for(let i = 0; i < objs.length; i++){
 }
 
 //parses county coordinates to compile array of single level coordinate index of each county
-let fullCounties = []
-function countyParse() {
-  for(let i = 0; i < countyCoords.length; i++){
-    let newArr = []
-    let coords = countyCoords[i].coordinates
-    console.log("Coords Length: " + coords.length)
-    if(coords.length <= 1){
-      let holder = coords[0]
-      for(let j = 0; j < holder.length; j++){
-        let holderTwo = holder[j]
-        let newObj = new Object()
-        newObj.lat = holderTwo[1]
-        newObj.lng = holderTwo[0]
-        newObj.countyName = countyCoords[i].name
-        newObj.countyNum = countyCoords[i].countyNum
-        newObj.stateNum = countyCoords[i].stateNum
-        newArr.push(newObj)
-        console.log("County Name: " + newObj.countyName)
-      }
-    } else {   
-        for(let j = 0; j < coords.length; j++){
-          let coordstepone = coords[j]
-          console.log(coords)
-          for(let k = 0; k < coordstepone.length; k++){
-            let secondArr = []
-            let coordsteptwo = coordstepone[k]
-            for(let l = 0; l < coordsteptwo.length; l++){
-              let coordstepthree = coordsteptwo[l]
-              let newObj = new Object()
-              newObj.lat = coordstepthree[1]
-              newObj.lng = coordstepthree[0]
-              newObj.countyName = countyCoords[i].name
-              newObj.countyNum = countyCoords[i].countyNum
-              newObj.stateNum = countyCoords[i].stateNum
-              secondArr.push(newObj)
-            }
-            fullCounties.push(secondArr)
-          }
-        }
-      }
+// let fullCounties = []
+// function countyParse() {
+//   for(let i = 0; i < countyCoords.length; i++){
+//     let newArr = []
+//     let coords = countyCoords[i].coordinates
+//     console.log("Coords Length: " + coords.length)
+//     if(coords.length <= 1){
+//       let holder = coords[0]
+//       for(let j = 0; j < holder.length; j++){
+//         let holderTwo = holder[j]
+//         let newObj = new Object()
+//         newObj.lat = holderTwo[1]
+//         newObj.lng = holderTwo[0]
+//         newObj.countyName = countyCoords[i].name
+//         newObj.countyNum = countyCoords[i].countyNum
+//         newObj.stateNum = countyCoords[i].stateNum
+//         newArr.push(newObj)
+//         console.log("County Name: " + newObj.countyName)
+//       }
+//     } else {   
+//         for(let j = 0; j < coords.length; j++){
+//           let coordstepone = coords[j]
+//           console.log(coords)
+//           for(let k = 0; k < coordstepone.length; k++){
+//             let secondArr = []
+//             let coordsteptwo = coordstepone[k]
+//             for(let l = 0; l < coordsteptwo.length; l++){
+//               let coordstepthree = coordsteptwo[l]
+//               let newObj = new Object()
+//               newObj.lat = coordstepthree[1]
+//               newObj.lng = coordstepthree[0]
+//               newObj.countyName = countyCoords[i].name
+//               newObj.countyNum = countyCoords[i].countyNum
+//               newObj.stateNum = countyCoords[i].stateNum
+//               secondArr.push(newObj)
+//             }
+//             fullCounties.push(secondArr)
+//           }
+//         }
+//       }
   
-    fullCounties.push(newArr)
-  }
-}
-countyParse()
-console.log(fullCounties)
+//     fullCounties.push(newArr)
+//   }
+// }
+// countyParse()
+// console.log(fullCounties)
 
 
 //parses state coordinates to compile array of single level coordinate index of each state
@@ -276,14 +276,16 @@ fullStates = fullStates.filter((e) => {
   return e.length > 0
 })
 
-fullCounties = fullCounties.filter((e) => {
-  return e.length > 0
-})
+// fullCounties = fullCounties.filter((e) => {
+//   return e.length > 0
+// })
 
 // ------------------------------ MAP -----------------------------
 function Map()  {
   const [stateList, setStateList] = useState([])
+  const [countyList, setCountyList] = useState([])
   const [stateInfo, setStateInfo] = useState([])
+  const [countyInfo, setCountyInfo] = useState([])
   const dbRef = ref(getDatabase())
   const [countyMap, setCountyMap] = useState(false)
 
@@ -298,6 +300,16 @@ function Map()  {
     }))
   }, [])
 
+  // useEffect(() => {
+  //   get(child(dbRef, `counties/countyList`)).then((snapshot => {
+  //     if(snapshot.exists()) {
+  //       setStateInfo(snapshot.val())
+  //     } else {
+  //       console.log("No data!")
+  //     }
+  //   }))
+  // }, [])
+
   //syncs stateList state for mapping from stateParse function, fires updatePolygons to update state options for coloring
   useEffect(() => {
     const interval = setInterval(() => {
@@ -305,6 +317,13 @@ function Map()  {
     }, 5000)
     return () => clearInterval(interval)
   }, [])
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     updateCounties()
+  //    }, 30000)
+  //    return () => clearInterval(interval)
+  // }, [])
 
   
 //returns proper set of polygon options based on caseRate
@@ -320,6 +339,7 @@ function Map()  {
 
 //updates options in stateList associated with polygon coordinates
   function updatePolygons() {
+    console.log("Update Polygons")
     stateInfo.forEach((state) => {
       console.log(state.name)
       let caseRate = state.cases/state.population
@@ -328,13 +348,32 @@ function Map()  {
         e.forEach((f) => {
           if (f.name === state.name){
               f.options = getOptions(caseRate)
+              console.log(f.options)
           }
         })
       })   
     })
     setStateList(fullStates)
     console.log("Map Refreshed")
+    console.log(stateList)
   }
+
+  // function updateCounties() {
+  //   countyInfo.forEach((county) => {
+  //     console.log(county.name)
+  //     let caseRate = county.cases/county.population
+  //     county.caseRate = caseRate
+  //     fullCounties.forEach((e) => {
+  //       e.forEach((f) => {
+  //         if (f.name === county.name){
+  //           f.options = getOptions(caseRate)
+  //         }
+  //       })
+  //     })
+  //   })
+  //   setCountyList(fullCounties)
+  //   console.log("Map Refreshed")
+  // }
   // console.log("State List + " + JSON.stringify(stateList))
   // console.log("State Info + " + JSON.stringify(stateInfo))
 
@@ -349,7 +388,7 @@ function Map()  {
         <button onClick={() => setCountyMap(false)}>State View</button>
       )}
 
-      {/* County Map View */}
+      {/* County Map View
       {countyMap && (
       <LoadScript
         googleMapsApiKey="AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc"
@@ -360,16 +399,16 @@ function Map()  {
           mapContainerStyle={containerStyle}
           options = {defaultMapOptions}
         >
-          {fullCounties.map((e) => (
+          {countyList.map((e) => (
             <Polygon
               paths = {e}
-              // options = {e[0].options}
+              options = {e[0].options}
               key = {e[0].lat+e[0].lng+e[0].countyNum}
               />
           ))}
           
         </GoogleMap>
-      </LoadScript>)}
+      </LoadScript>)} */}
 
       {/* State Map View */}
       {!countyMap && (
