@@ -14,7 +14,7 @@ export default function Graph() {
     
 
     useEffect(() => {
-        get(child(dbRef, `dailyState`)).then((snapshot => {
+        get(child(dbRef, `states/stateList`)).then((snapshot => {
           if(snapshot.exists()) {
             setStateDateList(snapshot.val())
           } else {
