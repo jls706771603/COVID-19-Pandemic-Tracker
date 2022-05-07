@@ -1,5 +1,5 @@
 import React, { Component,useState,useEffect, useRef } from 'react';
-import { Marker, GoogleMap, LoadScript, Polygon, useGoogleMap, GoogleMapsMarkerClusterer, MapContext } from '@react-google-maps/api';
+import { Marker, GoogleMap, LoadScript, Polygon, useGoogleMap, GoogleMapsMarkerClusterer, MapContext, InfoWindow } from '@react-google-maps/api';
 import db from './firebase.config';
 import './Map.css'
 import data from '../states2.json'
@@ -82,6 +82,7 @@ const defaultMapOptions = {
   mapTypeControl: false,
   streetViewControl: false,
   minZoom: 3
+  
 }
 
 
@@ -97,7 +98,7 @@ const highOptions = {
   strokeColor: "black",
   strokeOpacity: 1,
   strokeWeight: 2,
-  clickable: false,
+  clickable: true,
   draggable: false,
   editable: false,
   geodesic: false,
@@ -123,7 +124,7 @@ const lowOptions = {
   strokeColor: "black",
   strokeOpacity: 1,
   strokeWeight: 2,
-  clickable: false,
+  clickable: true,
   draggable: false,
   editable: false,
   geodesic: false,
@@ -135,7 +136,7 @@ const defOptions = {
   strokeColor: "black",
   strokeOpacity: 1,
   strokeWeight: 2,
-  clickable: false,
+  clickable: true,
   draggable: false,
   editable: false,
   geodesic: false,
@@ -280,6 +281,10 @@ fullStates = fullStates.filter((e) => {
 //   return e.length > 0
 // })
 
+
+
+
+
 // ------------------------------ MAP -----------------------------
 function Map()  {
   const [stateList, setStateList] = useState([])
@@ -288,6 +293,10 @@ function Map()  {
   const [countyInfo, setCountyInfo] = useState([])
   const dbRef = ref(getDatabase())
   const [countyMap, setCountyMap] = useState(false)
+  const [selectedElement, setSelectedElement] = useState();
+  const [activePolygon, setActivePolygon] = useState(null);
+  const [showInfoWindow, setInfoWindowFlag] = useState(true);
+
 
   //pulls state list data to sync with polygon coordinates
   useEffect(() => {
@@ -355,7 +364,7 @@ function Map()  {
     })
     setStateList(fullStates)
     console.log("Map Refreshed")
-    console.log(stateList)
+    console.log("stateList: " + stateList)
   }
 
   // function updateCounties() {
@@ -376,7 +385,6 @@ function Map()  {
   // }
   // console.log("State List + " + JSON.stringify(stateList))
   // console.log("State Info + " + JSON.stringify(stateInfo))
-
 
     return (
       //Map View Buttons
@@ -399,11 +407,11 @@ function Map()  {
           mapContainerStyle={containerStyle}
           options = {defaultMapOptions}
         >
-          {countyList.map((e) => (
+          {countyList.map((e, index) => (
             <Polygon
               paths = {e}
               options = {e[0].options}
-              key = {e[0].lat+e[0].lng+e[0].countyNum}
+              key = {index}
               />
           ))}
           
@@ -421,14 +429,32 @@ function Map()  {
           mapContainerStyle={containerStyle}
           options = {defaultMapOptions}
         >
-          {stateList.map((e) => (
+          {stateList.map((e, index) => (
             <Polygon
               paths = {e}
               options = {e[0].options}
-              key = {e[0].lat+e[0].lng}
-              />
+              key = {index}
+              onClick = {(props, polygon) => {setSelectedElement(e)
+               setActivePolygon(polygon)}}
+              >
+            </Polygon>
           ))}
-          
+          {selectedElement ? (
+            <InfoWindow
+              visible={showInfoWindow}
+              position = {{
+                lat: selectedElement[0].lat,
+                lng: selectedElement[0].lng}}
+              onCloseClick={() => {
+                setSelectedElement(null);
+              }}
+            >
+              <div>
+                <h1>{selectedElement[0].name}</h1>
+              </div>
+            </InfoWindow>
+          ) : null}
+            
         </GoogleMap>
       </LoadScript>)}
       </div>
