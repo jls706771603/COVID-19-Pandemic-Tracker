@@ -111,7 +111,7 @@ const medOptions = {
   strokeColor: "black",
   strokeOpacity: 1,
   strokeWeight: 2,
-  clickable: false,
+  clickable: true,
   draggable: false,
   editable: false,
   geodesic: false,
@@ -283,8 +283,6 @@ fullStates = fullStates.filter((e) => {
 
 
 
-
-
 // ------------------------------ MAP -----------------------------
 function Map()  {
   const [stateList, setStateList] = useState([])
@@ -346,25 +344,41 @@ function Map()  {
     }
   }
 
+  //provides infoWindow with data on user click
+  function infoWindowData(selectedName, attribute) {
+    let object
+    for(let i = 0; i < stateInfo.length; i++){
+      console.log("selectedName: " + JSON.stringify(selectedName))
+      if(stateInfo[i].name === selectedName && attribute === 'deaths'){
+        return stateInfo[i].deaths
+      }
+      if(stateInfo[i].name === selectedName && attribute === 'cases'){
+        return stateInfo[i].cases
+      }
+      if(stateInfo[i].name === selectedName && attribute === 'vacRate'){
+        return stateInfo[i].vacRate
+      }
+    }  
+  }
+
 //updates options in stateList associated with polygon coordinates
   function updatePolygons() {
     console.log("Update Polygons")
     stateInfo.forEach((state) => {
-      console.log(state.name)
       let caseRate = state.cases/state.population
       state.caseRate = caseRate
       fullStates.forEach((e) => {
         e.forEach((f) => {
           if (f.name === state.name){
               f.options = getOptions(caseRate)
-              console.log(f.options)
+              // console.log(f.options)
           }
         })
       })   
     })
     setStateList(fullStates)
-    console.log("Map Refreshed")
-    console.log("stateList: " + stateList)
+    // console.log("Map Refreshed")
+    // console.log("stateList: " + JSON.stringify(stateList))
   }
 
   // function updateCounties() {
@@ -451,6 +465,9 @@ function Map()  {
             >
               <div>
                 <h1>{selectedElement[0].name}</h1>
+                <h5>Total Deaths: {infoWindowData(selectedElement[0].name, 'deaths')}</h5>
+                <h5>Total Cases: {infoWindowData(selectedElement[0].name, 'cases')}</h5>
+                <h5>Vaccination Rate: {infoWindowData(selectedElement[0].name, 'vacRate')}</h5>
               </div>
             </InfoWindow>
           ) : null}
