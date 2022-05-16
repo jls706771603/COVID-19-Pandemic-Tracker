@@ -8,20 +8,23 @@
 
 # import relevant packages
 #import geopandas as gpd
-import pandas as pd
-import matplotlib.pyplot as plt
-import plotly.express as px
-import streamlit as st
-import base64
-import folium
-from streamlit_folium import folium_static
-import pyrebase  # 4
-import datetime
-import urllib
-import urllib.request
-from PIL import Image
-#import os
 from app_functions import get_top_headlines
+from PIL import Image
+import urllib.request
+import urllib
+import datetime
+import pyrebase  # 4
+from streamlit_folium import folium_static
+import folium
+import base64
+import streamlit as st
+import plotly.express as px
+import matplotlib.pyplot as plt
+import pandas as pd
+import nltk
+
+nltk.download()
+#import os
 
 st.set_page_config(
     page_title="COVID-19 Dashboard",
