@@ -1,3 +1,5 @@
+# ref: https://towardsdatascience.com/news-summary-app-with-python-2b1993cf64dd
+
 from sumy.parsers.html import HtmlParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer as Summarizer
@@ -9,13 +11,13 @@ import requests
 def summarize_html(url: str, sentences_count: int, language: str = 'english') -> str:
     """
     Summarizes text from URL
-    
+
     Inputs
     ----------
     url: URL for full text
     sentences_count: specifies max number of sentences for return value
     language: specifies language of text
-    
+
     Return
     ----------
     summary of text from URL
@@ -38,7 +40,7 @@ def summarize_html(url: str, sentences_count: int, language: str = 'english') ->
 def news_api_request(url: str, **kwargs) -> list:
     """
     Sends GET request to News API endpoint
-    
+
     Inputs
     ----------
     url: full URL for endpoint
@@ -46,7 +48,7 @@ def news_api_request(url: str, **kwargs) -> list:
             News API documentations: 
             https://newsapi.org/docs/endpoints/
             (apiKey argument is required)
-            
+
     Return
     ----------
     list containing data for each article in response
@@ -63,13 +65,13 @@ def summarize_news_api(articles: list, sentences_count: int) -> list:
     (return value from news_api_request) and adds a new element 
     articles dict where the key is 'summary' and the value is 
     the summarized text
-    
+
     Inputs
     ----------
     articles: list of dict returned from news_api_request()
     sentences_count: specifies max number of sentences for 
                      return value
-    
+
     Return
     ----------
     articles list with summary element added to each dict
@@ -80,18 +82,19 @@ def summarize_news_api(articles: list, sentences_count: int) -> list:
 
     return articles
 
+
 def get_top_headlines(sentences_count: int, **kwargs) -> list:
     """
     Sends GET request to News API /v2/top-headlines endpoint,
     and summarizes data at each URL
-    
+
     Inputs
     ----------
     sentences_count: specifies max number of sentences for return value
     kwargs: see News API 
             documentation: 
             https://newsapi.org/docs/endpoints/top-headlines
-    
+
     Return
     ----------
     list where each element is a dict containing info 

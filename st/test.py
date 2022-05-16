@@ -3,6 +3,8 @@
 
 # In[14]:
 
+# ref: https://towardsdatascience.com/news-summary-app-with-python-2b1993cf64dd
+
 
 # import relevant packages
 #import geopandas as gpd
@@ -13,7 +15,7 @@ import streamlit as st
 import base64
 import folium
 from streamlit_folium import folium_static
-import pyrebase #4
+import pyrebase  # 4
 import datetime
 import urllib
 import urllib.request
@@ -24,7 +26,7 @@ from app_functions import get_top_headlines
 st.set_page_config(
     page_title="COVID-19 Dashboard",
     page_icon=":bar_chart:",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="expanded",
     menu_items={
         'About': "# Covid-19 Tracker V1.0"
@@ -116,14 +118,14 @@ Click the header of each column can sort the data. Try **Filters** on the left.
 ***
 """)
 
-col1, col2 = st.columns([3, 2])
+#col1, col2 = st.columns([3, 2])
 
-col1.header("Case Overview")
+st.header("Case Overview")
 
-col1.image(image, caption='Recent Trend in Washington, Illinois, California')
+st.image(image, caption='Recent Trend in Washington, Illinois, California')
 
 #col1.subheader("A wide column with a chart")
-#col1.line_chart(state_data[['date','cases']])
+# col1.line_chart(state_data[['date','cases']])
 
 # st.dataframe(df1)
 
@@ -167,18 +169,20 @@ mask = (pd.to_datetime(df_selection['date']) >= pd.to_datetime(start_date)) & (
 
 df_selection = df_selection.loc[mask]
 
-col1.write('***')
+st.write('***')
 
 # filtered cases
 
-col1.header("Filtered Cases")
+st.header("Filtered Cases")
 
-col1.write('Data Dimension: ' +
+st.write('Data Dimension: ' +
          str(df_selection.shape[0]) + ' rows and ' + str(df_selection.shape[1]) + ' columns.')
-col1.write('By ' + str(today) + ', the total number fo cases/deaths in selected area are shown below:')
-col1.dataframe(df_selection)
+st.write('By ' + str(today) +
+         ', the total number fo cases/deaths in selected area are shown below:')
+st.dataframe(df_selection)
 
 # download csv
+
 
 def filedownload(df1):
     csv = df1.to_csv(index=False)
@@ -186,38 +190,40 @@ def filedownload(df1):
     href = f'<a href="data:file/csv;base64,{b64}" download="cases.csv">Download CSV File</a>'
     return href
 
-col1.markdown(filedownload(df_selection), unsafe_allow_html=True)
+
+st.markdown(filedownload(df_selection), unsafe_allow_html=True)
 # not working when deployed to streamlit cloud
 
 # News
 
 API_KEY = 'a378fff4da9a4146be2616e28792acc5'
 
-col1.header("News Center")
+st.header("News Center")
 
 sentences_count = 2
 
-category = col1.selectbox('Search By Category:', options=['health','business','general','science','technology'], index=0)
+category = st.selectbox('Search By Category:', options=[
+    'health', 'business', 'general', 'science', 'technology'], index=0)
 
-search_term = col1.text_input('Enter Search Term:', 'covid')
+search_term = st.text_input('Enter Search Term:', 'covid')
 
 if not search_term:
-  summaries = []
-  col1.write('Please enter a search term above.')
+    summaries = []
+    st.write('Please enter a search term above.')
 else:
-  summaries = get_top_headlines(sentences_count, 
-    apiKey=API_KEY,
-    sortBy='publishedAt',
-    country='us',
-    q=search_term,
-    category=category
-    )
+    summaries = get_top_headlines(sentences_count,
+                                  apiKey=API_KEY,
+                                  sortBy='publishedAt',
+                                  country='us',
+                                  q=search_term,
+                                  category=category
+                                  )
 
 for i in range(len(summaries)):
-    col1.title(summaries[i]['title'])
-    col1.write(f"published at: {summaries[i]['publishedAt']}")
-    col1.write(f"source: {summaries[i]['source']['name']}")
-    col1.write(summaries[i]['summary'])
+    st.title(summaries[i]['title'])
+    st.write(f"published at: {summaries[i]['publishedAt']}")
+    st.write(f"source: {summaries[i]['source']['name']}")
+    st.write(summaries[i]['summary'])
 
 
 # map
@@ -225,7 +231,7 @@ for i in range(len(summaries)):
 state_geo = "states.geojson"
 
 choice = ["cases", "deaths"]
-choice_selected = col1.selectbox("Select choice", choice)
+choice_selected = st.selectbox("Select choice", choice)
 
 # state_data.isnull().values.any()
 
@@ -254,8 +260,9 @@ folium.Choropleth(
     legend_name=choice_selected,
 ).add_to(m)
 
-folium.features.GeoJson('states.geojson', name="State", popup=folium.features.GeoJsonPopup(fields=["NAME"])).add_to(m)
+folium.features.GeoJson('states.geojson', name="State",
+                        popup=folium.features.GeoJsonPopup(fields=["NAME"])).add_to(m)
 
 folium.LayerControl().add_to(m)
 
-folium_static(m)#, width=700, height=500)
+folium_static(m)  # , width=700, height=500)
