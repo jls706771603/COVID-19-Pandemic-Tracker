@@ -100,6 +100,51 @@ for(i = (array.length/2); i < array.length; i++) {
 
 }
 
+let allTwoWeekData = []
+//Get All Data for Past 2 Weeks
+let startSpot
+for(i = 0; i < array.length; i++) {
+    var stringArray = array[i].toString().split(',');
+    var date = stringArray[0];
+    prevDate = getTwoWeeksPast(today, 14)
+    // console.log("Prevdate: " + prevDate + "'date' : " + date)
+    if(prevDate === date){
+        startSpot = i
+        console.log(startSpot)
+        break;
+    }
+}
+for(i = startSpot; i < array.length; i++) {
+    let holder = []
+    var stringArray = array[i].toString().split(',');
+    var holderDate = stringArray[0];
+    let dateSame = true:
+    while (dateSame === true){
+        let counter = 0
+        for(let j = i; j < array.length; j++){
+            var stringArray = array[j].toString().split(',');
+            var date = stringArray[0]
+            if (date !== holderDate){
+                dateSame = false
+            }
+            var name = stringArray[1];
+            var id = stringArray[2];
+            var cases = stringArray[3];
+            var deaths = stringArray[4];
+            if(deaths.includes('\r')){
+                deaths = deaths.replace('\r', '')
+            }
+            var population = 0;
+            var vacRate = 0;
+            var stateHolder = new state(name, date, id, cases, deaths, population, vacRate);
+            holder.push(stateHolder)
+        }
+    }
+    allTwoWeekData.push(holder)
+    i += j
+}    
+console.log(allTwoWeekData)
+
 // Gets 3 Month Data
 for(i = (array.length/2); i < array.length; i++) {
     var stringArray = array[i].toString().split(',');
@@ -147,13 +192,13 @@ for(i = (array.length/3); i < array.length; i++) {
 }
 
 
-console.log("Pushing Data")
-//Push lists to DB
-const twoWeekRef = ref.child('2 Week State Data');
-twoWeekRef.set({twoWeekData})
+// console.log("Pushing Data")
+// //Push lists to DB
+// const twoWeekRef = ref.child('2 Week State Data');
+// twoWeekRef.set({twoWeekData})
 
-const ninetyDayRef = ref.child('90 Day State Data');
-ninetyDayRef.set({threeMonthData})
+// const ninetyDayRef = ref.child('90 Day State Data');
+// ninetyDayRef.set({threeMonthData})
 
-const sixMonthRef = ref.child('6 Month State Data');
-sixMonthRef.set({sixMonthData})
+// const sixMonthRef = ref.child('6 Month State Data');
+// sixMonthRef.set({sixMonthData})
