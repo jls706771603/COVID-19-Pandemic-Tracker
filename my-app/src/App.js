@@ -3,7 +3,8 @@ import Header from './components/Header'
 import Map from './components/Map'
 import Graph from './components/Graph'
 import Footer from './components/Footer'
-import InfoTable from './components/InfoTable';
+import InfoTable from './components/InfoTable'
+import Table from './components/Table.js'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const location = {
@@ -21,6 +22,7 @@ function App() {
             <Map location={location} zoomLevel={4}></Map>
             
             <Graph />
+            <Table />
           </Route>
         </Switch>
         <Footer />
