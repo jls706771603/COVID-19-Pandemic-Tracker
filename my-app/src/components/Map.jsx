@@ -294,9 +294,14 @@ function Map()  {
   const [selectedElement, setSelectedElement] = useState();
   const [activePolygon, setActivePolygon] = useState(null);
   const [showInfoWindow, setInfoWindowFlag] = useState(true);
+  const [twoWeekStateData, setTwoWeekStateData] = useState([])
+  const [threeMonthsStateData, setThreeMonthsStateData] = useState([])
+  const [sixMonthsStateData, setSixMonthsStateData] = useState([])
+  const [mappedList, setMappedList] = useState([])
+  const [mapView, setMapView] = useState('Last 2 Weeks')
 
 
-  //pulls state list data to sync with polygon coordinates
+  //pulls all time state data to sync with polygon coordinates
   useEffect(() => {
     get(child(dbRef, `states/stateList`)).then((snapshot => {
       if(snapshot.exists()) {
@@ -306,6 +311,42 @@ function Map()  {
       }
     }))
   }, [])
+
+  //pulls 2 week state data
+  useEffect(() => {
+    get(child(dbRef, `2 Week State Data/twoWeekData`)).then((snapshot => {
+        if (snapshot.exists()) {
+            setTwoWeekStateData(snapshot.val())
+            setMappedList(snapshot.val())
+        } else {
+            console.log("No data!")
+        }
+    }))
+}, [])
+
+//pulls 3 month state data
+useEffect(() => {
+    get(child(dbRef, `90 Day State Data/threeMonthData`)).then((snapshot => {
+        if (snapshot.exists()) {
+            setThreeMonthsStateData(snapshot.val())
+        } else {
+            console.log("No data!")
+        }
+    }))
+}, [])
+
+//pulls 6 month state data
+useEffect(() =>  {
+    get(child(dbRef, `6 Month State Data/sixMonthData`)).then((snapshot => {
+        if (snapshot.exists()) {
+            setSixMonthsStateData(snapshot.val())
+        } else {
+            console.log("No data!")
+        }
+    }))
+}, [])
+
+
 
   // useEffect(() => {
   //   get(child(dbRef, `counties/countyList`)).then((snapshot => {
@@ -344,34 +385,47 @@ function Map()  {
     }
   }
 
+  async function reloadMapView() {
+    console.log(mapView)
+    if(mapView === 'Last 2 Weeks'){
+      setMappedList = twoWeekStateData
+    }
+    else if(mapView === 'Last 3 months'){
+      setMappedList = threeMonthsStateData
+    }
+    else if(mapView === 'Last 6 months'){
+      setMappedList = twoWeekStateData
+    }
+  }
+
   //provides infoWindow with data on user click
   function infoWindowData(selectedName, attribute) {
-    let object
-    for(let i = 0; i < stateInfo.length; i++){
-      console.log("selectedName: " + JSON.stringify(selectedName))
-      if(stateInfo[i].name === selectedName && attribute === 'deaths'){
-        return stateInfo[i].deaths
+    console.log("mappedList:" + JSON.stringify(mappedList))
+    for(let i = 0; i < mappedList.length; i++){
+      // console.log("selectedName: " + JSON.stringify(selectedName))
+      if(mappedList[i].name === selectedName && attribute === 'deaths'){
+        return mappedList[i].deaths
       }
-      if(stateInfo[i].name === selectedName && attribute === 'cases'){
-        return stateInfo[i].cases
+      if(mappedList[i].name === selectedName && attribute === 'cases'){
+        return mappedList[i].cases
       }
-      if(stateInfo[i].name === selectedName && attribute === 'vacRate'){
-        return stateInfo[i].vacRate
+      if(mappedList[i].name === selectedName && attribute === 'vacRate'){
+        return mappedList[i].vacRate
       }
     }  
   }
 
 //updates options in stateList associated with polygon coordinates
-  function updatePolygons() {
-    console.log("Update Polygons")
-    stateInfo.forEach((state) => {
+  async function updatePolygons() {
+    console.log("Update Polygons ");
+    mappedList.forEach((state) => {
       let caseRate = state.cases/state.population
       state.caseRate = caseRate
       fullStates.forEach((e) => {
         e.forEach((f) => {
           if (f.name === state.name){
               f.options = getOptions(caseRate)
-              // console.log(f.options)
+              console.log(f.options)
           }
         })
       })   
@@ -408,7 +462,12 @@ function Map()  {
       )}
       {countyMap && (
         <button onClick={() => setCountyMap(false)}>State View</button>
-      )}
+)}
+      <select name="queryTime" id="searchTime" className="selectOption" onChange={(e) => setMapView(e.target.value)}>
+        <option>Last 2 Weeks</option>
+        <option>Last 3 Months</option>
+        <option>Last 6 Months</option>
+      </select>
 
       {/* County Map View
       {countyMap && (
@@ -465,8 +524,8 @@ function Map()  {
             >
               <div>
                 <h1>{selectedElement[0].name}</h1>
-                <h5>Total Deaths: {infoWindowData(selectedElement[0].name, 'deaths')}</h5>
-                <h5>Total Cases: {infoWindowData(selectedElement[0].name, 'cases')}</h5>
+                <h5>Deaths: {infoWindowData(selectedElement[0].name, 'deaths')}</h5>
+                <h5>Cases: {infoWindowData(selectedElement[0].name, 'cases')}</h5>
                 <h5>Vaccination Rate: {infoWindowData(selectedElement[0].name, 'vacRate')}</h5>
               </div>
             </InfoWindow>
