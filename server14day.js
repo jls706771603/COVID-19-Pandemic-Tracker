@@ -41,7 +41,6 @@ function findData(stateName){
         if(todaysData[i].name === stateName){
             // console.log("Returning Todays Data For Calc: " + todaysData[i])
             return todaysData[i]
-            break
         }
     }
 }
@@ -62,6 +61,8 @@ var statePopArray = fs.readFileSync('statePopulation.csv').toString().split("\n"
 for(i = (array.length-65);i < array.length; i++){
     var stringArray = array[i].toString().split(',');
     var date = stringArray[0];
+    console.log(today)
+    console.log(date)
     if(today === date){
         var name = stringArray[1];
         var id = stringArray[2];
@@ -76,9 +77,7 @@ for(i = (array.length-65);i < array.length; i++){
         todaysData.push(holder);
     }
 }
-console.log(todaysData)
-console.log(array.length)
-console.log(array.length/2)
+
 // Gets 14 Day Data
 for(i = (Math.round(array.length/2)); i < array.length; i++) {
     var stringArray = array[i].toString().split(',');
@@ -108,7 +107,7 @@ let startSpot
 for(i = 0; i < array.length; i++) {
     var stringArray = array[i].toString().split(',');
     var date = stringArray[0];
-    prevDate = getTwoWeeksPast(today, 14)
+    prevDate = getTwoWeeksPast(today, 15)
     // console.log("Prevdate: " + prevDate + "'date' : " + date)
     if(prevDate === date){
         startSpot = i
@@ -119,7 +118,6 @@ for(i = 0; i < array.length; i++) {
 for(i = startSpot; i < array.length; i++) {
     let holder = []
     var stringArray = array[i].toString().split(',');
-    console.log(stringArray)
     var holderDate = stringArray[0];
     let dateSame = true
     while (dateSame === true){
@@ -148,6 +146,7 @@ for(i = startSpot; i < array.length; i++) {
 }    
 
 // Gets 3 Month Data
+console.log("90 Day Date: " + getTwoWeeksPast(today, 90))
 for(i = (Math.round(array.length/2)); i < array.length; i++) {
     var stringArray = array[i].toString().split(',');
     var date = stringArray[0];
@@ -158,7 +157,12 @@ for(i = (Math.round(array.length/2)); i < array.length; i++) {
         var name = stringArray[1];
         var id = stringArray[2];
         var cases = todaysState.cases - stringArray[3];
-        var deaths = todaysState.deaths - stringArray[4];
+        var oldDeaths = stringArray[4]
+        if(name === 'Massachusetts'){
+          oldDeaths = oldDeaths - 3750
+        }
+        var deaths = (todaysState.deaths - oldDeaths);
+        //Adjustment for death reallocation in MA
         // deaths = deaths.slice(0, deaths.length - 1)
         var population = 0;
         var vacRate = 0;
@@ -181,7 +185,10 @@ for(i = (Math.round(array.length/3)); i < array.length; i++) {
         var name = stringArray[1];
         var id = stringArray[2];
         var cases = todaysState.cases - stringArray[3];
-        var deaths = todaysState.deaths - stringArray[4];
+        if(name === 'Massachusetts'){
+          oldDeaths = oldDeaths - 3750
+        }
+        var deaths = (todaysState.deaths - oldDeaths);
         // deaths = deaths.slice(0, deaths.length - 1)
         var population = 0;
         var vacRate = 0;
@@ -308,7 +315,6 @@ for(i = 1; i < array.length - 1; i++){
     }
   }
 }
-
 
 
 console.log("Pushing Data")
