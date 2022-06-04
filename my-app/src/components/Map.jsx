@@ -131,6 +131,18 @@ const medOptions = {
   geodesic: false,
   zIndex: 1
 }
+const medLowOptions = {
+  fillColor: "light yellow",
+  fillOpacity: .4,
+  strokeColor: "black",
+  strokeOpacity: 1,
+  strokeWeight: 2,
+  clickable: true,
+  draggable: false,
+  editable: false,
+  geodesic: false,
+  zIndex: 1
+}
 
 const lowOptions = {
   fillColor: "green",
@@ -302,6 +314,7 @@ function Map()  {
   const [twoWeekList, setTwoWeekList] = useState([])
   const [threeMonthList, setThreeMonthList] = useState([])
   const [sixMonthList, setSixMonthList] = useState([])
+  const [vaccList, setVaccList] = useState([])
   const [stateInfo, setStateInfo] = useState([])
   const [countyInfo, setCountyInfo] = useState([])
   const dbRef = ref(getDatabase())
@@ -312,10 +325,12 @@ function Map()  {
   const [twoWeekStateData, setTwoWeekStateData] = useState([])
   const [threeMonthsStateData, setThreeMonthsStateData] = useState([])
   const [sixMonthsStateData, setSixMonthsStateData] = useState([])
+  const [vaccStateData, setVaccStateData] = useState([])
   const [mappedList, setMappedList] = useState([])
   const [twoWeekView, setTwoWeekView] = useState(true)
   const [threeMonthView, setThreeMonthView] = useState(false)
   const [sixMonthView, setSixMonthView] = useState(false)
+  const [vaccView, setVaccView] = useState(false)
 
 
 
@@ -335,6 +350,7 @@ function Map()  {
     get(child(dbRef, `2 Week State Data/twoWeekData`)).then((snapshot => {
         if (snapshot.exists()) {
             setTwoWeekStateData(snapshot.val())
+            setVaccStateData(snapshot.val())
         } else {
             console.log("No data!")
         }
@@ -406,31 +422,27 @@ useEffect(() =>  {
       } else {
         return lowOptions
       }   
-  }
+    }
 
-  // async function setMapList() {
-  //   console.log("Setting Map List")
-  //   if(mapView === 'Last 2 Weeks'){
-  //     setMappedList(twoWeekStateData)
-  //   }
-  //   else if(mapView === 'Last 3 months'){
-  //     setMappedList(threeMonthsStateData)
-  //   }
-  //   else if(mapView === 'Last 6 Months'){
-  //     setMappedList(sixMonthsStateData)
-  //   }
-  //   updateTwoWeekPolygons()
-  // }
+  function getVacOptions(index){
+    if(index <= 10) {
+      return highOptions
+    } else if(index > 10 && index <= 20){
+      return medHighOptions
+    } else if(index > 20 && index <= 35) {
+      return medOptions
+    } else if (index > 35 && index <= 45){
+      return medLowOptions
+    } else {
+      return lowOptions
+      }
+    }
 
-  function reloadMapView(value) {
-    console.log(value)
-    // setMapView(value)
-    // setMapList()
-  }
+
 
   //provides infoWindow with data on user click
   function infoWindowData(selectedName, attribute) {
-    if(sixMonthView === false && threeMonthView === false && twoWeekView === true){
+    if(sixMonthView === false && threeMonthView === false && twoWeekView === true && vaccView === false){
       for(let i = 0; i < twoWeekStateData.length; i++){
         console.log("selectedName: " + JSON.stringify(selectedName))
         if(twoWeekStateData[i].name === selectedName && attribute === 'deaths'){
@@ -443,7 +455,7 @@ useEffect(() =>  {
           return twoWeekStateData[i].vacRate
         }
     }
-  } else if(sixMonthView === false && threeMonthView === true && twoWeekView === false){
+  } else if(sixMonthView === false && threeMonthView === true && twoWeekView === false && vaccView === false){
       for(let i = 0; i < threeMonthsStateData.length; i++){
         console.log("selectedName: " + JSON.stringify(selectedName))
         if(threeMonthsStateData[i].name === selectedName && attribute === 'deaths'){
@@ -456,7 +468,7 @@ useEffect(() =>  {
           return threeMonthsStateData[i].vacRate
         }
     }
-  }else if(sixMonthView === true && threeMonthView === false && twoWeekView === false) {
+  }else if(sixMonthView === true && threeMonthView === false && twoWeekView === false && vaccView === false) {
       for(let i = 0; i < sixMonthsStateData.length; i++){
         console.log("selectedName: " + JSON.stringify(selectedName))
         if(sixMonthsStateData[i].name === selectedName && attribute === 'deaths'){
@@ -468,9 +480,25 @@ useEffect(() =>  {
         if(sixMonthsStateData[i].name === selectedName && attribute === 'vacRate'){
           return sixMonthsStateData[i].vacRate
         }
+      }   
+  
+  }else if(sixMonthView === false && threeMonthView === false && twoWeekView === false && vaccView === true) {
+    for(let i = 0; i < vaccStateData.length; i++){
+      console.log("selectedName: " + JSON.stringify(selectedName))
+      if(vaccStateData[i].name === selectedName && attribute === 'vacRate'){
+        return vaccStateData[i].vacRate
       }
-    
-    }
+      if(vaccStateData[i].name === selectedName && attribute === 'One Dose'){
+        return vaccStateData[i].oneDoseRate
+      }
+      if(vaccStateData[i].name === selectedName && attribute === 'plus 18 rate'){
+        return vaccStateData[i].plusRate18
+      }
+      if(vaccStateData[i].name === selectedName && attribute === 'plus 65 rate'){
+        return vaccStateData[i].plusRate65
+      }
+    }   
+  }
   }
 
 
@@ -543,35 +571,70 @@ useEffect(() =>  {
     })
     setThreeMonthList(holder)
   }
-  function toggleMap(value){
+
+
+    //update vaccination polygons:
+    function updateVaccPolygons() {
+      let sortedArray = vaccStateData.sort((a, b) => Number(a.vacRate) - Number(b.vacRate))
+      console.log("Sorted Array : " + JSON.stringify(sortedArray))
+      let holder = fullStates
+      sortedArray.forEach((state) => {
+        let vacRate = (state.vacRate)
+        holder.forEach((e) => {
+          e.forEach((f) => {
+            if (f.name === state.name){
+                f.options = getVacOptions(sortedArray.indexOf(state))
+            }
+          })
+        })   
+      })
+      setVaccList(holder)
+    }
+
+
+
+    function toggleMap(value){
     console.log(value)
     if(value === 'Two Week Data'){
       setSixMonthView(false)
       setThreeMonthView(false)
       setTwoWeekView(true)
+      setVaccView(false)
       updateTwoWeekPolygons()
     }
     if(value === 'Three Month Data'){
       setSixMonthView(false)
       setThreeMonthView(true)
       setTwoWeekView(false)
+      setVaccView(false)
       updateThreeMonthPolygons()
     }
     if(value === 'Six Month Data'){
       setSixMonthView(true)
       setThreeMonthView(false)
       setTwoWeekView(false)
+      setVaccView(false)
       updateSixMonthPolygons()
     }
+    if(value === 'Vaccination Map'){
+      setSixMonthView(false)
+      setThreeMonthView(false)
+      setTwoWeekView(false)
+      setVaccView(true)
+      updateVaccPolygons()
+    }
   }
+
+
     return (
       //Map View Buttons
       <div>
         <button onClick={() => toggleMap('Two Week Data')}>Two Week Data</button>
         <button onClick={() => toggleMap('Three Month Data')}>Three Month Data</button>
         <button onClick={() => toggleMap('Six Month Data')}>Six Month Data</button>
+        <button onClick={() => toggleMap('Vaccination Map')}>Vaccination Map</button>
 
-      {!threeMonthView && twoWeekView && !sixMonthView && (
+      {!threeMonthView && twoWeekView && !sixMonthView && !vaccView &&  (
       <LoadScript
         googleMapsApiKey="AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc"
       >
@@ -614,7 +677,7 @@ useEffect(() =>  {
         </GoogleMap>
       </LoadScript>)}
 
-      {threeMonthView && !twoWeekView && !sixMonthView && (
+      {threeMonthView && !twoWeekView && !sixMonthView && !vaccView &&  (
       <LoadScript
         googleMapsApiKey="AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc"
       >
@@ -656,7 +719,8 @@ useEffect(() =>  {
             
         </GoogleMap>
       </LoadScript>)}
-      {!threeMonthView && !twoWeekView && sixMonthView && (
+
+      {!threeMonthView && !twoWeekView && sixMonthView && !vaccView &&  (
       <LoadScript
         googleMapsApiKey="AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc"
       >
@@ -695,9 +759,53 @@ useEffect(() =>  {
               </div>
             </InfoWindow>
           ) : null}
+        </GoogleMap>
+      </LoadScript>)}
+
+      {!threeMonthView && !twoWeekView && !sixMonthView && vaccView &&  (
+      <LoadScript
+        googleMapsApiKey="AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc"
+      >
+        <GoogleMap 
+          center={center}
+          zoom={4}
+          mapContainerStyle={containerStyle}
+          options = {defaultMapOptions}
+        >
+          {vaccList.map((e, index) => (
+            <Polygon
+              paths = {e}
+              options = {e[0].options}
+              key = {index}
+              onClick = {(props, polygon) => {setSelectedElement(e)
+               setActivePolygon(polygon)}}
+              >
+            </Polygon>
+          ))}
+          {selectedElement ? (
+            <InfoWindow
+              visible={showInfoWindow}
+              position = {{
+                lat: selectedElement[0].lat,
+                lng: selectedElement[0].lng}}
+              onCloseClick={() => {
+                setSelectedElement(null);
+              }}
+              
+            >
+              <div>
+                <h1>{selectedElement[0].name}</h1>
+                <h5>Vaccination Rate: {infoWindowData(selectedElement[0].name, 'vacRate')}%</h5>
+                <h5>One Dose: {infoWindowData(selectedElement[0].name, 'One Dose')}%</h5>
+                <h5>18+ Vaccination Rate: {infoWindowData(selectedElement[0].name, 'plus 18 rate')}%</h5>
+                <h5>65+ Vaccination Rate: {infoWindowData(selectedElement[0].name, 'plus 65 rate')}%</h5>
+              </div>
+            </InfoWindow>
+          ) : null}
             
         </GoogleMap>
       </LoadScript>)}
+
       </div>
 
 
