@@ -18,6 +18,8 @@ export default function Graph() {
     const [colorChange, setColorChange] = useState("")
     const [useColor, setUseColor] = useState("")
 
+    const [usePercent, setUsePercent] = useState();
+
     const [classChange, setClassChange] = useState("")
     const [currentClass, setCurrentClass] = useState("");
 
@@ -51,6 +53,10 @@ export default function Graph() {
         changeGraph()
     }, [dropDownValue2])
 
+    useEffect(() => {
+
+    }, [usePercent])
+
     async function changeState(input) {
         console.log("Input: " + input);
         setDropDownValue(input);
@@ -75,6 +81,7 @@ export default function Graph() {
         var hasRun = false;
 
         if (dropDownValue2 == 'Cases') {
+            setUsePercent(false)
             setCurrentClass(0)
             holder.forEach(function (entry) {
                 if (index == 14) {
@@ -101,6 +108,7 @@ export default function Graph() {
             setUseColor(colorChange[0]);
         }
         else if (dropDownValue2 == 'Deaths') {
+            setUsePercent(false)
             setCurrentClass(1)
             holder.forEach(function (entry) {
                 if (index == 14) {
@@ -127,6 +135,7 @@ export default function Graph() {
             setUseColor(colorChange[1]);
         }
         else if (dropDownValue2 == "Vaccinations") {
+            setUsePercent(true)
             setCurrentClass(2)
             holder.forEach(function (entry) {
                 if (dropDownValue == entry.name) {
@@ -261,7 +270,8 @@ export default function Graph() {
                                 family: 'Segoe UI',
                                 color: 'white',
                                 size: 18
-                            }
+                            },
+                            bordercolor: 'rgb(239, 239, 239)'
                         }
                     }
                 ]}
@@ -272,15 +282,15 @@ export default function Graph() {
                 <div className='graphAndData'>
                     <article className="graphprofile">
                         <span className="graphname">Highest {dropDownValue2}</span>
-                        <span className={classChange[currentClass]}>{dataList2[0]}</span>
+                        <span className={classChange[currentClass]}>{dataList2[0]}{usePercent ? "%" : ""}</span>
                     </article>
                     <article className="graphprofile">
                         <span className="graphname">Average {dropDownValue2}</span>
-                        <span className={classChange[currentClass]}>{dataList2[1]}</span>
+                        <span className={classChange[currentClass]}>{dataList2[1]}{usePercent ? "%" : ""}</span>
                     </article>
                     <article className="graphprofile">
                         <span className="graphname">Lowest {dropDownValue2}</span>
-                        <span className={classChange[currentClass]}>{dataList2[2]}</span>
+                        <span className={classChange[currentClass]}>{dataList2[2]}{usePercent ? "%" : ""}</span>
                     </article>
                 </div>
             </div>

@@ -26,6 +26,8 @@ export default function Bar() {
     const [classChange, setClassChange] = useState("")
     const [currentClass, setCurrentClass] = useState("");
 
+    const [usePercent, setUsePercent] = useState();
+
     var timePeriod = "Last 2 Weeks";
     var index = 0;
 
@@ -83,6 +85,10 @@ export default function Bar() {
 
     }, [useColor])
 
+    useEffect(() => {
+
+    }, [usePercent])
+
     async function changeTime(input) {
         console.log("Input: " + input);
         setDropDownValue(input);
@@ -123,6 +129,7 @@ export default function Bar() {
         let lowestName;
 
         if (dropDownValue2 == 'Cases') {
+            setUsePercent(false)
             setCurrentClass(0)
             holder.forEach(function (entry) {
                 var cases = entry.cases;
@@ -151,6 +158,7 @@ export default function Bar() {
             setUseColor(colorChange[0]);
         }
         else if (dropDownValue2 == 'Deaths') {
+            setUsePercent(false)
             setCurrentClass(1)
             holder.forEach(function (entry) {
                 var deaths = entry.deaths;
@@ -180,6 +188,7 @@ export default function Bar() {
             setUseColor(colorChange[1]);
         }
         else if (dropDownValue2 == "Vaccinations") {
+            setUsePercent(true)
             setCurrentClass(2)
             holder.forEach(function (entry) {
                 var vacRate = entry.vacRate;
@@ -280,7 +289,7 @@ export default function Bar() {
                                 color: 'white',
                                 size: 18
                             },
-                            bordercolor: 'rgb(239, 239, 239)'
+                            bordercolor: 'rgb(249, 249, 249)'
                         },
                     },
                 ]}
@@ -292,13 +301,13 @@ export default function Bar() {
                 <div className='barAndData'>
                     <article className="barprofile">
                         <span className="barname">Highest {dropDownValue2}</span>
-                        <span className={classChange[currentClass]}>{extraDataList[0]}</span>
+                        <span className={classChange[currentClass]}>{extraDataList[0]}{usePercent ? "%" : ""}</span>
                         <span className="barname">State</span>
                         <span className={classChange[currentClass]}>{extraDataList2[0]}</span>
                     </article>
                     <article className="barprofile">
                         <span className="barname">Lowest {dropDownValue2}</span>
-                        <span className={classChange[currentClass]}>{extraDataList[1]}</span>
+                        <span className={classChange[currentClass]}>{extraDataList[1]}{usePercent ? "%" : ""}</span>
                         <span className="barname">State</span>
                         <span className={classChange[currentClass]}>{extraDataList2[1]}</span>
                     </article>

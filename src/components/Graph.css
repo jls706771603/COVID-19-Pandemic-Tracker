@@ -74,7 +74,7 @@
     transition: transform .25s cubic-bezier(.7, .98, .86, .98), box-shadow .25s cubic-bezier(.7, .98, .86, .98);
     background-color: #fff;
     margin-bottom: 10px;
-    width: 300px;
+    width: 380px;
     margin-left: 60px;
     margin-right: 60px;
 }
