@@ -102,48 +102,33 @@ for(i = (Math.round(array.length/2)); i < array.length; i++) {
 }
 
 let allTwoWeekData = []
-//Get All Data for Past 2 Weeks
+
 let startSpot
-for(i = 0; i < array.length; i++) {
-    var stringArray = array[i].toString().split(',');
-    var date = stringArray[0];
-    prevDate = getTwoWeeksPast(today, 15)
-    // console.log("Prevdate: " + prevDate + "'date' : " + date)
-    if(prevDate === date){
-        startSpot = i
-        console.log("Starting Spot: " + startSpot)
-        break;
-    }
+for(i = (Math.round(array.length/2)); i < array.length; i++){
+  var stringArray = array[i].toString().split(',')
+  var date = stringArray[0]
+  prevDate = getTwoWeeksPast(today, 15)
+  if(prevDate === date) {
+    startSpot = i
+    break;
+  }
 }
-for(i = startSpot; i < array.length; i++) {
-    let holder = []
-    var stringArray = array[i].toString().split(',');
-    var holderDate = stringArray[0];
-    let dateSame = true
-    while (dateSame === true){
-        let counter = 0
-        for(let j = i; j < array.length; j++){
-            var stringArray = array[j].toString().split(',');
-            var date = stringArray[0]
-            if (date !== holderDate){
-                dateSame = false
-            }
-            var name = stringArray[1];
-            var id = stringArray[2];
-            var cases = stringArray[3];
-            var deaths = stringArray[4];
-            if(deaths.includes('\r')){
-                deaths = deaths.replace('\r', '')
-            }
-            var population = 0;
-            var vacRate = 0;
-            var stateHolder = new state(name, date, id, cases, deaths, population, vacRate);
-            holder.push(stateHolder)
-            i += j
-        }
-    }
-    allTwoWeekData.push(holder)
-}    
+console.log("Starting index : " + startSpot)
+for(let i = startSpot; i < array.length; i++){
+  var stringArray = array[i].toString().split(',');
+  var date = stringArray[0];
+  var name = stringArray[1];
+  var id = stringArray[2];
+  var cases = stringArray[3];
+  var deaths = stringArray[4];
+  // deaths = deaths.slice(0, deaths.length - 1)
+  var population = 0;
+  var vacRate = 0;
+  var holder = new state(name, date, id, cases, deaths, population, vacRate); 
+  console.log("Holder Date: " + holder.date) 
+  console.log("Holder Name: " + holder.name)
+  allTwoWeekData.push(holder)
+}
 
 // Gets 3 Month Data
 console.log("90 Day Date: " + getTwoWeeksPast(today, 90))
@@ -158,12 +143,11 @@ for(i = (Math.round(array.length/2)); i < array.length; i++) {
         var id = stringArray[2];
         var cases = todaysState.cases - stringArray[3];
         var oldDeaths = stringArray[4]
+        //Adjustment for death reallocation in MA
         if(name === 'Massachusetts'){
           oldDeaths = oldDeaths - 3750
         }
         var deaths = (todaysState.deaths - oldDeaths);
-        //Adjustment for death reallocation in MA
-        // deaths = deaths.slice(0, deaths.length - 1)
         var population = 0;
         var vacRate = 0;
         var holder = new state(name, date, id, cases, deaths, population, vacRate); 
@@ -174,22 +158,30 @@ for(i = (Math.round(array.length/2)); i < array.length; i++) {
 
 }
 
+console.log("180 Day Date: " + getTwoWeeksPast(today, 180))
 //Gets 6 Month Data
 for(i = (Math.round(array.length/3)); i < array.length; i++) {
     var stringArray = array[i].toString().split(',');
     var date = stringArray[0];
     prevDate = getTwoWeeksPast(today, 180)
-    // console.log("Prevdate: " + prevDate + "'date' : " + date)
+    // console.log("6 Month Prevdate: " + prevDate + "'date' : " + date)
     if(prevDate === date){
         let todaysState = findData(stringArray[1])
         var name = stringArray[1];
         var id = stringArray[2];
         var cases = todaysState.cases - stringArray[3];
+        var oldDeaths = stringArray[4]
+        //Adjustment for death reallocation in MA
         if(name === 'Massachusetts'){
           oldDeaths = oldDeaths - 3750
         }
-        var deaths = (todaysState.deaths - oldDeaths);
+        var deaths = Math.abs(todaysState.deaths - oldDeaths);
         // deaths = deaths.slice(0, deaths.length - 1)
+        if(name === 'California'){
+          console.log("Todays Deaths: " + todaysState.deaths)
+          console.log("Previous Deaths: " + oldDeaths)
+          console.log("Calc Deaths :" + deaths)
+        }
         var population = 0;
         var vacRate = 0;
         var holder = new state(name, date, id, cases, deaths, population, vacRate); 
@@ -202,95 +194,28 @@ for(i = (Math.round(array.length/3)); i < array.length; i++) {
 
 //Adds population Data to Files
 var array = fs.readFileSync('statePopulation.csv').toString().split("\n");
-for(i = 1; i < array.length - 1; i++){
+for(let i = 1; i < array.length - 1; i++){
   var stringArray = array[i].toString().split(',');
   var popName = stringArray[2];
   var population = stringArray[3];
-  for(j = 0; j < sixMonthData.length; j++){
-    var currState = sixMonthData[j];
-    if(currState.name == popName) {
-      currState.population = population.slice(0, -1);
-    }
+  addPopulation(twoWeekData, popName)
+  addPopulation(threeMonthData, popName)
+  addPopulation(sixMonthData, popName)
+  addPopulation(allTwoWeekData, popName)
   }
-}
-for(i = 1; i < array.length - 1; i++){
-    var stringArray = array[i].toString().split(',');
-    var popName = stringArray[2];
-    var population = stringArray[3];
-    for(j = 0; j < threeMonthData.length; j++){
-      var currState = threeMonthData[j];
-      if(currState.name == popName) {
-        currState.population = population.slice(0, -1);
-      }
-    }
-  }
-for(i = 1; i < array.length - 1; i++){
-var stringArray = array[i].toString().split(',');
-var popName = stringArray[2];
-var population = stringArray[3];
-for(j = 0; j < twoWeekData.length; j++){
-    var currState = twoWeekData[j];
+
+
+function addPopulation(array, popName){
+  for(let i = 0;i < array.length; i++){
+    var currState = array[i];
     if(currState.name == popName) {
     currState.population = population.slice(0, -1);
         }
     }
 }
-// ADDS VACCINATION RATE TO EACH REF
-//Parse state vaccination file and append population to matching county object
+
 var array = fs.readFileSync('statesVaccination.csv').toString().split("\n");
-for(i = 1; i < array.length - 1; i++){
-  var stringArray = array[i].toString().split(',');
-  var stateName = stringArray[0]
-  var vacRate = stringArray[13]
-  var oneDoseRate = stringArray[9]
-  var fivePlusRate = stringArray[57]
-  var plusRate18 = stringArray[15]
-  var plusRate65 = stringArray[35]
-  var plusBooster18 = stringArray[70]
-  var plusBooster65 = stringArray[72]
-  var fullyVacBoosterRate = stringArray[66]
-  for(j = 0; j < twoWeekData.length; j++){
-    var currState = twoWeekData[j];
-    if(currState.name == stateName) {
-      currState.vacRate = vacRate
-      currState.oneDoseRate = oneDoseRate
-      currState.fivePlusRate = fivePlusRate
-      currState.plusRate18 = plusRate18
-      currState.plusRate65 = plusRate65
-      currState.plusBooster18 = plusBooster18
-      currState.plusBooster65 = plusBooster65
-      currState.fullyVacBoosterRate = fullyVacBoosterRate
-    }
-  }
-}
-var array = fs.readFileSync('statesVaccination.csv').toString().split("\n");
-for(i = 1; i < array.length - 1; i++){
-  var stringArray = array[i].toString().split(',');
-  var stateName = stringArray[0]
-  var vacRate = stringArray[13]
-  var oneDoseRate = stringArray[9]
-  var fivePlusRate = stringArray[57]
-  var plusRate18 = stringArray[15]
-  var plusRate65 = stringArray[35]
-  var plusBooster18 = stringArray[70]
-  var plusBooster65 = stringArray[72]
-  var fullyVacBoosterRate = stringArray[66]
-  for(j = 0; j < threeMonthData.length; j++){
-    var currState = threeMonthData[j];
-    if(currState.name == stateName) {
-      currState.vacRate = vacRate
-      currState.oneDoseRate = oneDoseRate
-      currState.fivePlusRate = fivePlusRate
-      currState.plusRate18 = plusRate18
-      currState.plusRate65 = plusRate65
-      currState.plusBooster18 = plusBooster18
-      currState.plusBooster65 = plusBooster65
-      currState.fullyVacBoosterRate = fullyVacBoosterRate
-    }
-  }
-}
-var array = fs.readFileSync('statesVaccination.csv').toString().split("\n");
-for(i = 1; i < array.length - 1; i++){
+for(let i = 1; i < array.length - 1; i++){
   var stringArray = array[i].toString().split(',');
   var stateName = stringArray[0];
   var vacRate = stringArray[13];
@@ -301,9 +226,16 @@ for(i = 1; i < array.length - 1; i++){
   var plusBooster18 = stringArray[70]
   var plusBooster65 = stringArray[72]
   var fullyVacBoosterRate = stringArray[66]
-  for(j = 0; j < sixMonthData.length; j++){
-    var currState = sixMonthData[j];
-    if(currState.name == stateName) {
+  addVaccData(sixMonthData, stateName)
+  addVaccData(threeMonthData, stateName)
+  addVaccData(twoWeekData, stateName)
+  addVaccData(allTwoWeekData, stateName)
+}
+
+function addVaccData(array, stateName) {
+  for(let i = 0; i < array.length; i++){
+    var currState = array[i];
+    if(currState.name === stateName) {
       currState.vacRate = vacRate
       currState.oneDoseRate = oneDoseRate
       currState.fivePlusRate = fivePlusRate
@@ -315,7 +247,6 @@ for(i = 1; i < array.length - 1; i++){
     }
   }
 }
-
 
 console.log("Pushing Data")
 //Push lists to DB
@@ -329,13 +260,4 @@ const sixMonthRef = ref.child('6 Month State Data');
 sixMonthRef.set({sixMonthData})
 
 const allTwoWeekRef = ref.child('All 2 Week Data')
-for(let i = 0; i < allTwoWeekData.length; i++){
-    let holder = allTwoWeekData[i]
-    for(let j = 0; j < holder; j++){
-        let holder2 = holder[j]
-        let date = holder2.date
-        console.log(date)
-        allTwoWeekRef.child('All 2 Week Data').child({date}).push({holder2})
-    }
-
-}
+allTwoWeekRef.set({allTwoWeekData})
