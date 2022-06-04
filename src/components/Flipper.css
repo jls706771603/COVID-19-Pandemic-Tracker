@@ -1,0 +1,58 @@
+.flipBackground {
+    background-color: rgb(239, 239, 239);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.flipChart {
+    display: inline-flex;
+    height: 100px;
+    width: 350px;
+    font-size: 20px;
+    padding: 0;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background: rgb(249, 249, 249);
+    border: none;
+    outline: none;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 7px -1px rgba(51, 51, 51, 0.23);
+    cursor: pointer;
+    transition: transform .25s cubic-bezier(.7, .98, .86, .98), box-shadow .25s cubic-bezier(.7, .98, .86, .98);
+}
+
+.flipChart:hover {
+    background: rgb(230, 230, 230);
+}
+
+.flipChart:active {
+    background: rgb(211, 211, 211);
+}
+
+.flipperImages {
+    width: 40px;
+    height: 40px;
+}
+
+.button__text,
+.button__icon {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 30px;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.64px;
+    color: #bdbec0;
+    height: 100%;
+}
+
+.button__icon {
+    font-size: 24px;
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.flipChart:hover {
+    transform: scale(1.1);
+    box-shadow: 0 9px 47px 11px rgba(51, 51, 51, 0.18);
+}

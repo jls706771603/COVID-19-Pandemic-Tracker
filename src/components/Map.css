@@ -1,0 +1,71 @@
+.map-h2 {
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 20px;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.map {
+  width: 90%;
+  height: 60vh;
+  float: right;
+}
+
+.stateBorder {
+  color: #0000ff;
+  width: 3px;
+
+}
+
+.mapBackground {
+  display: block;
+  width: auto;
+  height: 1200px;
+  background-color: rgb(239, 239, 239);
+}
+
+.mapButtonContainer {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapItem {
+  display: inline;
+  align-items: center;
+  padding: 25px 0px 25px 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 5px 7px -1px rgba(51, 51, 51, 0.23);
+  cursor: pointer;
+  transition: transform .25s cubic-bezier(.7, .98, .86, .98), box-shadow .25s cubic-bezier(.7, .98, .86, .98);
+  background: rgb(249, 249, 249);
+  margin-bottom: 10px;
+  width: 300px;
+  margin-left: 60px;
+  margin-right: 60px;
+  border: none;
+}
+
+.mapItem:hover {
+  background: rgb(230, 230, 230);
+  transform: scale(1.1);
+  box-shadow: 0 9px 47px 11px rgba(51, 51, 51, 0.18);
+}
+
+.mapItem:active {
+  background: rgb(211, 211, 211);
+}
+
+.mapText {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 30px;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.64px;
+  color: #bdbec0;
+  height: 100%;
+}

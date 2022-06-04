@@ -1,0 +1,104 @@
+.graphBackground {
+    background-color: rgb(249, 249, 249);
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.selectOption2 {
+    width: 140px;
+    height: 35px;
+    padding: 5px 35px 5px 5px;
+    font-size: 20px;
+    border: none;
+    width: auto;
+    text-align: center;
+    background: rgb(249, 249, 249);
+    cursor: pointer;
+    color: #7a7a7a;
+}
+
+.selectOption2:focus {
+    outline: none;
+}
+
+.selectOption2 option:checked {
+    background-color: #d6d6d6;
+    color: #3e3e3e;
+}
+
+.selectUnderline2 {
+    width: auto;
+    height: 3px;
+    background-color: #989898;
+    border-radius: 3px;
+}
+
+.queryLabel2 {
+    color: #7a7a7a;
+    font-size: 20px;
+    font-style: bold;
+}
+
+.graphvalue {
+    color: rgb(252, 170, 70);
+    font-weight: 700;
+    font-size: 24px;
+    text-align: right;
+    padding: 0px 20px;
+}
+
+.graphvalue2 {
+    color: rgb(255, 55, 55);
+    font-weight: 700;
+    font-size: 24px;
+    text-align: right;
+    padding: 0px 20px;
+}
+
+.graphvalue3 {
+    color: rgb(59, 213, 59);
+    font-weight: 700;
+    font-size: 24px;
+    text-align: right;
+    padding: 0px 20px;
+}
+
+.graphprofile {
+    display: inline;
+    align-items: center;
+    padding: 10px 0px 10px 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 7px -1px rgba(51, 51, 51, 0.23);
+    cursor: pointer;
+    transition: transform .25s cubic-bezier(.7, .98, .86, .98), box-shadow .25s cubic-bezier(.7, .98, .86, .98);
+    background-color: #fff;
+    margin-bottom: 10px;
+    width: 300px;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.graphprofile:hover {
+    transform: scale(1.1);
+    box-shadow: 0 9px 47px 11px rgba(51, 51, 51, 0.18);
+}
+
+.graphname {
+    color: #979cb0;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.64px;
+    margin-left: 12px;
+}
+
+.graphStats {
+    margin: 40px;
+    justify-content: center;
+}
+
+.graphAndData {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
