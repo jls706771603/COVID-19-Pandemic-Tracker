@@ -63,6 +63,14 @@
     padding: 0px 20px;
 }
 
+.graphvalue4 {
+    color: rgb(81, 171, 220);
+    font-weight: 700;
+    font-size: 24px;
+    text-align: right;
+    padding: 0px 20px;
+}
+
 .graphprofile {
     display: inline;
     align-items: center;

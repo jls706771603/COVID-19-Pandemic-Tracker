@@ -73,7 +73,7 @@ function fillObjCoords() {
 //map container style
 const containerStyle = {
   width: '100%',
-  height: '800px',
+  height: '700px',
   float: 'center',
 };
 const defaultMapOptions = {
@@ -628,6 +628,12 @@ function Map() {
   return (
     //Map View Buttons
     <div className='mapBackground'>
+      <div className='mapButtonContainer'>
+        <button className='mapItem' onClick={() => toggleMap('Two Week Data')}><span className='mapText'>Two Week Data</span></button>
+        <button className='mapItem' onClick={() => toggleMap('Three Month Data')}><span className='mapText'>Three Month Data</span></button>
+        <button className='mapItem' onClick={() => toggleMap('Six Month Data')}><span className='mapText'>Six Month Data</span></button>
+        <button className='mapItem' onClick={() => toggleMap('Vaccination Map')}><span className='mapText'>Vaccination Map</span></button>
+      </div>
       {!threeMonthView && twoWeekView && !sixMonthView && !vaccView && (
         <LoadScript
           googleMapsApiKey="AIzaSyBYSwVwuuWe4ZxZpoNuCXWKWfmZXqWh9Lc"
@@ -811,12 +817,6 @@ function Map() {
 
           </GoogleMap>
         </LoadScript>)}
-      <div className='mapButtonContainer'>
-        <button className='mapItem' onClick={() => toggleMap('Two Week Data')}><span className='mapText'>Two Week Data</span></button>
-        <button className='mapItem' onClick={() => toggleMap('Three Month Data')}><span className='mapText'>Three Month Data</span></button>
-        <button className='mapItem' onClick={() => toggleMap('Six Month Data')}><span className='mapText'>Six Month Data</span></button>
-        <button className='mapItem' onClick={() => toggleMap('Vaccination Map')}><span className='mapText'>Vaccination Map</span></button>
-      </div>
     </div>
 
 

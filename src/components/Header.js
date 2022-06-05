@@ -14,7 +14,6 @@ export default function Header() {
         <ul className='navigation'>
           <a><li><button onClick={() => { history.push("/") }}>Home</button></li></a>
           <a><li><button onClick={() => { history.push("/tracking") }}>Tracking</button></li></a>
-          <a><li><button onClick={() => { history.push("/forums") }}>Forums</button></li></a>
           <a><li><button onClick={() => { history.push("/about") }}>About</button></li></a>
         </ul>
       </div>
