@@ -159,6 +159,7 @@ export default function Bar() {
                 <Plot
                     data={[
                         {
+                            hovertemplate: '%{label}: %{percent}<extra></extra>',
                             type: 'pie',
                             values: vaccinationTotal,
                             labels: ['Fully Vaccinated + Boosted', 'Fully Vaccinated', 'First Dose', 'None'],
@@ -192,7 +193,7 @@ export default function Bar() {
                                     color: 'white',
                                     size: 18
                                 }
-                            }
+                            },
                         },
                     ]}
                     layout={{ width: 800, height: 700, title: dropDownValue + " Vaccination Percentage", titlefont: { size: 30 }, legend: { traceorder: 'normal' }, plot_bgcolor: 'rgb(239, 239, 239)', paper_bgcolor: 'rgb(239, 239, 239)', legend: { font: { size: 16 } } }}

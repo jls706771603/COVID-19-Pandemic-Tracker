@@ -308,6 +308,7 @@ export default function Graph() {
             <Plot
                 data={[
                     {
+                        hovertemplate: dropDownValue2 + (usePercent ? ': %{y}%<extra></extra>' : ': %{y}<extra></extra>'),
                         x: dateList,
                         y: dataList,
                         type: 'scatter',
@@ -324,7 +325,7 @@ export default function Graph() {
                         }
                     }
                 ]}
-                layout={{ width: 1000, height: 500, title: useName ? dropDownValue + ' Population The Last 2 Weeks' : 'Last 2 Weeks of Covid-19 ' + dropDownValue2, titlefont: { size: 30 }, xaxis: { fixedrange: true, title: "Dates", titlefont: { size: 20 } }, yaxis: { fixedrange: true, title: dropDownValue2, titlefont: { size: 20 } }, plot_bgcolor: 'rgb(249, 249, 249)', paper_bgcolor: 'rgb(249, 249, 249)' }}
+                layout={{ width: 1000, height: 500, title: useName ? dropDownValue + ' Population The Last 2 Weeks' : 'Last 2 Weeks of Covid-19 ' + dropDownValue2, titlefont: { size: 30 }, xaxis: { fixedrange: true, title: "Dates", titlefont: { size: 20 } }, yaxis: { fixedrange: true, title: (usePercent ? dropDownValue2 + " (%)" : dropDownValue2), titlefont: { size: 20 } }, plot_bgcolor: 'rgb(249, 249, 249)', paper_bgcolor: 'rgb(249, 249, 249)' }}
                 config={{ displayModeBar: false }}
             />
             <div className='graphStats'>

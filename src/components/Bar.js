@@ -281,6 +281,7 @@ export default function Bar() {
             <Plot
                 data={[
                     {
+                        hovertemplate: 'State: %{x}<br>' + dropDownValue2 + ': %{y}<extra></extra>',
                         type: 'bar',
                         x: stateList,
                         y: dataList,
