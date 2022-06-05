@@ -38,6 +38,7 @@ body {
     background-color: rgb(249, 249, 249);
     padding-top: 100px;
     padding-bottom: 100px;
+    min-height: 900px;
 }
 
 .container {

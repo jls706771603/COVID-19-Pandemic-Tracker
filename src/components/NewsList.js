@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import NewsItem from './NewsItem'
+import { Layout } from './Layout'
 
 const NewsList = () => {
   const [articles, setArticles] = useState([])
@@ -14,21 +15,23 @@ const NewsList = () => {
     getArticles()
   }, [])
   return (
-    <div className='newsBackground'>
-      <div className='container'>
-        {articles.map(article => {
-          return (
-            <NewsItem
-              title={article.title}
-              description={article.description}
-              url={article.url}
-              urlToImage={article.urlToImage}
-              publishedAt={article.publishedAt}
-            />
-          )
-        })}
+    <Layout>
+      <div className='newsBackground'>
+        <div className='container'>
+          {articles.map(article => {
+            return (
+              <NewsItem
+                title={article.title}
+                description={article.description}
+                url={article.url}
+                urlToImage={article.urlToImage}
+                publishedAt={article.publishedAt}
+              />
+            )
+          })}
+        </div>
       </div>
-    </div>
+    </Layout>
   )
 }
 

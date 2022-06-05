@@ -9,6 +9,9 @@ import About from './components/About'
 import NewsList from './components/NewsList';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+import AppRouter from './components/AppRouter'
+import AuthContextProvider from './contexts/AuthContext'
+
 const location = {
   lat: 39.8283,
   lng: -98.5795,
@@ -18,6 +21,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        {/*
         <Header />
         <Switch>
           <Route exact path="/">
@@ -36,8 +40,11 @@ function App() {
           <Route path="/about">
             <About />
           </Route>
-        </Switch>
-        <Footer />
+  </Switch>*/}
+        <AuthContextProvider>
+          <AppRouter />
+        </AuthContextProvider>
+        {/*<Footer />*/}
       </div>
     </Router>
   );
