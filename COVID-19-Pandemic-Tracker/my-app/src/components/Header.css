@@ -1,0 +1,24 @@
+div.header {
+    background-color:rgb(12, 12, 141);
+    color: #ffff;
+    margin-top: 0px; 
+    clear: both;
+    padding: 0px;
+    height: 100px;
+    position: relative;
+}
+
+.logo {
+    float: left;
+    padding-left: 10px;
+
+}
+
+.navBar { 
+    float: right;
+    margin-left: auto;
+    margin-right: 15px;
+    margin-top: 30px;
+    text-align: center;
+    
+}
