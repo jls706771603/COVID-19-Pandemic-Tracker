@@ -233,7 +233,6 @@ export default function Graph() {
                         <label for="queryState" className="queryLabel2">Enter State: </label>
                         <select name="queryState" id="searchState" className="selectOption2" onChange={(e) => changeState(e.target.value)}>
                             <option disabled selected value> -- Select State -- </option>
-                            <option>All States</option>
                             <option>Alabama</option>
                             <option>Alaska</option>
                             <option>American Samoa</option>
@@ -355,5 +354,4 @@ export default function Graph() {
             </div>
         </div>
     )
-
 }

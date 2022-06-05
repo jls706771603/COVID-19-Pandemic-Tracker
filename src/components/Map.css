@@ -26,10 +26,24 @@
 }
 
 .mapButtonContainer {
-  height: 300px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.mapTextContainer {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapTextTop {
+  color: #444444;
+  font-weight: 400;
+  font-size: 36px;
+  letter-spacing: 0.40px;
 }
 
 .mapItem {
@@ -67,5 +81,27 @@
   font-size: 20px;
   letter-spacing: 0.64px;
   color: #bdbec0;
+  height: 100%;
+}
+
+.mapvalue {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 30px;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.64px;
+  color: #bdbec0;
+  height: 100%;
+}
+
+.mapvalue2 {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 30px;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.64px;
+  color: #1870d5;
   height: 100%;
 }

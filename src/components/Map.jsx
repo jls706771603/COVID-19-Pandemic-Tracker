@@ -330,7 +330,8 @@ function Map() {
   const [threeMonthView, setThreeMonthView] = useState(false)
   const [sixMonthView, setSixMonthView] = useState(false)
   const [vaccView, setVaccView] = useState(false)
-
+  const [classChange, setClassChange] = useState("")
+  const [selected, setSelected] = useState([]);
 
 
   //pulls all time state data to sync with polygon coordinates
@@ -378,7 +379,18 @@ function Map() {
     }))
   }, [])
 
+  //changes visuals of the buttons
+  useEffect(() => {
+    setClassChange(["mapvalue", "mapvalue2"])
+  }, [])
 
+  useEffect(() => {
+
+  }, [classChange])
+
+  useEffect(() => {
+
+  }, [selected])
 
   // useEffect(() => {
   //   get(child(dbRef, `counties/countyList`)).then((snapshot => {
@@ -503,6 +515,7 @@ function Map() {
 
   //updates options in stateList associated with polygon coordinates
   function updateTwoWeekPolygons() {
+    setSelected([true, false, false, false])
     // var array = []
     // setMappedList(array)
     let holder = fullStates
@@ -525,6 +538,7 @@ function Map() {
     setTwoWeekList(holder)
   }
   function updateSixMonthPolygons() {
+    setSelected([false, false, true, false])
     // var array = []
     // setMappedList(array)
     let holder = fullStates
@@ -549,6 +563,7 @@ function Map() {
 
   //updates options in stateList associated with polygon coordinates
   function updateThreeMonthPolygons() {
+    setSelected([false, true, false, false])
     // var array = []
     // setMappedList(array)
     let holder = fullStates
@@ -574,6 +589,7 @@ function Map() {
 
   //update vaccination polygons:
   function updateVaccPolygons() {
+    setSelected([false, false, false, true])
     let sortedArray = vaccStateData.sort((a, b) => Number(a.vacRate) - Number(b.vacRate))
     console.log("Sorted Array : " + JSON.stringify(sortedArray))
     let holder = fullStates
@@ -628,11 +644,14 @@ function Map() {
   return (
     //Map View Buttons
     <div className='mapBackground'>
+      <div className='mapTextContainer'>
+        <div className='mapTextTop'><span>Selected: {selected[0] ? "2 Week Data" : ""}{selected[1] ? "3 Month Data" : ""}{selected[2] ? "6 Month Data" : ""}{selected[3] ? "Vaccination Map" : ""}</span></div>
+      </div>
       <div className='mapButtonContainer'>
-        <button className='mapItem' onClick={() => toggleMap('Two Week Data')}><span className='mapText'>Two Week Data</span></button>
-        <button className='mapItem' onClick={() => toggleMap('Three Month Data')}><span className='mapText'>Three Month Data</span></button>
-        <button className='mapItem' onClick={() => toggleMap('Six Month Data')}><span className='mapText'>Six Month Data</span></button>
-        <button className='mapItem' onClick={() => toggleMap('Vaccination Map')}><span className='mapText'>Vaccination Map</span></button>
+        <button className='mapItem' onClick={() => toggleMap('Two Week Data')}><span className={selected[0] ? classChange[1] : classChange[0]}>Two Week Data</span></button>
+        <button className='mapItem' onClick={() => toggleMap('Three Month Data')}><span className={selected[1] ? classChange[1] : classChange[0]}>Three Month Data</span></button>
+        <button className='mapItem' onClick={() => toggleMap('Six Month Data')}><span className={selected[2] ? classChange[1] : classChange[0]}>Six Month Data</span></button>
+        <button className='mapItem' onClick={() => toggleMap('Vaccination Map')}><span className={selected[3] ? classChange[1] : classChange[0]}>Vaccination Map</span></button>
       </div>
       {!threeMonthView && twoWeekView && !sixMonthView && !vaccView && (
         <LoadScript
