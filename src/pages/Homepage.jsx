@@ -39,7 +39,7 @@ export default function Homepage() {
       <Graph />
       <Flipper />
       <Table />
-
+      {/*
       <Heading size='md' mt={20}>
         Some other links (only for reference):
       </Heading>
@@ -51,6 +51,7 @@ export default function Homepage() {
           <Link to='/forgot-password'>forgot page</Link>
         </ListItem>
       </List>
+  */}
     </Layout>
   )
 }

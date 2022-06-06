@@ -31,7 +31,7 @@ export default function Registerpage() {
   const mounted = useMounted()
 
   return (
-    <Layout>
+    <Layout h={1080}>
       <Heading textAlign='center' my={12}>
         Register
       </Heading>
@@ -51,26 +51,27 @@ export default function Registerpage() {
             setIsSubmitting(true)
             register(email, password)
               .then((response) => console.log(response))
-            .catch((error) => {
-              console.log(error.message) 
-              toast({
-                description: error.message,
-                status: 'error',
-                duration: 5000,
-                isCloseable: true
-            })}).finally(() => mounted.current && setIsSubmitting(false))
+              .catch((error) => {
+                console.log(error.message)
+                toast({
+                  description: error.message,
+                  status: 'error',
+                  duration: 5000,
+                  isCloseable: true
+                })
+              }).finally(() => mounted.current && setIsSubmitting(false))
           }}
         >
           <Stack spacing='6'>
             <FormControl id='email'>
               <FormLabel>Email address</FormLabel>
-              <Input 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                name='email' 
-                type='email' 
-                autoComplete='email' 
-                required 
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                name='email'
+                type='email'
+                autoComplete='email'
+                required
               />
             </FormControl>
             <FormControl id='password'>
@@ -84,11 +85,11 @@ export default function Registerpage() {
                 required
               />
             </FormControl>
-            <Button 
-              isLoading={isSubmitting} 
-              type='submit' 
-              colorScheme='primary' 
-              size='lg' 
+            <Button
+              isLoading={isSubmitting}
+              type='submit'
+              colorScheme='primary'
+              size='lg'
               fontSize='md'
             >
               Sign up
@@ -106,7 +107,7 @@ export default function Registerpage() {
           isFullWidth
           colorScheme='red'
           leftIcon={<FaGoogle />}
-          onClick={() => 
+          onClick={() =>
             signInWithGoogle()
               .then(user => console.log(user))
               .catch(error => console.log(error))
