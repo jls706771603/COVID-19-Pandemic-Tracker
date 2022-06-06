@@ -298,7 +298,7 @@ export default function Bar() {
                         },
                     },
                 ]}
-                layout={{ width: 1820, height: 700, margin: 10, title: dropDownValue + ' of Covid-19 ' + dropDownValue2, titlefont: { size: 30 }, xaxis: { fixedrange: true, title: "States", automargin: true, titlefont: { size: 20 } }, yaxis: { fixedrange: true, title: dropDownValue2, titlefont: { size: 20 } }, plot_bgcolor: 'rgb(239, 239, 239)', paper_bgcolor: 'rgb(239, 239, 239)' }}
+                layout={{ width: 1720, height: 700, margin: 10, title: dropDownValue + ' of Covid-19 ' + dropDownValue2, titlefont: { size: 30 }, xaxis: { fixedrange: true, title: "States", automargin: true, titlefont: { size: 20 } }, yaxis: { fixedrange: true, title: dropDownValue2, titlefont: { size: 20 } }, plot_bgcolor: 'rgb(239, 239, 239)', paper_bgcolor: 'rgb(239, 239, 239)' }}
                 config={{ displayModeBar: false }}
             />
 

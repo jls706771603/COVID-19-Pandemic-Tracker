@@ -13,13 +13,13 @@ export default function About() {
                     <section style={{ backgroundImage: `url(${city})` }}>
                         <div className='aboutBox'>
                             <h1 className='aboutTitle'>How'd it Start?</h1>
-                            <p className='aboutMessage2'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <p className='aboutMessage2'>Like most, we began concerned about the COVID 19 Pandemic and its affect on our communities. We set out to create a tool that provides easy and digestible data regarding the pandemic in the United States. Given the pandemics complexity and ability to change rapidly, our mission is to provide an easy snapshot into its current state. The pandemic tracker allows users to track detailed data such as case rates, deaths, and vaccination data.</p>
                         </div>
                     </section>
                     <section style={{ backgroundImage: `url(${terrain})` }}>
                         <div className='aboutBox'>
-                            <h1 className='aboutTitle'>Why Developed?</h1>
-                            <p className='aboutMessage2'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <h1 className='aboutTitle'>Resources Used</h1>
+                            <p className='aboutMessage2'>The COVID 19 Pandemic Tracker is developed using a mix of technologies. React, Firebase, and Node.js are all used in its implementation. Multiple libraries also make it possible. Source data is drawn directly from the NY Times Github Repo to provide accurate and timely data.</p>
                         </div>
                     </section>
                     <section className='seattleBackground' style={{ backgroundImage: `url(${seattle})` }}>
