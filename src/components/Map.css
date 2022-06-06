@@ -15,10 +15,11 @@
 .stateBorder {
   color: #0000ff;
   width: 3px;
-
 }
 
 .mapBackground {
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
   display: block;
   width: auto;
   height: 1000px;

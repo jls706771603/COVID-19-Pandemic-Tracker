@@ -39,6 +39,8 @@ body {
     padding-top: 100px;
     padding-bottom: 100px;
     min-height: 900px;
+    border-radius: 100px;
+    margin-bottom: 20px;
 }
 
 .container {

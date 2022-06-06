@@ -32,14 +32,14 @@ const location = {
 export default function Homepage() {
   const { currentUser } = useAuth()
   return (
-    <Layout>
-      <Heading>Home page</Heading>
+    <Layout width="100%">
+      {/*<Heading>Home page</Heading>*/}
       {/*<Text my={6}> {`The current user is : ${currentUser}`} </Text>*/}
       <Map location={location} zoomLevel={4}></Map>
       <Graph />
       <Flipper />
       <Table />
-      
+
       <Heading size='md' mt={20}>
         Some other links (only for reference):
       </Heading>

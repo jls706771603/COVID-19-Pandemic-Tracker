@@ -6,7 +6,7 @@ export function Layout(props) {
     return (
         <>
             <Navbar />
-            <Container maxW='container.lg'>{props.children}</Container>
+            <Container maxW='95%' maxH='95%'>{props.children}</Container>
         </>
     )
 }
