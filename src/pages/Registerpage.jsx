@@ -31,7 +31,7 @@ export default function Registerpage() {
   const mounted = useMounted()
 
   return (
-    <Layout h={1080}>
+    <Layout>
       <Heading textAlign='center' my={12}>
         Register
       </Heading>
