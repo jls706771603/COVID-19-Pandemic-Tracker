@@ -13,6 +13,8 @@ export default function Bar() {
 
     const [dropDownValue, setDropDownValue] = useState("[Enter State]")
 
+    const [reloadPie, setReloadPie] = useState(true)
+
     useEffect(() => {
         get(child(dbRef, `states/stateList`)).then((snapshot => {
             if (snapshot.exists()) {
@@ -22,6 +24,12 @@ export default function Bar() {
             }
         }))
     }, [])
+
+    useEffect(() => {
+        setDropDownValue('All States')
+        setReloadPie(true)
+        changePieState('All States')
+    }, [stateListData, reloadPie])
 
     useEffect(() => {
 
@@ -91,7 +99,7 @@ export default function Bar() {
                 <div className='allSelections'>
                     <div className='selectContainer'>
                         <label for="queryState" className="queryLabel">Enter State: </label>
-                        <select name="queryState" id="searchState" className="selectOption" onChange={(e) => changePieState(e.target.value)}>
+                        <select defaultValue={"All States"} name="queryState" id="searchState" className="selectOption" onChange={(e) => changePieState(e.target.value)}>
                             <option disabled selected value> -- Select State -- </option>
                             <option>All States</option>
                             <option>Alabama</option>

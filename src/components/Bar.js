@@ -26,6 +26,7 @@ export default function Bar() {
     const [classChange, setClassChange] = useState("")
     const [currentClass, setCurrentClass] = useState("");
 
+    const [reloadBar, setReloadBar] = useState(true)
 
     //const [usePercent, setUsePercent] = useState();
 
@@ -61,6 +62,13 @@ export default function Bar() {
             }
         }))
     }, [])
+
+    useEffect(() => {
+        setDropDownValue('Last 2 Weeks')
+        setDropDownValue2('Cases')
+        setReloadBar(true)
+        changeBar()
+    }, [twoWeekStateData, threeMonthsStateData, sixMonthsStateData, reloadBar])
 
     useEffect(() => {
         setColorChange(["rgb(252, 170, 70)", "rgb(255, 55, 55)", "rgb(59, 213, 59)"])
@@ -259,7 +267,7 @@ export default function Bar() {
                 <div className='allSelections'>
                     <div className='selectContainer'>
                         <label for="queryTime2" className="queryLabel">Time Interval: </label>
-                        <select name="queryTime2" className="selectOption" onChange={(e) => changeTime(e.target.value)}>
+                        <select defaultValue={"Last 2 Weeks"} name="queryTime2" className="selectOption" onChange={(e) => changeTime(e.target.value)}>
                             <option disabled selected value> -- Select Time Period -- </option>
                             <option>Last 2 Weeks</option>
                             <option>Last 3 Months</option>
@@ -269,7 +277,7 @@ export default function Bar() {
                     </div>
                     <div className='selectContainer'>
                         <label for="queryFields" className="queryLabel">Options: </label>
-                        <select name="queryFields" className="selectOption" onChange={(e) => changeFields(e.target.value)}>
+                        <select defaultValue={"Cases"} name="queryFields" className="selectOption" onChange={(e) => changeFields(e.target.value)}>
                             <option disabled selected value> -- Select Fields -- </option>
                             <option>Cases</option>
                             <option>Deaths</option>

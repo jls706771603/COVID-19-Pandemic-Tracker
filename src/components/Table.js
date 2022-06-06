@@ -16,6 +16,8 @@ export default function Table() {
 
     const [tableDataList, setTableDataList] = useState([])
 
+    const [reloadTable, setReloadTable] = useState(true)
+
     useEffect(() => {
         get(child(dbRef, `2 Week State Data/twoWeekData`)).then((snapshot => {
             if (snapshot.exists()) {
@@ -45,6 +47,13 @@ export default function Table() {
             }
         }))
     }, [])
+
+    useEffect(() => {
+        setDropDownValue('Last 2 Weeks')
+        setDropDownValue2('Cases')
+        setReloadTable(true)
+        changeTable()
+    }, [twoWeekStateData, threeMonthsStateData, sixMonthsStateData, reloadTable])
 
     useEffect(() => {
         if (dropDownValue == "") {
@@ -134,7 +143,7 @@ export default function Table() {
                 <div className='allSelections'>
                     <div className='selectContainer'>
                         <label for="queryTime" className="queryLabel2">Time Interval: </label>
-                        <select name="queryTime" className="selectOption2" onChange={(e) => changeTime(e.target.value)}>
+                        <select defaultValue={"Last 2 Weeks"} name="queryTime" className="selectOption2" onChange={(e) => changeTime(e.target.value)}>
                             <option disabled selected value> -- Select Time Period -- </option>
                             <option>Last 2 Weeks</option>
                             <option>Last 3 Months</option>
@@ -144,7 +153,7 @@ export default function Table() {
                     </div>
                     <div className='selectContainer'>
                         <label for="queryState" className="queryLabel2">Enter State: </label>
-                        <select name="queryState" className="selectOption2" onChange={(e) => changeState(e.target.value)}>
+                        <select defaultValue={"All States"} name="queryState" className="selectOption2" onChange={(e) => changeState(e.target.value)}>
                             <option disabled selected value> -- Select State -- </option>
                             <option>All States</option>
                             <option>Alabama</option>

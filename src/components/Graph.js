@@ -25,6 +25,8 @@ export default function Graph() {
     const [classChange, setClassChange] = useState("")
     const [currentClass, setCurrentClass] = useState("");
 
+    const [reloadGraph, setReloadGraph] = useState(true)
+
     var index = 0;
 
     const dbRef = ref(getDatabase())
@@ -38,6 +40,13 @@ export default function Graph() {
             }
         }))
     }, [])
+
+    useEffect(() => {
+        setDropDownValue('Washington')
+        setDropDownValue2('Cases')
+        setReloadGraph(true)
+        changeGraph()
+    }, [allTwoWeekStateData, reloadGraph])
 
     useEffect(() => {
         setColorChange(["rgb(252, 170, 70)", "rgb(255, 55, 55)", "rgb(59, 213, 59)", "rgb(81, 171, 220)"])
@@ -231,7 +240,7 @@ export default function Graph() {
                 <div className='allSelections'>
                     <div className='selectContainer'>
                         <label for="queryState" className="queryLabel2">Enter State: </label>
-                        <select name="queryState" id="searchState" className="selectOption2" onChange={(e) => changeState(e.target.value)}>
+                        <select defaultValue={"Washington"} name="queryState" id="searchState" className="selectOption2" onChange={(e) => changeState(e.target.value)}>
                             <option disabled selected value> -- Select State -- </option>
                             <option>Alabama</option>
                             <option>Alaska</option>
@@ -294,7 +303,7 @@ export default function Graph() {
                     </div>
                     <div className='selectContainer'>
                         <label for="queryFields" className="queryLabel2">Options: </label>
-                        <select name="queryFields" className="selectOption2" onChange={(e) => changeFields(e.target.value)}>
+                        <select defaultValue={"Cases"} name="queryFields" className="selectOption2" onChange={(e) => changeFields(e.target.value)}>
                             <option disabled selected value> -- Select Fields -- </option>
                             <option>Cases</option>
                             <option>Deaths</option>

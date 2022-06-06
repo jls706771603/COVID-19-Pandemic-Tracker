@@ -10,7 +10,7 @@ const NewsItem = ({ title, description, url, urlToImage, publishedAt }) => {
   var options = { year: 'numeric', month: 'long', day: 'numeric' };
   date = new Date(publishedAt).toLocaleDateString([], options);
   currentTime = new Date()
-  currentTime.setDate(currentTime.getDate() - 14)
+  currentTime.setDate(currentTime.getDate() - 3)
   if ((new Date(publishedAt)).getTime() < currentTime.getTime()) {
     flag = true;
   }
