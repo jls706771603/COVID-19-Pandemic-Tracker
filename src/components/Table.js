@@ -50,11 +50,12 @@ export default function Table() {
 
     useEffect(() => {
         setDropDownValue('Last 2 Weeks')
-        setDropDownValue2('Cases')
+        setDropDownValue2('All States')
         setReloadTable(true)
         changeTable()
     }, [twoWeekStateData, threeMonthsStateData, sixMonthsStateData, reloadTable])
 
+    /*
     useEffect(() => {
         if (dropDownValue == "") {
             setDropDownValue("Last 2 Weeks")
@@ -63,6 +64,7 @@ export default function Table() {
             setDropDownValue2("All States")
         }
     }, [])
+    */
 
     useEffect(() => {
         changeTable()
