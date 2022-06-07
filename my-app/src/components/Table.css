@@ -1,0 +1,32 @@
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible
+}
+
+.table {
+    width: 70%;
+    margin-bottom: 1rem;
+    color: #212529;
+    margin-left: auto;
+    margin-right: auto;
+    font-style: Segoe UI;
+}
+
+.table td,
+.table th {
+    padding: .75rem;
+    vertical-align: top;
+    border: 2px solid #dee2e6
+}
+
+.table thead tr {
+    background-color: #dee2e6;
+}
