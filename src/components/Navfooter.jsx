@@ -83,8 +83,6 @@ export function Navfooter() {
                     <Link href={'/'}>Homepage</Link>
                     <Link href={'/tracking'}>Tracking</Link>
                     <Link href={'/about'}>About</Link>
-                    <Link href={'/login'}>Login</Link>
-                    <Link href={'/register'}>Register</Link>
                 </Stack>
             </Container>
 
