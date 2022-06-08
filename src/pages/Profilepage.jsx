@@ -2,13 +2,32 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Layout } from '../components/Layout'
 import { Badge, Code, Container, Heading, chakra, HStack, VStack, Center, FormControl, Stack, FormLabel, Input, Button } from '@chakra-ui/react'
 import { Card } from '../components/Card'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth, upload } from '../contexts/AuthContext'
 
 export default function Profilepage() {
   const { currentUser } = useAuth()
+  const [photo, setPhoto] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [photoURL, setPhotoURL] = useState('https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png');
+
+  function handleChange(e) {
+    if(e.target.files[0]) {
+      setPhoto(e.target.files[0])
+    }
+  }
+
+  function handleClick() {
+    upload(photo, currentUser, setLoading);
+  }
+
+  useEffect(() => {
+    if (currentUser?.photoURL) {
+      setPhotoURL(currentUser.photoURL);
+    }
+  }, [currentUser])
 
   return (
     <Layout>
@@ -18,42 +37,35 @@ export default function Profilepage() {
           Protected Page
         </Badge>
       </Heading>
-
+      {currentUser.email}
       <Container maxW='container.lg' overflowX='auto' py={4}>
         <chakra.form>
-          <Stack spacing='6'>
-            <FormControl id='email'>
-              <FormLabel>Email address</FormLabel>
-              <Input 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                name='email' 
-                type='email' 
-                autoComplete='email' 
-                required 
+          <Stack spacing='2'>
+            <Card>
+              <FormControl className='image-upload'>
+                <FormLabel>
+                  <img src={photoURL} alt="Avatar" className='avatar'/>
+                </FormLabel>
+                <Input  
+                  onChange={handleChange} 
+                  name='file' 
+                  type='file' 
+                  autoComplete='file' 
+                  required 
                 />
-            </FormControl>
-            <FormControl id='password'>
-              <FormLabel>Password</FormLabel>
-              <Input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                name='password'
-                type='password'
-                autoComplete='password'
-                required
-              />
-            </FormControl>
-            {/* <PasswordField /> */}
-            <Button 
-              isLoading={isSubmitting}
-              type='submit' 
-              colorScheme='primary' 
-              size='lg' 
-              fontSize='md'
-            >
-              Sign in
-            </Button>
+              </FormControl>
+              <Button 
+                onClick={handleClick}
+                type='submit' 
+                colorScheme='primary' 
+                size='lg' 
+                fontSize='md'
+                disabled={loading || !photo}
+              >
+                Upload
+              </Button>
+            </Card>
+            
           </Stack>
         </chakra.form>
       </Container>
