@@ -19,6 +19,7 @@ code {
   border-width: 5px;
   border-color: gray;
   border-style: outset;
+  margin: auto;
 }
 
 .avatar2 {
@@ -32,15 +33,15 @@ code {
   margin-right: auto;
 }
 
-.image-upload>input {
+/*.image-upload>input {
   display: none;
-}
+}*/
 
 .user-button {
   padding: 0;
   border: 0;
 }
 
-.image-upload:hover {
-
+.css-2gx1h6 {
+  text-align: center;
 }

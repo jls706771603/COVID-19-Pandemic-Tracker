@@ -16,6 +16,7 @@ import {
     MenuOptionGroup,
     MenuDivider,
     Button,
+    Avatar
 } from '@chakra-ui/react'
 import { FaChevronDown } from 'react-icons/fa'
 import React from 'react'
@@ -54,9 +55,10 @@ export function Navbar() {
                             className="user-button" 
                             as={Button} 
                             rightIcon={<FaChevronDown />}
-                            mx={1}
+                            size='sm'
                         >
-                            {<img src={currentUser?.photoURL} alt="Avatar" className='avatar2'/>}
+                            {/*<img src={currentUser?.photoURL} alt="Avatar" className='avatar2'/>*/}
+                            <Avatar name={currentUser?.email} src={currentUser?.photoURL} />
                         </MenuButton>
                         <MenuList>
                             <MenuItem>
