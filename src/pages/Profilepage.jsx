@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Layout } from '../components/Layout'
-import { Badge, Code, Container, Heading, chakra, HStack, VStack, Center, FormControl, Stack, FormLabel, Input, Button } from '@chakra-ui/react'
+import { Badge, Code, Container, Heading, chakra, Flex, Center, FormControl, Stack, FormLabel, Input, Button, Text, VStack, StackDivider } from '@chakra-ui/react'
 import { Card } from '../components/Card'
 import { useAuth, upload } from '../contexts/AuthContext'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function Profilepage() {
   const { currentUser } = useAuth()
@@ -12,6 +13,7 @@ export default function Profilepage() {
   const [password, setPassword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [photoURL, setPhotoURL] = useState('https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png');
+  const [preview, setPreview] = useState()
 
   function handleChange(e) {
     if(e.target.files[0]) {
@@ -29,6 +31,20 @@ export default function Profilepage() {
     }
   }, [currentUser])
 
+  // create a preview as a side effect, whenever selected file is changed
+  useEffect(() => {
+    if (!photo) {
+        setPreview(undefined)
+        return
+    }
+
+    const objectUrl = URL.createObjectURL(photo)
+    setPreview(objectUrl)
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl)
+  }, [photo])
+
   return (
     <Layout>
       <Heading>
@@ -37,22 +53,44 @@ export default function Profilepage() {
           Protected Page
         </Badge>
       </Heading>
-      {currentUser.email}
-      <Container maxW='container.lg' overflowX='auto' py={4}>
+      
+      <Container maxW='container.lg' overflowX='auto' py={4} centerContent>
         <chakra.form>
           <Stack spacing='2'>
             <Card>
-              <FormControl className='image-upload'>
-                <FormLabel>
+              <Flex>
+                <Center marginRight='1em'>
                   <img src={photoURL} alt="Avatar" className='avatar'/>
-                </FormLabel>
-                <Input  
-                  onChange={handleChange} 
-                  name='file' 
-                  type='file' 
-                  autoComplete='file' 
-                  required 
-                />
+                </Center>
+                <Center>
+                  <Text>Email: {currentUser?.email}</Text>
+                </Center>
+              </Flex>
+            </Card>
+            <Card>
+              <FormControl className='image-upload'>
+                <VStack
+                  divider={<StackDivider borderColor='gray.200' />}
+                  spacing={4}
+                  align='stretch'
+                >
+                  <Center>
+                    <FormLabel>
+                      {/*<img src={photoURL} alt="Avatar" className='avatar'/>*/}
+                      {photo && <img src={preview} alt="Avatar" className='avatar'/> }
+                      Upload an Image
+                    </FormLabel>
+                  </Center>
+                  <Center>
+                    <Input  
+                      onChange={handleChange} 
+                      name='file' 
+                      type='file' 
+                      autoComplete='file' 
+                      required 
+                    />
+                  </Center>
+                </VStack>
               </FormControl>
               <Button 
                 onClick={handleClick}
@@ -61,11 +99,11 @@ export default function Profilepage() {
                 size='lg' 
                 fontSize='md'
                 disabled={loading || !photo}
+                marginTop='1em'
               >
                 Upload
               </Button>
-            </Card>
-            
+            </Card>        
           </Stack>
         </chakra.form>
       </Container>

@@ -58,7 +58,7 @@ export default function Loginpage() {
             login(email, password)
               .then((response) => {
                 console.log(response)
-                history.push(location.state?.from ?? '/profile')
+                history.push(location.state?.from ?? '/')
               })
             .catch((error) => {
               console.log(error.message) 

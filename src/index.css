@@ -19,12 +19,29 @@ code {
   border-width: 5px;
   border-color: gray;
   border-style: outset;
+  margin: auto;
 }
 
-.image-upload>input {
+.avatar2 {
+  width: 65px;
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: gray;
+  border-style: outset;
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/*.image-upload>input {
   display: none;
+}*/
+
+.user-button {
+  padding: 0;
+  border: 0;
 }
 
-.image-upload:hover {
-  
+.css-2gx1h6 {
+  text-align: center;
 }
