@@ -25,13 +25,13 @@ const NewsItem = ({ title, description, url, urlToImage, publishedAt }) => {
           <span class="tag tag-blue">News Article</span>
           {flag ? <div></div> : <span class="tag tag-new">New!</span>}
         </div>
-        <h4>
+        <h4 class="articleTitle">
           {title}
         </h4>
-        <p>
+        <p class="descrip">
           {description}
         </p>
-        <p className='published'>
+        <p className='date'>
           Published: {date}
         </p>
         <div className='user'>

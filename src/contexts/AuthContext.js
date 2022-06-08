@@ -53,7 +53,7 @@ export default function AuthContextProvider({ children }) {
     function forgotPassword(email) {
         return sendPasswordResetEmail(auth, email, {
             // KEY POINT
-            url: 'http://localhost:3000/login'
+            url: 'https://pandemic-tracker-1b4e2.web.app/login'
         })
     }
 
@@ -87,7 +87,7 @@ export async function upload(file, currentUser, setLoading) {
 
     const photoURL = await getDownloadURL(fileRef);
 
-    updateProfile(currentUser, {photoURL})
+    updateProfile(currentUser, { photoURL })
 
     setLoading(false)
     alert("Uploaded file")

@@ -6,6 +6,7 @@ import data from '../states2.json'
 import countyData from '../counties.json'
 import { collection, doc, query, QuerySnapshot, getDoc } from 'firebase/firestore/lite';
 import { ref, push, getDatabase, get, child, set } from 'firebase/database'
+import { Hide } from '@chakra-ui/react';
 
 let objs = []
 let objCoords = []
@@ -80,8 +81,27 @@ const defaultMapOptions = {
   fullscreenControl: false,
   mapTypeControl: false,
   streetViewControl: false,
-  minZoom: 3
-
+  minZoom: 3,
+  scrollwheel: false,
+  styles: [
+    {
+      featureType: 'administrative.country',
+      stylers: [{ visibility: 'off' }]
+    },
+    // {
+    //     featureType: 'administrative.province',
+    //     stylers: [{ visibility: 'off' }]
+    //   }
+    {
+      featureType: 'administrative.locality',
+      stylers: [{ visibility: 'off' }]
+    },
+    {
+      featureType: 'water',
+      elementType: "labels.text",
+      stylers: [{ visibility: 'off' }]
+    }
+  ]
 }
 
 
@@ -94,7 +114,7 @@ const center = {
 //polygon & map options options
 const highOptions = {
   fillColor: "red",
-  fillOpacity: .4,
+  fillOpacity: .7,
   strokeColor: "black",
   strokeOpacity: 1,
   strokeWeight: 2,
@@ -107,7 +127,7 @@ const highOptions = {
 
 const medHighOptions = {
   fillColor: "orange",
-  fillOpacity: .4,
+  fillOpacity: .7,
   strokeColor: "black",
   strokeOpacity: 1,
   strokeWeight: 2,
@@ -119,8 +139,8 @@ const medHighOptions = {
 }
 
 const medOptions = {
-  fillColor: "yellow",
-  fillOpacity: .4,
+  fillColor: "#F8D66D",
+  fillOpacity: .7,
   strokeColor: "black",
   strokeOpacity: 1,
   strokeWeight: 2,
@@ -131,8 +151,8 @@ const medOptions = {
   zIndex: 1
 }
 const medLowOptions = {
-  fillColor: "light yellow",
-  fillOpacity: .4,
+  fillColor: "#8CD47E",
+  fillOpacity: .7,
   strokeColor: "black",
   strokeOpacity: 1,
   strokeWeight: 2,
@@ -145,7 +165,7 @@ const medLowOptions = {
 
 const lowOptions = {
   fillColor: "green",
-  fillOpacity: .4,
+  fillOpacity: .7,
   strokeColor: "black",
   strokeOpacity: 1,
   strokeWeight: 2,
@@ -167,6 +187,7 @@ const defOptions = {
   geodesic: false,
   zIndex: 1
 }
+
 
 
 
@@ -296,7 +317,7 @@ function stateParse() {
 }
 
 stateParse()
-console.log(fullStates)
+// console.log(fullStates)
 //filter empty arrays from stateList
 fullStates = fullStates.filter((e) => {
   return e.length > 0
@@ -326,12 +347,13 @@ function Map() {
   const [sixMonthsStateData, setSixMonthsStateData] = useState([])
   const [vaccStateData, setVaccStateData] = useState([])
   const [mappedList, setMappedList] = useState([])
-  const [twoWeekView, setTwoWeekView] = useState(true)
+  const [twoWeekView, setTwoWeekView] = useState(false)
   const [threeMonthView, setThreeMonthView] = useState(false)
   const [sixMonthView, setSixMonthView] = useState(false)
   const [vaccView, setVaccView] = useState(false)
   const [classChange, setClassChange] = useState("")
   const [selected, setSelected] = useState([]);
+  const [reloadMap, setReloadMap] = useState(false)
 
 
   //pulls all time state data to sync with polygon coordinates
@@ -379,6 +401,12 @@ function Map() {
     }))
   }, [])
 
+  useEffect(() => {
+    setTwoWeekView(true)
+    updateTwoWeekPolygons()
+    setReloadMap(true)
+  }, [twoWeekStateData, setReloadMap])
+
   //changes visuals of the buttons
   useEffect(() => {
     setClassChange(["mapvalue", "mapvalue2"])
@@ -392,43 +420,13 @@ function Map() {
 
   }, [selected])
 
-  // useEffect(() => {
-  //   get(child(dbRef, `counties/countyList`)).then((snapshot => {
-  //     if(snapshot.exists()) {
-  //       setStateInfo(snapshot.val())
-  //     } else {
-  //       console.log("No data!")
-  //     }
-  //   }))
-  // }, [])
-
-
-  //syncs stateList state for mapping from stateParse function, fires updatePolygons to update state options for coloring
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     updateTwoWeekPolygons()
-  //     updateThreeMonthPolygons()
-  //     updateSixMonthPolygons()
-  //   }, 15000)
-  //   return () => clearInterval(interval)
-  // }, [])
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     updateCounties()
-  //    }, 30000)
-  //    return () => clearInterval(interval)
-  // }, [])
-
 
   //returns proper set of polygon options based on caseRate
   function getOptions(caseRate) {
     // console.log("Case Rate : " + caseRate)
-    if (caseRate > .010) {
+    if (caseRate >= 20) {
       return highOptions
-    } else if (caseRate > .0070 && caseRate < .010) {
-      return medHighOptions
-    } else if (caseRate >= .0030 && caseRate < .0070) {
+    } else if (caseRate > 10 && caseRate < 20) {
       return medOptions
     } else {
       return lowOptions
@@ -436,39 +434,55 @@ function Map() {
   }
 
   function getVacOptions(index) {
-    if (index <= 10) {
+    if (index < 10) {
       return highOptions
-    } else if (index > 10 && index <= 20) {
+    } else if (index >= 10 && index <= 20) {
       return medHighOptions
-    } else if (index > 20 && index <= 35) {
+    } else if (index > 20 && index <= 36) {
       return medOptions
-    } else if (index > 35 && index <= 45) {
+    } else if (index > 36 && index <= 45) {
       return medLowOptions
     } else {
       return lowOptions
     }
   }
 
-
+  function getSixMonthOptions(caseRate) {
+    // console.log("Case Rate : " + caseRate)
+    if (caseRate >= 60) {
+      return highOptions
+    } else if (60 > caseRate && caseRate > 50) {
+      return medOptions
+    } else {
+      return lowOptions
+    }
+  }
 
   //provides infoWindow with data on user click
   function infoWindowData(selectedName, attribute) {
     if (sixMonthView === false && threeMonthView === false && twoWeekView === true && vaccView === false) {
       for (let i = 0; i < twoWeekStateData.length; i++) {
-        console.log("selectedName: " + JSON.stringify(selectedName))
+        // console.log("selectedName: " + JSON.stringify(selectedName))
         if (twoWeekStateData[i].name === selectedName && attribute === 'deaths') {
+          console.log(twoWeekStateData[i].deaths)
           return twoWeekStateData[i].deaths
         }
         if (twoWeekStateData[i].name === selectedName && attribute === 'cases') {
+          console.log(twoWeekStateData[i].cases)
           return twoWeekStateData[i].cases
         }
         if (twoWeekStateData[i].name === selectedName && attribute === 'vacRate') {
           return twoWeekStateData[i].vacRate
         }
+        if (twoWeekStateData[i].name === selectedName && attribute === 'dailyCases') {
+          let holder = (twoWeekStateData[i].cases) / (twoWeekStateData[i].population)
+          holder = (holder / 14) * 100000
+          return holder.toFixed(2)
+        }
       }
     } else if (sixMonthView === false && threeMonthView === true && twoWeekView === false && vaccView === false) {
       for (let i = 0; i < threeMonthsStateData.length; i++) {
-        console.log("selectedName: " + JSON.stringify(selectedName))
+        // console.log("selectedName: " + JSON.stringify(selectedName))
         if (threeMonthsStateData[i].name === selectedName && attribute === 'deaths') {
           return threeMonthsStateData[i].deaths
         }
@@ -478,10 +492,15 @@ function Map() {
         if (threeMonthsStateData[i].name === selectedName && attribute === 'vacRate') {
           return threeMonthsStateData[i].vacRate
         }
+        if (threeMonthsStateData[i].name === selectedName && attribute === 'dailyCases') {
+          let holder = (threeMonthsStateData[i].cases) / (threeMonthsStateData[i].population)
+          holder = (holder / 90) * 100000
+          return holder.toFixed(2)
+        }
       }
     } else if (sixMonthView === true && threeMonthView === false && twoWeekView === false && vaccView === false) {
       for (let i = 0; i < sixMonthsStateData.length; i++) {
-        console.log("selectedName: " + JSON.stringify(selectedName))
+        // console.log("selectedName: " + JSON.stringify(selectedName))
         if (sixMonthsStateData[i].name === selectedName && attribute === 'deaths') {
           return sixMonthsStateData[i].deaths
         }
@@ -491,11 +510,16 @@ function Map() {
         if (sixMonthsStateData[i].name === selectedName && attribute === 'vacRate') {
           return sixMonthsStateData[i].vacRate
         }
+        if (sixMonthsStateData[i].name === selectedName && attribute === 'dailyCases') {
+          let holder = (sixMonthsStateData[i].cases) / (sixMonthsStateData[i].population)
+          holder = (holder / 180) * 100000
+          return holder.toFixed(2)
+        }
       }
 
     } else if (sixMonthView === false && threeMonthView === false && twoWeekView === false && vaccView === true) {
       for (let i = 0; i < vaccStateData.length; i++) {
-        console.log("selectedName: " + JSON.stringify(selectedName))
+        // console.log("selectedName: " + JSON.stringify(selectedName))
         if (vaccStateData[i].name === selectedName && attribute === 'vacRate') {
           return vaccStateData[i].vacRate
         }
@@ -521,15 +545,18 @@ function Map() {
     let holder = fullStates
     twoWeekStateData.forEach((state) => {
       let caseRate = ((state.cases) / state.population)
+      caseRate = (caseRate / 14)
+      caseRate = caseRate * 100000
       if (caseRate === Infinity) {
         caseRate = 0
       }
-      state.caseRate = (caseRate * 1000000)
+      state.caseRate = (caseRate)
+      console.log(state.name + " case Rate is: " + state.caseRate)
       holder.forEach((e) => {
         e.forEach((f) => {
           if (f.name === state.name) {
-            f.options = getOptions(caseRate)
-            f.population = caseRate
+            f.options = getOptions(state.caseRate)
+            f.caseRate = state.caseRate
             f.cases = state.cases
           }
         })
@@ -544,15 +571,18 @@ function Map() {
     let holder = fullStates
     sixMonthsStateData.forEach((state) => {
       let caseRate = ((state.cases) / state.population)
+      // console.log(state.name + ' ' + state.cases + ' ' + state.population)
+      caseRate = (caseRate / 180)
+      caseRate = caseRate * 100000
       if (caseRate === Infinity) {
-        caseRate = 0
+        console.log("caserate infinity")
       }
-      state.caseRate = (caseRate * 1000000)
+      state.caseRate = (caseRate)
       holder.forEach((e) => {
         e.forEach((f) => {
           if (f.name === state.name) {
-            f.options = getOptions(caseRate)
-            f.population = caseRate
+            f.options = getSixMonthOptions(state.caseRate)
+            f.caseRate = state.caseRate
             f.cases = state.cases
           }
         })
@@ -569,15 +599,17 @@ function Map() {
     let holder = fullStates
     threeMonthsStateData.forEach((state) => {
       let caseRate = ((state.cases) / state.population)
+      caseRate = (caseRate / 90)
+      caseRate = caseRate * 100000
       if (caseRate === Infinity) {
         caseRate = 0
       }
-      state.caseRate = (caseRate * 1000000)
+      state.caseRate = (caseRate)
       holder.forEach((e) => {
         e.forEach((f) => {
           if (f.name === state.name) {
-            f.options = getOptions(caseRate)
-            f.population = caseRate
+            f.options = getOptions(state.caseRate)
+            f.population = state.caseRate
             f.cases = state.cases
           }
         })
@@ -591,7 +623,7 @@ function Map() {
   function updateVaccPolygons() {
     setSelected([false, false, false, true])
     let sortedArray = vaccStateData.sort((a, b) => Number(a.vacRate) - Number(b.vacRate))
-    console.log("Sorted Array : " + JSON.stringify(sortedArray))
+    setVaccStateData(sortedArray)
     let holder = fullStates
     sortedArray.forEach((state) => {
       let vacRate = (state.vacRate)
@@ -605,7 +637,6 @@ function Map() {
     })
     setVaccList(holder)
   }
-
 
 
   function toggleMap(value) {
@@ -640,12 +671,49 @@ function Map() {
     }
   }
 
+  //gets selected elements midpoint for infowindow location
+  function getMidpoint(selected, type) {
+    let lowestLat = selected[0].lat
+    let lowestLng = selected[0].lng
+    let highestLat = selected[0].lat
+    let highestLng = selected[0].lng
+    if (type === 'lat') {
+      for (let i = 0; i < selected.length; i++) {
+        if (selected[i].lat < lowestLat) {
+          lowestLat = selected[i].lat
+        }
+        if (selected[i].lat > highestLat) {
+          highestLat = selected[i].lat
+        }
+      }
+      let lat = lowestLat + ((highestLat - lowestLat) / 2)
+      // console.log(lat)
+      return lat
+    }
+    if (type === 'lng') {
+      for (let i = 0; i < selected.length; i++) {
+        if (selected[i].lng < lowestLng) {
+          lowestLng = selected[i].lng
+        }
+        if (selected[i].lng > highestLng) {
+          highestLng = selected[i].lng
+        }
+      }
+      let lng = lowestLng + ((highestLng - lowestLng) / 2)
+      // console.log(lng)
+      return lng
+    }
+  }
+
+
+
+
 
   return (
     //Map View Buttons
     <div className='mapBackground'>
       <div className='mapTextContainer'>
-        <div className='mapTextTop'><span>Selected: {selected[0] ? "2 Week Data" : ""}{selected[1] ? "3 Month Data" : ""}{selected[2] ? "6 Month Data" : ""}{selected[3] ? "Vaccination Map" : ""}</span></div>
+        <div className='mapTextTop'><span> {selected[0] ? "2 Week Data" : ""}{selected[1] ? "3 Month Data" : ""}{selected[2] ? "6 Month Data" : ""}{selected[3] ? "Vaccination Map" : ""}</span></div>
       </div>
       <div className='mapButtonContainer'>
         <button className='mapItem' onClick={() => toggleMap('Two Week Data')}><span className={selected[0] ? classChange[1] : classChange[0]}>Two Week Data</span></button>
@@ -679,8 +747,8 @@ function Map() {
               <InfoWindow
                 visible={showInfoWindow}
                 position={{
-                  lat: selectedElement[0].lat,
-                  lng: selectedElement[0].lng
+                  lat: getMidpoint(selectedElement, 'lat'),
+                  lng: getMidpoint(selectedElement, 'lng')
                 }}
                 onCloseClick={() => {
                   setSelectedElement(null);
@@ -688,10 +756,10 @@ function Map() {
 
               >
                 <div>
-                  <h1>{selectedElement[0].name}</h1>
-                  <h5>Deaths: {infoWindowData(selectedElement[0].name, 'deaths')}</h5>
+                  <h1 class='infoTitle'>{selectedElement[0].name}</h1>
+                  <h5>Average Daily Cases: {infoWindowData(selectedElement[0].name, 'dailyCases')}</h5>
                   <h5>Cases: {infoWindowData(selectedElement[0].name, 'cases')}</h5>
-                  <h5>Vaccination Rate: {infoWindowData(selectedElement[0].name, 'vacRate')}</h5>
+                  <h5>Deaths: {infoWindowData(selectedElement[0].name, 'deaths')}</h5>
                 </div>
               </InfoWindow>
             ) : null}
@@ -725,8 +793,8 @@ function Map() {
               <InfoWindow
                 visible={showInfoWindow}
                 position={{
-                  lat: selectedElement[0].lat,
-                  lng: selectedElement[0].lng
+                  lat: getMidpoint(selectedElement, 'lat'),
+                  lng: getMidpoint(selectedElement, 'lng')
                 }}
                 onCloseClick={() => {
                   setSelectedElement(null);
@@ -734,10 +802,10 @@ function Map() {
 
               >
                 <div>
-                  <h1>{selectedElement[0].name}</h1>
-                  <h5>Deaths: {infoWindowData(selectedElement[0].name, 'deaths')}</h5>
+                  <h1 class='infoTitle'>{selectedElement[0].name}</h1>
+                  <h5>Average Daily Cases: {infoWindowData(selectedElement[0].name, 'dailyCases')}</h5>
                   <h5>Cases: {infoWindowData(selectedElement[0].name, 'cases')}</h5>
-                  <h5>Vaccination Rate: {infoWindowData(selectedElement[0].name, 'vacRate')}</h5>
+                  <h5>Deaths: {infoWindowData(selectedElement[0].name, 'deaths')}</h5>
                 </div>
               </InfoWindow>
             ) : null}
@@ -771,8 +839,8 @@ function Map() {
               <InfoWindow
                 visible={showInfoWindow}
                 position={{
-                  lat: selectedElement[0].lat,
-                  lng: selectedElement[0].lng
+                  lat: getMidpoint(selectedElement, 'lat'),
+                  lng: getMidpoint(selectedElement, 'lng')
                 }}
                 onCloseClick={() => {
                   setSelectedElement(null);
@@ -780,10 +848,10 @@ function Map() {
 
               >
                 <div>
-                  <h1>{selectedElement[0].name}</h1>
-                  <h5>Deaths: {infoWindowData(selectedElement[0].name, 'deaths')}</h5>
+                  <h1 class='infoTitle'>{selectedElement[0].name}</h1>
+                  <h5>Average Daily Cases: {infoWindowData(selectedElement[0].name, 'dailyCases')}</h5>
                   <h5>Cases: {infoWindowData(selectedElement[0].name, 'cases')}</h5>
-                  <h5>Vaccination Rate: {infoWindowData(selectedElement[0].name, 'vacRate')}</h5>
+                  <h5>Deaths: {infoWindowData(selectedElement[0].name, 'deaths')}</h5>
                 </div>
               </InfoWindow>
             ) : null}
@@ -816,8 +884,8 @@ function Map() {
               <InfoWindow
                 visible={showInfoWindow}
                 position={{
-                  lat: selectedElement[0].lat,
-                  lng: selectedElement[0].lng
+                  lat: getMidpoint(selectedElement, 'lat'),
+                  lng: getMidpoint(selectedElement, 'lng')
                 }}
                 onCloseClick={() => {
                   setSelectedElement(null);
@@ -825,7 +893,7 @@ function Map() {
 
               >
                 <div>
-                  <h1>{selectedElement[0].name}</h1>
+                  <h1 class='infoTitle'>{selectedElement[0].name}</h1>
                   <h5>Vaccination Rate: {infoWindowData(selectedElement[0].name, 'vacRate')}%</h5>
                   <h5>One Dose: {infoWindowData(selectedElement[0].name, 'One Dose')}%</h5>
                   <h5>18+ Vaccination Rate: {infoWindowData(selectedElement[0].name, 'plus 18 rate')}%</h5>
@@ -836,6 +904,10 @@ function Map() {
 
           </GoogleMap>
         </LoadScript>)}
+      {!vaccView && twoWeekView && <h5>Red states indicate 20 or more new cases per day. Yellow states indicate between 10 and 20 new cases per day. Green states indicate less than 10 new cases per day. All calculations are per done per 100,000 residents of a state</h5>}
+      {!vaccView && threeMonthView && <h5>Red states indicate 20 or more new cases per day. Yellow states indicate between 10 and 20 new cases per day. Green states indicate less than 10 new cases per day. All calculations are per done per 100,000 residents of a state</h5>}
+      {!vaccView && sixMonthView && <h5>Red states indicate 60 or more new cases per day. Yellow states indicate between 50 and 60 new cases per day. Green states indicate less than 50 new cases per day. All calculations are per done per 100,000 residents of a state</h5>}
+      {vaccView && <h5>Red states indicate the lowest 10 vaccination rates. Orange indicates the bottom 10 to 20 states. Yellow indcates states above the bottom 20 but below the top 20. Light green indicates the top 10-20 states. Green indicates the top 10 vaccination rates.</h5>}
     </div>
 
 

@@ -62,8 +62,23 @@ body {
     transition: transform .2s;
 }
 
+.articleTitle {
+    font-weight: bold;
+    color: black;
+}
+
+.descrip {
+    color: black;
+}
+
 .card:hover {
     transform: scale(1.2);
+}
+
+.date {
+    color: black;
+    font-size: 13px;
+    margin: auto;
 }
 
 .card-header img {
@@ -123,6 +138,7 @@ body {
 }
 
 .card-body.published {
+    color: black;
     font-size: 13px;
     margin: auto;
 }
