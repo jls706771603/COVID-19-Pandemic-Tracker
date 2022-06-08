@@ -6,8 +6,18 @@ import {
     useColorMode,
     useColorModeValue,
     Heading,
-    Text
+    Text,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
+    Button,
 } from '@chakra-ui/react'
+import { FaChevronDown } from 'react-icons/fa'
 import React from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import { useAuth } from '../contexts/AuthContext'
@@ -30,23 +40,43 @@ export function Navbar() {
             <HStack py={4} justifyContent='flex-end' maxW='container.lg' mx='auto'>
                 <Navlink to='/' name='Homepage' size='lg' />
                 
-                {<img src={currentUser?.photoURL} alt="Avatar" className='avatar'/>}
+                
                 <Spacer />
                 <Navlink to='/tracking' name='Tracking' />
                 <Navlink to='/about' name='About' />
                 {!currentUser && <Navlink to='/login' name='Login' />}
                 {!currentUser && <Navlink to='/register' name='Register' />}
-                {currentUser && <Navlink to='/profile' name='Profile' />}
                 {/*currentUser && <Navlink to='/protected-page' name='Protected' />*/}
-                {currentUser && <Navlink
-                    to='/logout'
-                    name='Logout'
-                    onClick={async e => {
-                        e.preventDefault()
-                        // handle logout
-                        logout()
-                    }}
-                />}
+                
+                {currentUser && 
+                    <Menu>
+                        <MenuButton 
+                            className="user-button" 
+                            as={Button} 
+                            rightIcon={<FaChevronDown />}
+                            mx={1}
+                        >
+                            {<img src={currentUser?.photoURL} alt="Avatar" className='avatar2'/>}
+                        </MenuButton>
+                        <MenuList>
+                            <MenuItem>
+                                {currentUser && <Navlink to='/profile' name='Profile' />}
+                            </MenuItem>
+                            <MenuDivider />
+                            <MenuItem>
+                                {currentUser && <Navlink
+                                    to='/logout'
+                                    name='Logout'
+                                    onClick={async e => {
+                                        e.preventDefault()
+                                        // handle logout
+                                        logout()
+                                    }}
+                                />}
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                }
                 <IconButton
                     variant='outline'
                     icon={useColorModeValue(<FaSun />, <FaMoon />)}
