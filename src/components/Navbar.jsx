@@ -6,6 +6,7 @@ import {
     useColorMode,
     useColorModeValue,
     Heading,
+    Text
 } from '@chakra-ui/react'
 import React from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
@@ -28,6 +29,8 @@ export function Navbar() {
             </HStack>
             <HStack py={4} justifyContent='flex-end' maxW='container.lg' mx='auto'>
                 <Navlink to='/' name='Homepage' size='lg' />
+                
+                {<img src={currentUser?.photoURL} alt="Avatar" className='avatar'/>}
                 <Spacer />
                 <Navlink to='/tracking' name='Tracking' />
                 <Navlink to='/about' name='About' />

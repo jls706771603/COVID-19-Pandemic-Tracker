@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { auth } from '../components/firebase.config'
+import { auth, storage } from '../components/firebase.config'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -7,7 +8,8 @@ import {
     signOut,
     GoogleAuthProvider,
     signInWithPopup,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
+    updateProfile,
 } from 'firebase/auth'
 
 const AuthContext = createContext({
@@ -63,8 +65,23 @@ export default function AuthContextProvider({ children }) {
         login,
         logout,
         signInWithGoogle,
-        forgotPassword
+        forgotPassword,
+        upload
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+
+export async function upload(file, currentUser, setLoading) {
+    const fileRef = ref(storage, currentUser.uid + '.png');
+    console.log(fileRef)
+    setLoading(true)
+    const snapshot = await uploadBytes(fileRef, file);
+
+    const photoURL = await getDownloadURL(fileRef);
+
+    updateProfile(currentUser, {photoURL})
+
+    setLoading(false)
+    alert("Uploaded file")
 }

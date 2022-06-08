@@ -34,7 +34,6 @@ export default function Homepage() {
   return (
     <Layout width="100%">
       {/*<Heading>Home page</Heading>*/}
-      {/*<Text my={6}> {`The current user is : ${currentUser}`} </Text>*/}
       <Map location={location} zoomLevel={4}></Map>
       <Graph />
       <Flipper />
