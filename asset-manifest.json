@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.880d82e4.css",
+    "main.js": "/static/js/main.89535c35.js",
+    "static/media/terrain.jpg": "/static/media/terrain.1c5eedd43fed42bd60dd.jpg",
+    "static/media/city.jpg": "/static/media/city.052f19797aa1fafddd73.jpg",
+    "static/media/seattle.jpg": "/static/media/seattle.ed4d4baec41badad6822.jpg",
+    "index.html": "/index.html",
+    "main.880d82e4.css.map": "/static/css/main.880d82e4.css.map",
+    "main.89535c35.js.map": "/static/js/main.89535c35.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.880d82e4.css",
+    "static/js/main.89535c35.js"
+  ]
+}
