@@ -18,8 +18,14 @@ export default function Graph() {
     const [colorChange, setColorChange] = useState("")
     const [useColor, setUseColor] = useState("")
 
+    const [usePercent, setUsePercent] = useState();
+    const [useFlip, setUseFlip] = useState();
+    const [useName, setUseName] = useState();
+
     const [classChange, setClassChange] = useState("")
     const [currentClass, setCurrentClass] = useState("");
+
+    const [reloadGraph, setReloadGraph] = useState(true)
 
     var index = 0;
 
@@ -36,11 +42,18 @@ export default function Graph() {
     }, [])
 
     useEffect(() => {
-        setColorChange(["rgb(252, 170, 70)", "rgb(255, 55, 55)", "rgb(59, 213, 59)"])
+        setDropDownValue('Washington')
+        setDropDownValue2('Cases')
+        setReloadGraph(true)
+        changeGraph()
+    }, [allTwoWeekStateData, reloadGraph])
+
+    useEffect(() => {
+        setColorChange(["rgb(252, 170, 70)", "rgb(255, 55, 55)", "rgb(59, 213, 59)", "rgb(81, 171, 220)"])
     }, [])
 
     useEffect(() => {
-        setClassChange(["graphvalue", "graphvalue2", "graphvalue3"])
+        setClassChange(["graphvalue", "graphvalue2", "graphvalue3", "graphvalue4"])
     }, [])
 
     useEffect(() => {
@@ -51,21 +64,33 @@ export default function Graph() {
         changeGraph()
     }, [dropDownValue2])
 
+    useEffect(() => {
+
+    }, [usePercent])
+
+    useEffect(() => {
+
+    }, [useFlip])
+
+    useEffect(() => {
+
+    }, [useName])
+
     async function changeState(input) {
-        console.log("Input: " + input);
+        // console.log("Input: " + input);
         setDropDownValue(input);
         changeGraph()
     }
 
     async function changeFields(input) {
-        console.log("Input2: " + input);
+        // console.log("Input2: " + input);
         setDropDownValue2(input);
         changeGraph()
     }
 
     async function changeGraph() {
-        console.log("changeGraph()")
-        console.log(dropDownValue2)
+        // console.log("changeGraph()")
+        // console.log(dropDownValue2)
         var inputData = [];
         var dateList = [];
         var holder = [];
@@ -75,12 +100,15 @@ export default function Graph() {
         var hasRun = false;
 
         if (dropDownValue2 == 'Cases') {
+            setUseFlip(false)
+            setUsePercent(false)
+            setUseName(false)
             setCurrentClass(0)
             holder.forEach(function (entry) {
-                if (index == 14) {
+                if (index == 15) {
                     return true;
                 }
-                if (!hasRun) {
+                if (!hasRun && dropDownValue == entry.name) {
                     previous = entry.cases
                     dateList[index] = entry.date;
                     hasRun = true;
@@ -88,10 +116,16 @@ export default function Graph() {
                 else if (dropDownValue == entry.name) {
                     var cases = entry.cases;
                     var date = entry.date;
-                    console.log(cases + " - " + previous)
-                    console.log(date)
-                    inputData[index] = cases - previous;
-                    if (index != 13) {
+                    // console.log(cases + " - " + previous)
+                    // console.log(date)
+                    if ((cases - previous) < 0) {
+                        inputData[index] = 0;
+                    }
+                    else {
+                        inputData[index] = cases - previous;
+                    }
+
+                    if (index != 14) {
                         dateList[index + 1] = date;
                     }
                     previous = cases
@@ -101,12 +135,15 @@ export default function Graph() {
             setUseColor(colorChange[0]);
         }
         else if (dropDownValue2 == 'Deaths') {
+            setUseFlip(false)
+            setUsePercent(false)
+            setUseName(false)
             setCurrentClass(1)
             holder.forEach(function (entry) {
-                if (index == 14) {
+                if (index == 15) {
                     return true;
                 }
-                if (!hasRun) {
+                if (!hasRun && dropDownValue == entry.name) {
                     previous = entry.deaths
                     dateList[index] = entry.date;
                     hasRun = true;
@@ -114,10 +151,14 @@ export default function Graph() {
                 else if (dropDownValue == entry.name) {
                     var deaths = entry.deaths;
                     var date = entry.date;
-                    console.log(deaths)
-                    console.log(date)
-                    inputData[index] = deaths - previous;
-                    if (index != 13) {
+                    if ((deaths - previous) < 0) {
+                        inputData[index] = 0;
+                    }
+                    else {
+                        inputData[index] = deaths - previous;
+                    }
+
+                    if (index != 14) {
                         dateList[index + 1] = date;
                     }
                     previous = deaths
@@ -127,19 +168,38 @@ export default function Graph() {
             setUseColor(colorChange[1]);
         }
         else if (dropDownValue2 == "Vaccinations") {
+            setUseFlip(true)
+            setUsePercent(true)
+            setUseName(false)
             setCurrentClass(2)
             holder.forEach(function (entry) {
                 if (dropDownValue == entry.name) {
                     var vacRate = entry.vacRate;
                     var date = entry.date;
-                    console.log(vacRate)
-                    console.log(date)
                     inputData[index] = vacRate;
                     dateList[index] = date;
                     index++;
                 }
             });
             setUseColor(colorChange[2]);
+        }
+        else if (dropDownValue2 == "Population") {
+            setUseFlip(true)
+            setUsePercent(false)
+            setUseName(true)
+            setCurrentClass(3)
+            holder.forEach(function (entry) {
+                if (dropDownValue == entry.name) {
+                    var population = entry.population;
+                    var date = entry.date;
+                    // console.log(population)
+                    // console.log(date)
+                    inputData[index] = population;
+                    dateList[index] = date;
+                    index++;
+                }
+            });
+            setUseColor(colorChange[3]);
         }
         let sum = 0;
         let counter = 0;
@@ -148,15 +208,18 @@ export default function Graph() {
         let highest = Math.max(...inputData);
         let lowest = Math.min(...inputData);
 
-        console.log("sum: " + sum)
-        console.log("max: " + highest)
-        console.log("min: " + lowest)
+        index = 0;
+        hasRun = false;
+
+        // console.log("sum: " + sum)
+        // console.log("max: " + highest)
+        // console.log("min: " + lowest)
 
         setDataList2([highest, sum, lowest])
-        console.log(dataList2)
+        // console.log(dataList2)
 
-        console.log(dateList)
-        console.log(inputData)
+        // console.log(dateList)
+        // console.log(inputData)
         setDateList(dateList)
         setDataList(inputData)
         console.log("putting values in array")
@@ -173,9 +236,8 @@ export default function Graph() {
                 <div className='allSelections'>
                     <div className='selectContainer'>
                         <label for="queryState" className="queryLabel2">Enter State: </label>
-                        <select name="queryState" id="searchState" className="selectOption2" onChange={(e) => changeState(e.target.value)}>
+                        <select defaultValue={"Washington"} name="queryState" id="searchState" className="selectOption2" onChange={(e) => changeState(e.target.value)}>
                             <option disabled selected value> -- Select State -- </option>
-                            <option>All States</option>
                             <option>Alabama</option>
                             <option>Alaska</option>
                             <option>American Samoa</option>
@@ -237,11 +299,12 @@ export default function Graph() {
                     </div>
                     <div className='selectContainer'>
                         <label for="queryFields" className="queryLabel2">Options: </label>
-                        <select name="queryFields" className="selectOption2" onChange={(e) => changeFields(e.target.value)}>
+                        <select defaultValue={"Cases"} name="queryFields" className="selectOption2" onChange={(e) => changeFields(e.target.value)}>
                             <option disabled selected value> -- Select Fields -- </option>
                             <option>Cases</option>
                             <option>Deaths</option>
                             <option>Vaccinations</option>
+                            <option>Population</option>
                         </select>
                         <div className='selectUnderline'></div>
                     </div>
@@ -250,6 +313,7 @@ export default function Graph() {
             <Plot
                 data={[
                     {
+                        hovertemplate: dropDownValue2 + (usePercent ? ': %{y}%<extra></extra>' : ': %{y}<extra></extra>'),
                         x: dateList,
                         y: dataList,
                         type: 'scatter',
@@ -261,30 +325,39 @@ export default function Graph() {
                                 family: 'Segoe UI',
                                 color: 'white',
                                 size: 18
-                            }
+                            },
+                            bordercolor: 'rgb(239, 239, 239)'
                         }
                     }
                 ]}
-                layout={{ width: 1000, height: 500, title: 'Last 2 Weeks of Covid-19 ' + dropDownValue2, titlefont: { size: 30 }, xaxis: { fixedrange: true, title: "Dates", titlefont: { size: 20 } }, yaxis: { fixedrange: true, title: dropDownValue2, titlefont: { size: 20 } }, plot_bgcolor: 'rgb(249, 249, 249)', paper_bgcolor: 'rgb(249, 249, 249)' }}
+                layout={{ width: 1000, height: 500, title: useName ? dropDownValue + ' Population The Last 2 Weeks' : 'Last 2 Weeks of Covid-19 ' + dropDownValue2, titlefont: { size: 30 }, xaxis: { fixedrange: true, title: "Dates", titlefont: { size: 20 } }, yaxis: { automargin: true, fixedrange: true, title: (usePercent ? dropDownValue2 + " (%)" : dropDownValue2), titlefont: { size: 20 } }, plot_bgcolor: 'rgb(249, 249, 249)', paper_bgcolor: 'rgb(249, 249, 249)' }}
                 config={{ displayModeBar: false }}
             />
             <div className='graphStats'>
-                <div className='graphAndData'>
-                    <article className="graphprofile">
-                        <span className="graphname">Highest {dropDownValue2}</span>
-                        <span className={classChange[currentClass]}>{dataList2[0]}</span>
-                    </article>
-                    <article className="graphprofile">
-                        <span className="graphname">Average {dropDownValue2}</span>
-                        <span className={classChange[currentClass]}>{dataList2[1]}</span>
-                    </article>
-                    <article className="graphprofile">
-                        <span className="graphname">Lowest {dropDownValue2}</span>
-                        <span className={classChange[currentClass]}>{dataList2[2]}</span>
-                    </article>
-                </div>
+                {useFlip ?
+                    <div className='graphAndData'>
+                        <article className="graphprofile">
+                            <span className="graphname">Current {dropDownValue2}</span>
+                            <span className={classChange[currentClass]}>{dataList2[0]}{usePercent ? "%" : ""}</span>
+                        </article>
+                    </div>
+                    :
+                    <div className='graphAndData'>
+                        <article className="graphprofile">
+                            <span className="graphname">Highest {dropDownValue2}</span>
+                            <span className={classChange[currentClass]}>{dataList2[0]}</span>
+                        </article>
+                        <article className="graphprofile">
+                            <span className="graphname">Average {dropDownValue2}</span>
+                            <span className={classChange[currentClass]}>{dataList2[1]}</span>
+                        </article>
+                        <article className="graphprofile">
+                            <span className="graphname">Lowest {dropDownValue2}</span>
+                            <span className={classChange[currentClass]}>{dataList2[2]}</span>
+                        </article>
+                    </div>
+                }
             </div>
         </div>
     )
-
 }

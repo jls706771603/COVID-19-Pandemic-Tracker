@@ -5,26 +5,18 @@ import db from './firebase.config';
 import { ref, push, getDatabase, get, child } from 'firebase/database'
 
 export default function Table() {
-    /*
-    const [stateDateList, setStateDateList] = useState([])
-    const [graphData, setGraphData] = useState([])
-    const [dateListSet, setDateListSet] = useState(false)
-    */
     const dbRef = ref(getDatabase())
-
-    /*
-    let dateSnapshot = []
-    let singleSnaps = []
-
-    let displayData = []
-    */
 
     const [twoWeekStateData, setTwoWeekStateData] = useState([])
     const [threeMonthsStateData, setThreeMonthsStateData] = useState([])
     const [sixMonthsStateData, setSixMonthsStateData] = useState([])
 
     const [dropDownValue, setDropDownValue] = useState("")
-    var timePeriod = "";
+    const [dropDownValue2, setDropDownValue2] = useState("")
+
+    const [tableDataList, setTableDataList] = useState([])
+
+    const [reloadTable, setReloadTable] = useState(true)
 
     useEffect(() => {
         get(child(dbRef, `2 Week State Data/twoWeekData`)).then((snapshot => {
@@ -46,7 +38,7 @@ export default function Table() {
         }))
     }, [])
 
-    useEffect(() =>  {
+    useEffect(() => {
         get(child(dbRef, `6 Month State Data/sixMonthData`)).then((snapshot => {
             if (snapshot.exists()) {
                 setSixMonthsStateData(snapshot.val())
@@ -56,125 +48,115 @@ export default function Table() {
         }))
     }, [])
 
-    /*
-    async function timeSelected() {
-        var input;
+    useEffect(() => {
+        setDropDownValue('Last 2 Weeks')
+        setDropDownValue2('All States')
+        setReloadTable(true)
+        changeTable()
+    }, [twoWeekStateData, threeMonthsStateData, sixMonthsStateData, reloadTable])
 
-        input = document.getElementById("searchTime");
-        input.addEventListener("change", () => {
-            setDropDownValue(input.value)
-        })
-        await resetTable();
-        await reloadTable();
-    }
+    /*
+    useEffect(() => {
+        if (dropDownValue == "") {
+            setDropDownValue("Last 2 Weeks")
+        }
+        if (dropDownValue2) {
+            setDropDownValue2("All States")
+        }
+    }, [])
     */
 
-    var table = document.getElementById('testBody');
-    //console.log(table);
-    var innerData = "";
+    useEffect(() => {
+        changeTable()
+    }, [dropDownValue])
 
-    async function resetTable() {
-        table.innerHTML = "";
+    useEffect(() => {
+        changeTable()
+    }, [dropDownValue2])
+
+    async function changeTime(input) {
+        // console.log("Input: " + input);
+        setDropDownValue(input);
+        changeTable()
     }
 
-    async function reloadTable() {
-        if (timePeriod !== dropDownValue) {
+    async function changeState(input) {
+        // console.log("Input2: " + input);
+        setDropDownValue2(input);
+        changeTable()
+    }
 
-            var holder = [];
-            console.log(dropDownValue);
-            if (dropDownValue === "Last 2 Weeks") {
-                holder = twoWeekStateData;
-                timePeriod = "Last 2 Weeks"
-            }
-            else if (dropDownValue === "Last 3 Months") {
-                holder = threeMonthsStateData;
-                timePeriod = "Last 3 Months"
-            }
-            else if (dropDownValue === "Last 6 Months") {
-                holder = sixMonthsStateData;
-                timePeriod = "Last 6 Months"
-            }
-
+    async function changeTable() {
+        // console.log("changeTable()")
+        // console.log(dropDownValue)
+        // console.log(dropDownValue2)
+        var inputData = [];
+        var holder = [];
+        let index = 0;
+        if (dropDownValue == "Last 2 Weeks") {
+            holder = twoWeekStateData
+        }
+        else if (dropDownValue == "Last 3 Months") {
+            holder = threeMonthsStateData
+        }
+        else if (dropDownValue == "Last 6 Months") {
+            holder = sixMonthsStateData
+        }
+        if (dropDownValue2 != "All States") {
             holder.forEach(function (entry) {
-                //console.log(entry);
-                var cases = entry.cases;
-                var date = entry.date;
-                var deaths = entry.deaths;
-                var id = entry.id;
+                let object = { name: "", date: "", cases: 0, deaths: 0 }
                 var name = entry.name;
-                var population = entry.population;
-                var vacRate = entry.vacRate;
-
-                table.innerHTML += '<tr>' +
-                    '<td>' + entry.name + '</td>' +
-                    '<td>' + entry.date + '</td>' +
-                    '<td>' + entry.cases + '</td>' +
-                    '<td>' + entry.deaths + '</td>' +
-                    '</tr>';
-
-                innerData += '<tr>' +
-                    '<td>' + entry.name + '</td>' +
-                    '<td>' + entry.date + '</td>' +
-                    '<td>' + entry.cases + '</td>' +
-                    '<td>' + entry.deaths + '</td>' +
-                    '</tr>';
-            });
-            table.innerHTML = innerData;
-
-        }
-    }
-
-    /*var test = document.getElementById("searchState");
-    test.addEventListener("change", myFunction);*/
-
-    async function myFunction() {
-        await resetTable();
-        await reloadTable();
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("searchState");
-        console.log("Input: " + input)
-
-        if (input.value.toUpperCase() == "ALL TIME") {
-            console.log("ALL TIME")
-        }
-
-        input.addEventListener("change", () => {
-            if (input.value.toUpperCase() == "ALL STATES") {
-                table.innerHTML = innerData;
-            }
-            else {
-                filter = input.value.toUpperCase();
-                table = document.getElementById("testBody");
-                tr = table.getElementsByTagName("tr");
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[0];
-                    if (td) {
-                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
-                        }
-                    }
+                if (name == dropDownValue2) {
+                    var date = entry.date;
+                    var cases = entry.cases;
+                    var deaths = entry.deaths;
+                    object.name = name;
+                    object.date = date;
+                    object.cases = cases;
+                    object.deaths = deaths;
+                    inputData[index] = object;
+                    index++;
                 }
-            }
-        })
+            });
+        }
+        else {
+            holder.forEach(function (entry) {
+                let object = { name: "", date: "", cases: 0, deaths: 0 }
+                var name = entry.name;
+                var date = entry.date;
+                var cases = entry.cases;
+                var deaths = entry.deaths;
+                object.name = name;
+                object.date = date;
+                object.cases = cases;
+                object.deaths = deaths;
+                inputData[index] = object;
+                index++;
+            });
+        }
+
+        setTableDataList(inputData);
+        // console.log(tableDataList);
     }
 
     return (
-        <div>
+        <div className='tableBackground'>
             <form>
                 <div className='allSelections'>
                     <div className='selectContainer'>
-                        <label for="queryTime" className="queryLabel">Time Interval: </label>
-                        <select name="queryTime" id="searchTime" className="selectOption" onChange={(e) => setDropDownValue(e.target.value)}>
+                        <label for="queryTime" className="queryLabel2">Time Interval: </label>
+                        <select defaultValue={"Last 2 Weeks"} name="queryTime" className="selectOption2" onChange={(e) => changeTime(e.target.value)}>
+                            <option disabled selected value> -- Select Time Period -- </option>
                             <option>Last 2 Weeks</option>
                             <option>Last 3 Months</option>
                             <option>Last 6 Months</option>
                         </select>
+                        <div className='selectUnderline'></div>
                     </div>
                     <div className='selectContainer'>
-                        <label for="queryState" className="queryLabel">Enter State: </label>
-                        <select name="queryState" id="searchState" className="selectOption" onChange={myFunction()}>
+                        <label for="queryState" className="queryLabel2">Enter State: </label>
+                        <select defaultValue={"All States"} name="queryState" className="selectOption2" onChange={(e) => changeState(e.target.value)}>
+                            <option disabled selected value> -- Select State -- </option>
                             <option>All States</option>
                             <option>Alabama</option>
                             <option>Alaska</option>
@@ -233,20 +215,32 @@ export default function Table() {
                             <option>Wisconsin</option>
                             <option>Wyoming</option>
                         </select>
+                        <div className='selectUnderline'></div>
                     </div>
                 </div>
             </form>
-            <table id="myTable" className='table'>
-                <thead>
-                    <tr>
-                        <th>State</th>
-                        <th>Date</th>
-                        <th>Cases</th>
-                        <th>Deaths</th>
-                    </tr>
-                </thead>
-                <tbody id="testBody"></tbody>
-            </table>
-        </div>
+            <div class="tableContainer">
+                <table id="myTable" className='table'>
+                    <thead>
+                        <tr>
+                            <th>State</th>
+                            <th>Date</th>
+                            <th>Cases</th>
+                            <th>Deaths</th>
+                        </tr>
+                    </thead>
+                    <tbody id="testBody">
+                        {tableDataList.map((info) => (
+                            <tr>
+                                <td>{info.name}</td>
+                                <td>{info.date}</td>
+                                <td>{info.cases}</td>
+                                <td>{info.deaths}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div >
     )
 }

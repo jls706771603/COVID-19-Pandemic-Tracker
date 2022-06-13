@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: 0;
@@ -9,7 +9,6 @@ footer {
     bottom: 0;
     height: 200px;
     width: 100vw;
-    padding-top: 40px;
     color: white;
 }
 
@@ -54,11 +53,11 @@ footer {
     padding-right: 0;
 }
 
-.botNavigation a li:hover{
+.botNavigation a li:hover {
     font-weight: 600;
 }
-   
-.botNavigation a:hover{
+
+.botNavigation a:hover {
     background-color: #1663be;
 }
 
@@ -66,7 +65,7 @@ footer {
     display: flex;
     align-items: center;
     height: 100%;
-    
+
 }
 
 .botNavigation a li button {
