@@ -38,6 +38,9 @@ body {
     background-color: rgb(249, 249, 249);
     padding-top: 100px;
     padding-bottom: 100px;
+    min-height: 900px;
+    border-radius: 100px;
+    margin-bottom: 20px;
 }
 
 .container {
@@ -59,8 +62,21 @@ body {
     transition: transform .2s;
 }
 
+.articleTitle{
+    font-weight: bold;
+    color:black;
+}
+
+.descrip{
+    color:black; 
+}
 .card:hover {
     transform: scale(1.2);
+}
+.date{
+    color:black;
+    font-size: 13px;
+    margin: auto;
 }
 
 .card-header img {
@@ -91,7 +107,20 @@ body {
 
 .tag-blue {
     background-color: #1663be;
+    margin-right: 8px;
 }
+
+.tag-new {
+    align-content: flex-end;
+    background-color: #dbc955;
+}
+
+.tag-splitter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
 
 .tag-purple {
     background-color: #5e76bf;
@@ -103,33 +132,70 @@ body {
 
 .card-body p {
     font-size: 13px;
-    margin: 0 0 40px;
+    margin: 0 0 30px;
+}
+
+.card-body.published {
+    color:black;
+    font-size: 13px;
+    margin: auto;
 }
 
 .user {
     display: flex;
     margin-top: auto;
+    justify-content: center;
+    height: auto;
 }
 
-.user img {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-
-.user-info h5 {
-    margin: 0;
-}
-
-.user-info small {
-    color: #545d7a;
-}
-
-.clickLearnMore {
-    /*
-    position: absolute;
-    bottom: 0;
+.newsbtn {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #e74c3c;
+    border-radius: 0.6em;
+    color: #e74c3c;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    padding: 1.2em 2.4em;
+    text-decoration: none;
     text-align: center;
-    */
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+
+    margin: 33px;
+    background-color: #4984c8;
+}
+
+.newsbtn:hover,
+.newsbtn:focus {
+    color: #fff;
+    outline: 0;
+}
+
+.fourth {
+    border-color: #1357a6;
+    color: #fff;
+    background-image: -webkit-linear-gradient(45deg, #1357a6 50%, transparent 50%);
+    background-image: linear-gradient(45deg, #1357a6 50%, transparent 50%);
+    background-position: 100%;
+    background-size: 400%;
+    -webkit-transition: background 300ms ease-in-out;
+    transition: background 300ms ease-in-out;
+}
+
+.fourth:hover {
+    background-position: 0;
 }

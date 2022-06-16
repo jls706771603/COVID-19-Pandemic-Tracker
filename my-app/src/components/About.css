@@ -1,12 +1,110 @@
-.aboutBackground {
-    height: 2000px;
+/*body {
+    width: 100vw;
+    height: 100vh;
+}*/
+
+.aboutContainer {
+    width: 100%;
+    height: 100%;
 }
 
-.aspect {
-    height: 2000px;
+.aboutContainer section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 110vh;
+    background-size: cover;
 }
 
-.cloud1 {
-    width: 200px;
-    height: 100px;
+.aboutContainer section:nth-of-type(1) {
+    height: 220vh;
+    background-position: center;
+    color: white;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+}
+
+.aboutContainer section:nth-of-type(2) {
+    height: 220vh;
+    background-color: green;
+    color: white;
+}
+
+.aboutContainer section:nth-of-type(3) {
+    height: 220vh;
+    background-color: rgb(0, 159, 0);
+    color: white;
+    margin-bottom: 20px;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+
+.aboutTitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11em;
+}
+
+.aboutMessage3 {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 4em;
+}
+
+.aboutMessage2 {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
+    margin-top: 100px;
+}
+
+.aboutMessage {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 4em;
+    margin-top: 100px;
+}
+
+.aboutBox {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50px;
+    padding: 50px;
+    width: 80%;
+}
+
+.aboutTitle {
+    overflow: hidden;
+    border-right: .13em solid rgb(255, 255, 255);
+    white-space: nowrap;
+    margin: 0 auto;
+    animation-delay: 10s inherit;
+    animation:
+        typing 10s steps(40) infinite,
+        blink-caret 1s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+    0% {
+        width: 0
+    }
+
+    30% {
+        width: 100%
+    }
+
+    100% {}
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: rgb(255, 255, 255);
+    }
 }
